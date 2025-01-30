@@ -1,6 +1,94 @@
+{{ 'image-banner-text.css' | asset_url | stylesheet_tag }}
+<style>
+    #{{ section.id }} .text-banner{
+        color:{{ section.settings.color_text }}
+    }
+</style>
+<section id="{{ section.id }}">
+    <div class="main-image-banner">
+        {% if section.settings.desktop_main_image != blank %}
+                {{ 
+                    section.settings.desktop_main_image 
+                    | image_url: width:1600
+                    | image_tag: class:'main-image desktop',loading:'eager'
+                }}
+        {% endif %}
+        {% if section.settings.mobile_main_image  != blank %}
+                {{ 
+                    section.settings.mobile_main_image 
+                    | image_url: width:800
+                    | image_tag: class:'main-image mobile',loading:'eager'
+                }}
+        {% endif %}
+        {% if section.settings.heading != blank or section.settings.subheading != blank or section.settings.bottom_text != blank or section.settings.button_text != blank %}
+            <div class="text-banner">
+                {% if section.settings.heading != blank %}
+                    <h2>{{ section.settings.heading }}</h2>
+                {% endif %}
+                {% if section.settings.subheading != blank %}
+                <p class="subheading-ptag">{{ section.settings.subheading }}</p>
+                {% endif %}
+                {% if section.settings.button_link != blank and section.settings.button_text != blank %}
+                <a href="{{ section.settings.button_link }}">{{ section.settings.button_text }}<svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon icon-arrow" viewBox="0 0 14 10"><path fill="currentColor" fill-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" clip-rule="evenodd"/></svg>
+            </a>
+                {% endif %}
+                {% if section.settings.bottom_text != blank %}
+                <p class="bottom-text">{{ section.settings.bottom_text }}</p>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</section>
 {% schema %}
   {
-    "name": "Section name",
-    "settings": []
+    "name": "Image Text Banner",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "desktop_main_image",
+            "label": "Desktop Image"
+        },
+        {
+            "type": "image_picker",
+            "id": "mobile_main_image",
+            "label": "Mobile Image"
+        },
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "The Gift Guide"
+        },
+        {
+            "type": "text",
+            "id": "subheading",
+            "label": "Sub Heading",
+            "default": "Discover Joy: Your ultimate holiday gift Destination"
+        },
+        {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button Text",
+            "default": "Shop Now"
+        },
+        {
+            "type": "url",
+            "id": "button_link",
+            "label": "Button Link"
+        },
+        {
+            "type": "text",
+            "id": "bottom_text",
+            "label": "Bottom Text",
+            "default": "Sustainable Ethecally Made Sizes from XXS to 6XL"
+        },
+        {
+            "type": "color",
+            "id": "color_text",
+            "label": "Text Color",
+            "default": "#fff"
+        }
+    ],
+    "presets":[{"name":"image banner"}]
   }
 {% endschema %}
