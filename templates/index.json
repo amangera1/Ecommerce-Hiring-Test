@@ -51,6 +51,7 @@
     },
     "featured_collection": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
         "title": "Featured products",
         "heading_size": "h2",
@@ -85,9 +86,9 @@
         "heading": "The Gift Guide",
         "subheading": "Discover Joy: Your ultimate holiday gift Destination",
         "button_text": "Shop Now",
-        "button_link": "",
+        "button_link": "#",
         "bottom_text": "Sustainable Ethecally Made Sizes from XXS to 6XL",
-        "color_text": "#000000"
+        "color_text": "#ffffff"
       }
     }
   },
