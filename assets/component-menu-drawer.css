@@ -241,3 +241,15 @@ details[open].menu-opening > .menu-drawer__submenu {
     transition: none !important;
   }
 }
+
+
+.menu-drawer__navigation{
+  display: flex;
+      flex-direction: column;
+      /* justify-content: center; */
+      align-items: center;
+}
+
+.menu-drawer__inner-container .custom-header-btn{
+  width: max-content;
+}
