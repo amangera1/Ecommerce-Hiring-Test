@@ -1,6 +1,155 @@
-{% schema %}
-  {
-    "name": "Section name",
-    "settings": []
+<style>
+  #{{ section.id }} {
+    position: relative;
+    width: 100%;
+    height: 600px; /* Adjust height as needed */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    {% if section.settings.desktop_main_image != blank %}
+      background-image: url({{ section.settings.desktop_main_image | image_url: width: 1600 }});
+    {% endif %}
   }
+
+  @media (max-width: 768px) {
+    #{{ section.id }} {
+      height: 400px; /* Adjust for smaller screens */
+      {% if section.settings.mobile_main_image != blank %}
+        background-image: url({{ section.settings.mobile_main_image | image_url: width: 800 }});
+      {% endif %}
+    }
+  }
+
+  #{{ section.id }} .text-banner {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: {{ section.settings.color_text }};
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for readability */
+    padding: 15px;
+    border-radius: 5px;
+    max-width: 80%;
+  }
+
+  #{{ section.id }} .text-banner h2 {
+    margin: 0;
+    font-size: 24px;
+  }
+
+  #{{ section.id }} .subheading-ptag {
+    font-size: 16px;
+  }
+
+  #{{ section.id }} .image-text-btn {
+    display: inline-block;
+    margin-top: 10px;
+    background: #ff6600;
+    color: #fff;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 3px;
+  }
+
+  #{{ section.id }} .bottom-text {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    font-size: 14px;
+    color: {{ section.settings.color_text }};
+  }
+
+  @media (max-width: 768px) {
+    #{{ section.id }} .text-banner {
+      bottom: 10px;
+      left: 10px;
+      padding: 10px;
+    }
+    #{{ section.id }} .text-banner h2 {
+      font-size: 20px;
+    }
+    #{{ section.id }} .subheading-ptag {
+      font-size: 14px;
+    }
+    #{{ section.id }} .image-text-btn {
+      font-size: 14px;
+      padding: 8px 12px;
+    }
+    #{{ section.id }} .bottom-text {
+      font-size: 12px;
+      left: 10px;
+    }
+  }
+</style>
+
+<section id="{{ section.id }}">
+  <div class="text-banner">
+    {% if section.settings.heading != blank %}
+      <h2>{{ section.settings.heading }}</h2>
+    {% endif %}
+    {% if section.settings.subheading != blank %}
+      <p class="subheading-ptag">{{ section.settings.subheading }}</p>
+    {% endif %}
+    {% if section.settings.button_link != blank and section.settings.button_text != blank %}
+      <a href="{{ section.settings.button_link }}" class="image-text-btn">
+        {{ section.settings.button_text }}
+      </a>
+    {% endif %}
+  </div>
+  {% if section.settings.bottom_text != blank %}
+    <p class="bottom-text">{{ section.settings.bottom_text }}</p>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Image Text Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "desktop_main_image",
+      "label": "Desktop Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_main_image",
+      "label": "Mobile Image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Gift Guide"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Sub Heading",
+      "default": "Discover Joy: Your ultimate holiday gift Destination"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "text",
+      "id": "bottom_text",
+      "label": "Bottom Text",
+      "default": "Sustainable Ethecally Made Sizes from XXS to 6XL"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Text Color",
+      "default": "#fff"
+    }
+  ],
+  "presets": [{ "name": "image banner" }]
+}
 {% endschema %}
