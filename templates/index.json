@@ -80,6 +80,7 @@
     },
     "image_text_banner_HqcT9j": {
       "type": "Image-Text-Banner",
+      "disabled": true,
       "settings": {
         "desktop_main_image": "shopify://shop_images/Group_1000008197.png",
         "mobile_main_image": "shopify://shop_images/Frame_1958_1.jpg",
@@ -90,11 +91,25 @@
         "bottom_text": "Sustainable Ethecally Made Sizes from XXS to 6XL",
         "color_text": "#000000"
       }
+    },
+    "custom_image_text_banner_YQhEkN": {
+      "type": "custom-image-text-banner",
+      "settings": {
+        "desktop_main_image": "shopify://shop_images/Group_1000008197.png",
+        "mobile_main_image": "shopify://shop_images/Frame_1958_1.jpg",
+        "heading": "The Gift Guide",
+        "subheading": "Discover Joy: Your ultimate holiday gift Destination",
+        "button_text": "Shop Now",
+        "button_link": "",
+        "bottom_text": "Sustainable Ethecally Made Sizes from XXS to 6XL",
+        "color_text": "#000000"
+      }
     }
   },
   "order": [
     "image_banner",
     "featured_collection",
-    "image_text_banner_HqcT9j"
+    "image_text_banner_HqcT9j",
+    "custom_image_text_banner_YQhEkN"
   ]
 }
