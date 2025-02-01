@@ -38,7 +38,6 @@
     margin: 20px 0 0 0;
 }
 .text-banner h2,.text-banner a,.text-banner p{
-    color: inherit;
     line-height: 1;
 }
 .subheading-ptag{
@@ -48,6 +47,9 @@
     .desktop{
         display: none;
     }
+  .text-banner{
+    top: 0;
+  }
 }
 @media screen and (min-width:769px){
     .mobile{
