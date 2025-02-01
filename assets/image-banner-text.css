@@ -44,6 +44,14 @@
 .subheading-ptag{
     max-width: 700px;
 }
+
+.bottom-text{
+      margin: 0;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background: #F5F5F5;
+}
 @media screen and (max-width:768px){
     .desktop{
         display: none;
