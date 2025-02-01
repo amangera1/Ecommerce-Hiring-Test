@@ -7,33 +7,18 @@
 }
 .text-banner{
     position: absolute;
-    bottom: 50px;
-    left: 0;
-    padding: 20px 50px;
-    transform: translate(-2%, 16%);
-    padding-right: 30px;
+    bottom: 0;
+    width: 100%;
+    padding: 20px 50px 20px;
 }
 .text-banner h2{
-    font-family: Jost;
-    font-size: 70px;
-    font-weight: 500;
-    line-height: 70px;
-    text-align: left;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: #000000;    
-    margin-top: 0px;
+    font-size: 40px;
+    margin: 0 0 20px 0;
 }
 .text-banner p{
-    font-family: Jost;
     font-size: 20px;
-    font-weight: 400;
-    line-height: 28px;
-    text-align: left;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: #000000;
-    
+    margin: 0 0 20px 0;
+    line-height: 1;
 }
 .text-banner a{
     background: #000;
@@ -53,10 +38,11 @@
     margin: 20px 0 0 0;
 }
 .text-banner h2,.text-banner a,.text-banner p{
+    color: inherit;
     line-height: 1;
 }
 .subheading-ptag{
-    max-width: 483px;
+    max-width: 700px;
 }
 @media screen and (max-width:768px){
     .desktop{
