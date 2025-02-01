@@ -1,0 +1,108 @@
+<script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+{{ 'quick-add.css' | asset_url | stylesheet_tag }}
+<style>
+  .grid-main-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    margin-top:30px;
+  }
+  .grid-main-container img{
+    width:100%;
+    height:auto;
+  }
+  .grid-main-container button{
+    border:none;
+    box-sizing:unset;
+    position:absolute;
+    top:20%;
+    right:20%;
+    width: fit-content;
+    min-width: fit-content;
+    background: transparent;
+  }
+  .grid-main-container button:after{
+    display:none;
+  }
+  .grid-main-container-slides{
+    position:relative;
+  }
+  @media screen and (max-width:800px){
+    .grid-main-container{
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>
+{% if section.blocks.size > 0 %}
+    <section id="{{ section.id }}">
+      <div class="page-width">
+        <div class="grid-main-container">
+          {% for block in section.blocks %}
+            {% if block.settings.grid_image != blank %}
+              <style>
+                .popUp-{{ forloop.index0 }} button{
+                  top:{{block.settings.top_position}}%;
+                  right:{{block.settings.right_poisition}}%;
+                }
+              </style>
+                <div class="grid-main-container-slides">
+                  {{ 
+                    block.settings.grid_image 
+                    | image_url: width:800
+                    | image_tag: class:'main-image',loading:'lazy'
+                }}
+                {% assign product = block.settings.product %}
+               <div class=popUp-{{ forloop.index0 }}>
+                  {% render 'popUp' , card_product:product %}
+               </div>
+                </div>
+             {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+{% endif %}
+{% schema %}
+  {
+    "name": "Grid Section",
+    "settings": [],
+    "blocks": [{
+       "type":"gridcol",
+       "name":"slides",
+       "settings": [
+        {
+            "type": "image_picker",
+            "id": "grid_image",
+            "label": "Image"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+            "type": "range",
+            "id": "top_position",
+            "min": 12,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Plus Icon Top",
+            "default": 16
+          },
+         {
+            "type": "range",
+            "id": "right_poisition",
+            "min": 12,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Plus Icon from Right",
+            "default": 16
+          }
+       ]
+   }], 
+    "presets":[{"name":"grid section"}]
+  }
+{% endschema %}
