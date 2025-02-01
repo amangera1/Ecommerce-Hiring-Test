@@ -1,4 +1,4 @@
-{{ 'custom-image-banner-text.css' | asset_url | stylesheet_tag }}
+{% comment %} {{ 'custom-image-banner-text.css' | asset_url | stylesheet_tag }}
 <style>
     #{{ section.id }} .text-banner{
         color:{{ section.settings.color_text }}
@@ -91,4 +91,4 @@
     ],
     "presets":[{"name":"custom image banner"}]
   }
-{% endschema %}
+{% endschema %} {% endcomment %}
