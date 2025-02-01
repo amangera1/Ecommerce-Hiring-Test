@@ -1,4 +1,4 @@
-{% comment %} {% comment %} {{ 'image-banner-text.css' | asset_url | stylesheet_tag }} {% endcomment %}
+{% comment %} {{ 'image-banner-text.css' | asset_url | stylesheet_tag }} {% endcomment %}
 {% comment %} <style>
    .text-banner h2{
       font-family: Jost;
@@ -165,8 +165,8 @@
 
   
 </style>
-{% comment %} 
-<!-- <section id="{{ section.id }}">
+
+<section id="{{ section.id }}">
   <div class="main-image-banner">
     {% if section.settings.desktop_main_image != blank %}
       {{
@@ -208,7 +208,7 @@
       {% endif %}
     {% endif %}
   </div>
-</section>{% endcomment %}
+</section>
 {% schema %}
 {
   "name": "Image Text Banner",
@@ -262,4 +262,3 @@
   "presets": [{ "name": "image banner" }]
 }
 {% endschema %}
- {% endcomment %}
