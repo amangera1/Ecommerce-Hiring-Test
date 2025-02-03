@@ -1,5 +1,6 @@
 .cart-notification-wrapper {
   position: relative;
+  display: none;
 }
 
 .cart-notification-wrapper .cart-notification {

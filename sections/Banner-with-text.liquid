@@ -1,0 +1,252 @@
+<style>
+  .main-image.mobile {
+    display: none;
+  }
+  .image-conatiner img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    position: relative;
+  }
+  .text-container h2 {
+    margin: 0;
+    font-family: Jost;
+    font-size: 70px;
+    font-size: clamp(30px, calc(70 * (100vw / 1440)), 70px);
+    font-weight: 500;
+    line-height: 70px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #000000;
+  }
+
+  .subheading-ptag {
+    margin: 0;
+    margin-top: 24px;
+    font-family: Jost;
+    font-size: 20px;
+    font-size: clamp(15px, calc(20 * (100vw / 1440)), 20px);
+    font-weight: 400;
+    line-height: 28px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #000000;
+    max-width: 90%;
+  }
+  .text-container a {
+    display: flex;
+    justify-content: space-between;
+    max-width: 150px;
+    padding-left: 25px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 25px;
+    background: black;
+    color: white;
+    font-family: Jost;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20.48px;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    text-decoration: none;
+    margin-top: 24px;
+  }
+
+  .text-container {
+    position: absolute;
+    top: 54%;
+    left: 100px;
+    transform: translate(-10%, -10%);
+  }
+
+  .image-conatiner {
+    position: relative;
+  }
+  .mob-btn{
+    display: none;
+ }
+
+  @media screen and (max-width: 1100px) {
+    .text-container {
+      top: 50%;
+      left: 70px;
+    }
+    .subheading-ptag {
+      margin-top: 0px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .main-image.desktop {
+      display: none;
+    }
+    .main-image.mobile {
+      display: block;
+    }
+
+    .text-container {
+      position: absolute;
+      top: 5%;
+      left: 50%;
+      transform: translate(-50%, -10%);
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .text-container a {
+      display: none;
+    }
+
+    .text-container h2 {
+      font-family: Jost;
+      font-size: 30px;
+      /* font-size: clamp(20px, calc(30 * (100vw / 990)), 30px); */
+      font-weight: 500;
+      line-height: 30px;
+      text-align: center;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: #000000;
+    }
+
+    .subheading-ptag {
+      font-family: Jost;
+      font-size: 16px;
+      font-weight: 400;
+      /* font-size: clamp(14px, calc(16 * (100vw / 990)), 16px); */
+      line-height: 20.8px;
+      text-align: center;
+      text-underline-position: from-font;
+      text-decoration-skip-ink: none;
+      color: #000000;
+      margin-top: 24px;
+    }
+
+    
+    .mob-btn{
+    display: block;
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translate(-50%, -10px);
+    padding-top: 13px;
+    padding-bottom: 13px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background: black;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    width: 150px;
+    text-decoration: none;
+    }
+  }
+</style>
+<div class="banner-with-text-main-conatiner">
+  <div class="image=and-text-container">
+    <div class="image-conatiner">
+      {% if section.settings.desktop_main_image != blank %}
+        {{
+          section.settings.desktop_main_image
+          | image_url: width: 1600
+          | image_tag: class: 'main-image desktop', loading: 'eager'
+        }}
+      {% endif %}
+      {% if section.settings.mobile_main_image != blank %}
+        {{
+          section.settings.mobile_main_image
+          | image_url: width: 800
+          | image_tag: class: 'main-image mobile', loading: 'eager'
+        }}
+      {% endif %}
+      <div class="text-container">
+        {% if section.settings.heading != blank
+          or section.settings.subheading != blank
+          or section.settings.bottom_text != blank
+          or section.settings.button_text != blank
+        %}
+          {% if section.settings.heading != blank %}
+            <h2>{{ section.settings.heading }}</h2>
+          {% endif %}
+          {% if section.settings.subheading != blank %}
+            <p class="subheading-ptag">{{ section.settings.subheading }}</p>
+          {% endif %}
+          {% if section.settings.button_link != blank and section.settings.button_text != blank %}
+            <a href="{{ section.settings.button_link }}">
+              {{- section.settings.button_text }}
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon icon-arrow" viewBox="0 0 14 10">
+                <path fill="currentColor" fill-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" clip-rule="evenodd"/>
+              </svg>
+            </a>
+          {% endif %}
+        {% endif %}
+      </div>
+      {% if section.settings.button_link != blank and section.settings.button_text != blank %}
+        <a href="{{ section.settings.button_link }}" class="mob-btn">{{ section.settings.button_text }}<svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon icon-arrow" viewBox="0 0 14 10"><path fill="currentColor" fill-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" clip-rule="evenodd"/></svg></a>
+    {% endif %}
+    </div>
+  </div>
+  {% if section.settings.bottom_text != blank %}
+    <p class="bottom-text">{{ section.settings.bottom_text }}</p>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Banner with Text",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "desktop_main_image",
+      "label": "Desktop Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_main_image",
+      "label": "Mobile Image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Gift Guide"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Sub Heading",
+      "default": "Discover Joy: Your ultimate holiday gift Destination"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "text",
+      "id": "bottom_text",
+      "label": "Bottom Text",
+      "default": "Sustainable Ethecally Made Sizes from XXS to 6XL"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Text Color",
+      "default": "#fff"
+    }
+  ],
+  "presets": [{ "name": "Banner with Text" }]
+}
+{% endschema %}
