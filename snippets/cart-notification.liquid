@@ -9,7 +9,7 @@
   {% render 'cart-notification' %}
 {% endcomment %}
 
-<cart-notification style="display: none;">
+<cart-notification>
   <div class="cart-notification-wrapper{% if desktop_menu_type != 'drawer' %} page-width{% endif %}">
     <div
       id="cart-notification"
@@ -53,8 +53,6 @@
     </div>
   </div>
 </cart-notification>
-{% style %}
-  .cart-notification {
-    display: none;
-  }
-{% endstyle %}
+{% comment %} {% style %}
+
+{% endstyle %} {% endcomment %}
