@@ -91,6 +91,8 @@
     "banner_with_text_9ewzjp": {
       "type": "Banner-with-text",
       "settings": {
+        "desktop_main_image": "shopify://shop_images/Group_1000008197.png",
+        "mobile_main_image": "shopify://shop_images/Frame_1958_1.jpg",
         "heading": "The Gift Guide",
         "subheading": "Discover Joy: Your ultimate holiday gift Destination",
         "button_text": "Shop Now",
