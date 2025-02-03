@@ -85,15 +85,18 @@
     },
     "image_text_banner_HqcT9j": {
       "type": "Image-Text-Banner",
+      "disabled": true,
+      "settings": {}
+    },
+    "banner_with_text_9ewzjp": {
+      "type": "Banner-with-text",
       "settings": {
-        "desktop_main_image": "shopify://shop_images/Group_1000008197.png",
-        "mobile_main_image": "shopify://shop_images/Frame_1958_1.jpg",
         "heading": "The Gift Guide",
-        "subheading": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
+        "subheading": "Discover Joy: Your ultimate holiday gift Destination",
         "button_text": "Shop Now",
-        "button_link": "#",
+        "button_link": "",
         "bottom_text": "Sustainable Ethecally Made Sizes from XXS to 6XL",
-        "color_text": "#000000"
+        "color_text": "#fff"
       }
     },
     "grid_section_hMiWNf": {
@@ -170,6 +173,7 @@
     "image_banner",
     "featured_collection",
     "image_text_banner_HqcT9j",
+    "banner_with_text_9ewzjp",
     "grid_section_hMiWNf"
   ]
 }
