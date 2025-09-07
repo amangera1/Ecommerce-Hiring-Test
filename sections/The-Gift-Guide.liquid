@@ -4,7 +4,38 @@
     justify-content: space-between;
   }
 
-  
+  .the-gift-guide-left-text-container{
+    width: 40%;
+    padding-right: 0;
+    margin-top: 48px;
+  }
+
+  .the-gift-guide-main-heading-text{
+    margin: 0;
+    color: #000000;
+    font-family: Jost;
+    font-weight: 500;
+    font-style: Medium;
+    font-size: 70px;
+    font-size: clamp(50px, 4.86vw, 70px);
+    line-height: 100%;
+    letter-spacing: 0px;
+    vertical-align: middle;
+    margin-bottom: 50px;
+  }
+
+  .the-gift-guide-sub-heading-text{
+    margin: 0;
+    font-family: Jost;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 140%;
+    letter-spacing: 0px;
+    vertical-align: middle;
+  }
+
+
+
 </style>
 <div class = "The-gift-guide-main-container">
     <div class="the-gift-guide-upper-image">
@@ -15,12 +46,12 @@
         }}
     </div>
     <div class="the-gift-guide-bottom-container">
-      <div class="the-gift-guide-left-text-container">
+      <div class="the-gift-guide-left-text-container page-width">
         <div class = "the-gift-guide-main-heading">
           <h2 class="the-gift-guide-main-heading-text">{{ section.settings.heading }}</h2>
         </div>
-        <div class="the-gift-guide-sub-heading">
-          <p class = "the-gift-guide-sub-heading-text">{{ section.settings.subheading }}<p>
+        <div class="the-gift-guide-sub-heading-text">
+        {{ section.settings.subheading }}
         <div>
           <div class="the-gift-guide-button-container">
             <a href="{{ section.settings.button_link }}" class="the-gift-guide-button">
