@@ -11,6 +11,7 @@
   "sections": {
     "banner_with_text_9ewzjp": {
       "type": "Banner-with-text",
+      "disabled": true,
       "settings": {
         "desktop_main_image": "shopify://shop_images/Group_1000008197.png",
         "mobile_main_image": "shopify://shop_images/Frame_1958_1.jpg",
@@ -27,6 +28,7 @@
       "blocks": {
         "gridcol_6WEmwh": {
           "type": "gridcol",
+          "disabled": true,
           "settings": {
             "grid_image": "shopify://shop_images/image_822.png",
             "product": "black-leather-bag",
@@ -88,11 +90,27 @@
         "gridcol_bn4eeg",
         "gridcol_im9B7p"
       ],
+      "disabled": true,
       "settings": {}
+    },
+    "the_gift_guide_9zNYrB": {
+      "type": "The-Gift-Guide",
+      "name": "The Gift Guide",
+      "settings": {
+        "desktop_main_image_upper": "shopify://shop_images/Frame.png",
+        "desktop_main_image_Bottom_right": "shopify://shop_images/Frame_1.png",
+        "mobile_main_image": "shopify://shop_images/Frame_1958_1.jpg",
+        "heading": "The Gift Guide",
+        "subheading": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
+        "button_text": "Shop Now",
+        "button_link": "#",
+        "bottom_text": "Sustainable Ethecally Made Sizes from XXS to 6XL"
+      }
     }
   },
   "order": [
     "banner_with_text_9ewzjp",
-    "grid_section_hMiWNf"
+    "grid_section_hMiWNf",
+    "the_gift_guide_9zNYrB"
   ]
 }
