@@ -70,6 +70,10 @@
     object-fit: contain;
   }
 
+      .The-gift-guide-main-container.mobile{
+      display:  none;
+    }
+
    @media screen and (max-width: 1270px) {
     .the-gift-guide-main-heading-text{
       font-size: clamp(30px, 3.94vw, 50px);
@@ -161,6 +165,17 @@
 }
 
 
+  @media screen and (max-width: 768px) {
+
+    .The-gift-guide-main-container.desktop{
+      display:  none;
+    }
+    
+    .The-gift-guide-main-container.mobile{
+      display:  block;
+    }
+  }
+
 
 </style>
 <div class = "The-gift-guide-main-container desktop">
@@ -196,7 +211,7 @@
 </div>
 
 <div class = "The-gift-guide-main-container mobile">
-  
+
 </div>
 
 
