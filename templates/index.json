@@ -99,9 +99,10 @@
       "settings": {
         "desktop_main_image_upper": "shopify://shop_images/Frame.png",
         "desktop_main_image_Bottom_right": "shopify://shop_images/Frame_1.png",
-        "mobile_main_image": "shopify://shop_images/Frame_1958_1.jpg",
+        "mobile_main_image": "shopify://shop_images/Frame_1958_1_2950f0ce-985c-4318-a14a-0ff78691ebd7.jpg",
         "heading": "The Gift Guide",
         "subheading": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
+        "subheading_mobile": "Discover Joy: Your Ultimate Holiday Gift Destination.",
         "button_text": "Shop Now",
         "button_link": "#",
         "bottom_text": "Sustainable Ethecally Made Sizes from XXS to 6XL"
