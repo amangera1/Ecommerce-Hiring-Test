@@ -211,7 +211,16 @@
 </div>
 
 <div class = "The-gift-guide-main-container mobile">
-
+  <div class = "The-gift-guide-mobile-heading">
+    <h2 class="the-gift-guide-main-heading-text">{{ section.settings.heading }}</h2>
+  </div>
+  <div class = "the-gift-guide-mobile-image">
+     {{
+          section.settings.mobile_main_image
+          | image_url: width: 1100
+          | image_tag: class: 'The-gift-guide-upper', loading: 'eager'
+        }}
+  </div>
 </div>
 
 
