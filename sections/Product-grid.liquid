@@ -63,7 +63,7 @@
 }
 {% endstylesheet %}
 
-<section class="custom-grid-section">
+{% comment %} <section class="custom-grid-section">
   <div class="grid-section">
     {% for block in section.blocks %}
       <div class="grid-item" {{ block.shopify_attributes }}>
@@ -88,7 +88,72 @@
       </div>
     {% endfor %}
   </div>
+</section> {% endcomment %}
+
+<section class="custom-grid-section">
+  <div class="grid-section">
+    {% for block in section.blocks %}
+      <div class="grid-item" {{ block.shopify_attributes }}>
+        {% if block.settings.grid_image %}
+          {{ block.settings.grid_image | image_url: width:800 | image_tag: class:'main-image', loading:'lazy' }}
+        {% endif %}
+
+        <!-- Plus Icon -->
+        <div class="plus-icon"
+          style="top: {{ block.settings.top_position }}%; right: {{ block.settings.right_poisition }}%;"
+          data-popup-id="popup-{{ block.id }}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 16 17" fill="none">
+            <circle cx="7.86496" cy="8.27719" r="7.85714" fill="#F8F8F8" fill-opacity="0.9"/>
+            <path d="M8.1123 5.44995V11.4939" stroke="black" stroke-linecap="square" stroke-linejoin="round"/>
+            <path d="M5.09033 8.47192H11.1343" stroke="black" stroke-linecap="square" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Hidden Popup for this product -->
+      <div class="product-popup-overlay" id="popup-{{ block.id }}">
+        <div class="product-popup">
+          <button class="close-btn" onclick="closePopup('{{ block.id }}')">×</button>
+
+          {% assign product = all_products[block.settings.product.handle] %}
+          {% if product %}
+            <div class="popup-inner">
+              <img src="{{ product.featured_image | image_url: width: 500 }}" alt="{{ product.title }}" style="max-width:100%; height:auto;">
+              <h3>{{ product.title }}</h3>
+              <p><strong>{{ product.price | money }}</strong></p>
+              <p>{{ product.description | strip_html | truncate: 120 }}</p>
+
+              {% if product.options.size > 0 %}
+                {% for option in product.options_with_values %}
+                  <label>{{ option.name }}</label>
+                  {% if option.name contains 'Color' %}
+                    <div style="display:flex; gap:8px;">
+                      {% for value in option.values %}
+                        <button style="flex:1; border:1px solid #000; padding:6px;">{{ value }}</button>
+                      {% endfor %}
+                    </div>
+                  {% else %}
+                    <select style="width:100%; padding:6px;">
+                      <option>Choose your {{ option.name }}</option>
+                      {% for value in option.values %}
+                        <option>{{ value }}</option>
+                      {% endfor %}
+                    </select>
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+
+              <button style="margin-top:15px; width:100%; padding:10px; background:#000; color:#fff;">
+                ADD TO CART →
+              </button>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
 </section>
+
 
 <script>
     function closePopup(id) {
