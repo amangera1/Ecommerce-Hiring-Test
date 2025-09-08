@@ -114,7 +114,7 @@
           "type": "gridcol",
           "settings": {
             "grid_image": "shopify://shop_images/image_823.png",
-            "product": "",
+            "product": "blue-silk-tuxedo",
             "top_position": 50,
             "right_poisition": 50
           }
@@ -123,7 +123,7 @@
           "type": "gridcol",
           "settings": {
             "grid_image": "shopify://shop_images/image_824.png",
-            "product": "",
+            "product": "chequered-red-shirt",
             "top_position": 20,
             "right_poisition": 20
           }
@@ -132,7 +132,7 @@
           "type": "gridcol",
           "settings": {
             "grid_image": "shopify://shop_images/image_822.png",
-            "product": "",
+            "product": "black-leather-bag",
             "top_position": 20,
             "right_poisition": 78
           }
@@ -141,7 +141,7 @@
           "type": "gridcol",
           "settings": {
             "grid_image": "shopify://shop_images/image_826.png",
-            "product": "",
+            "product": "classic-varsity-top",
             "top_position": 20,
             "right_poisition": 20
           }
@@ -150,7 +150,7 @@
           "type": "gridcol",
           "settings": {
             "grid_image": "shopify://shop_images/image_825.png",
-            "product": "",
+            "product": "classic-leather-jacket",
             "top_position": 20,
             "right_poisition": 20
           }
@@ -159,7 +159,7 @@
           "type": "gridcol",
           "settings": {
             "grid_image": "shopify://shop_images/image_827.png",
-            "product": "",
+            "product": "dark-denim-top",
             "top_position": 20,
             "right_poisition": 20
           }
