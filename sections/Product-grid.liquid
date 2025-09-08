@@ -118,7 +118,7 @@
           {% assign product = all_products[block.settings.product.handle] %}
           {% if product %}
             <div class="popup-inner">
-              <img src="{{ product.featured_image | image_url: width: 500 }}" alt="{{ product.title }}" style="max-width:100%; height:auto;">
+              {{ product.featured_image | image_url: width:800 | image_tag: class:'main-image', loading:'lazy' }}
               <h3>{{ product.title }}</h3>
               <p><strong>{{ product.price | money }}</strong></p>
               <p>{{ product.description | strip_html | truncate: 120 }}</p>
