@@ -90,6 +90,24 @@
   </div>
 </section>
 
+<script>
+    function closePopup(id) {
+  document.getElementById("popup-" + id).style.display = "none";
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  const plusIcons = document.querySelectorAll(".plus-icon");
+
+  plusIcons.forEach(icon => {
+    icon.addEventListener("click", function(e) {
+      e.preventDefault();
+      const popupId = this.getAttribute("data-popup-id");
+      document.getElementById(popupId).style.display = "flex";
+    });
+  });
+});
+</script>
+
 {% schema %}
 {
   "name": "Product Grid Section",
