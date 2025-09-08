@@ -1,0 +1,43 @@
+{% schema %}
+  {
+    "name": "Grid Section",
+    "settings": [],
+    "blocks": [{
+       "type":"gridcol",
+       "name":"slides",
+       "settings": [
+        {
+            "type": "image_picker",
+            "id": "grid_image",
+            "label": "Image"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+            "type": "range",
+            "id": "top_position",
+            "min": 12,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Plus Icon Top",
+            "default": 16
+          },
+         {
+            "type": "range",
+            "id": "right_poisition",
+            "min": 12,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Plus Icon from Right",
+            "default": 16
+          }
+       ]
+   }], 
+    "presets":[{"name":"grid section"}]
+  }
+{% endschema %}
