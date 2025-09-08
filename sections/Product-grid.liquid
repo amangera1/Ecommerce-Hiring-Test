@@ -173,6 +173,7 @@ document.addEventListener("DOMContentLoaded", function() {
     icon.addEventListener("click", function(e) {
       e.preventDefault();
       const popupId = this.getAttribute("data-popup-id");
+      console.log(popupId,'popupId');
       document.getElementById(popupId).style.display = "flex";
     });
   });
