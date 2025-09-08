@@ -24,6 +24,33 @@
   cursor: pointer;
 }
 
+.product-popup-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+}
+.product-popup {
+  background: #fff;
+  width: 80%;   /* percentage-based */
+  max-width: 450px;
+  box-shadow: 0px 2px 4px 0px #00000033;
+  padding: 16px;
+  position: relative;
+}
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
 @media (max-width: 767px) {
   .grid-section {
     grid-template-columns: repeat(2, 1fr);
