@@ -499,9 +499,23 @@ document.addEventListener("DOMContentLoaded", function() {
         {% assign product = all_products[block.settings.product.handle] %}
         {% if product %}
         <div class="popup-inner">
+
+
+            <div class = "product-popup-main-container">
+                <div class = "product-image-and-information-container">
+                    <div class = "product-left-side-image-container">
+                         {{ product.featured_image | image_url: width:400 | image_tag: class:'popup-image', loading:'lazy' }}
+                    </div>
+                    <div class = "product-right-side-information">
+                        <h3 class="popup-title">{{ product.title }}</h3>
+                        <p class="popup-price">{{ product.price | money }}</p>
+                        <p class="popup-desc">{{ product.description | strip_html | truncate: 120 }}</p>
+                    </div>
+                </div>
+            </div>
             <!-- Left: Image -->
             <div class="popup-left">
-            {{ product.featured_image | image_url: width:400 | image_tag: class:'popup-image', loading:'lazy' }}
+           
             </div>
 
             <!-- Right: Content -->
