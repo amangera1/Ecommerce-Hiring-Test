@@ -374,45 +374,55 @@ document.addEventListener("DOMContentLoaded", function() {
       </div>
 
       <!-- Hidden Popup for this product -->
-      <div class="product-popup-overlay" id="popup-{{ block.id }}">
-        <div class="product-popup">
-          <button class="close-btn" onclick="closePopup('{{ block.id }}')">×</button>
+    <div class="product-popup-overlay" id="popup-{{ block.id }}">
+    <div class="product-popup">
+        <button class="close-btn" onclick="closePopup('{{ block.id }}')">×</button>
 
-          {% assign product = all_products[block.settings.product.handle] %}
-          {% if product %}
-            <div class="popup-inner">
-              {{ product.featured_image | image_url: width:800 | image_tag: class:'main-image', loading:'lazy' }}
-              <h3>{{ product.title }}</h3>
-              <p><strong>{{ product.price | money }}</strong></p>
-              <p>{{ product.description | strip_html | truncate: 120 }}</p>
+        {% assign product = all_products[block.settings.product.handle] %}
+        {% if product %}
+        <div class="popup-inner">
+            <!-- Left: Image -->
+            <div class="popup-left">
+            {{ product.featured_image | image_url: width:400 | image_tag: class:'popup-image', loading:'lazy' }}
+            </div>
 
-              {% if product.options.size > 0 %}
+            <!-- Right: Content -->
+            <div class="popup-right">
+            <h3 class="popup-title">{{ product.title }}</h3>
+            <p class="popup-price">{{ product.price | money }}</p>
+            <p class="popup-desc">{{ product.description | strip_html | truncate: 120 }}</p>
+
+            {% if product.options.size > 0 %}
                 {% for option in product.options_with_values %}
-                  <div class="popup-options">
+                <div class="popup-options">
                     <label>{{ option.name }}</label>
                     {% if option.name contains 'Color' %}
-                      <div class="option-buttons">
+                    <div class="option-buttons">
                         {% for value in option.values %}
-                          <button>{{ value }}</button>
+                        <button class="option-btn">{{ value }}</button>
                         {% endfor %}
-                      </div>
+                    </div>
                     {% else %}
-                      <select class="option-select">
+                    <div class="custom-select">
+                        <select>
                         <option>Choose your {{ option.name }}</option>
                         {% for value in option.values %}
-                          <option>{{ value }}</option>
+                            <option>{{ value }}</option>
                         {% endfor %}
-                      </select>
+                        </select>
+                    </div>
                     {% endif %}
-                  </div>
+                </div>
                 {% endfor %}
-              {% endif %}
+            {% endif %}
 
-              <button class="add-to-cart-btn">Add to Cart →</button>
+            <button class="add-to-cart-btn">Add to Cart →</button>
             </div>
-          {% endif %}
         </div>
-      </div>
+        {% endif %}
+    </div>
+    </div>
+
     {% endfor %}
   </div>
 </section>
