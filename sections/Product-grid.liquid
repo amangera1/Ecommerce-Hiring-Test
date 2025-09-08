@@ -513,7 +513,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     </div>
                 </div>
                 {% if product.options.size > 0 %}
-                        {% for option in product.options_with_values %}
+                    <div class = "popup-options-values">
+                                                {% for option in product.options_with_values %}
                             <div class="popup-options">
                                 <label>{{ option.name }}</label>
                                 {% if option.name contains 'Color' %}
@@ -534,6 +535,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                 {% endif %}
                             </div>
                         {% endfor %}
+                    </div>
                 {% endif %}
 
                 <button class="add-to-cart-btn">Add to Cart →</button>
