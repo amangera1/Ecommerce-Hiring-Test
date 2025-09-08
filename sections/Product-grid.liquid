@@ -339,6 +339,120 @@ document.addEventListener("DOMContentLoaded", function() {
   font-weight: bold;
 }
 
+.product-popup {
+  background: #fff;
+  width: 90%;
+  max-width: 650px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
+  padding: 24px;
+  position: relative;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+}
+
+.popup-inner {
+  display: flex;
+  gap: 20px;
+}
+
+.popup-left {
+  flex: 1;
+}
+
+.popup-image {
+  width: 100%;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.popup-right {
+  flex: 1.5;
+  display: flex;
+  flex-direction: column;
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.popup-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+
+.popup-price {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 0 10px;
+}
+
+.popup-desc {
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 16px;
+}
+
+.popup-options {
+  margin-bottom: 16px;
+}
+
+.popup-options label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.option-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.option-btn {
+  flex: 1;
+  border: 1px solid #000;
+  padding: 8px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.option-btn:hover,
+.option-btn.active {
+  background: #000;
+  color: #fff;
+}
+
+.custom-select select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #000;
+  font-size: 14px;
+}
+
+.add-to-cart-btn {
+  margin-top: auto;
+  width: 100%;
+  padding: 12px;
+  background: #000;
+  color: #fff;
+  border: none;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  border-radius: 3px;
+}
+
+
 @media (max-width: 767px) {
   .grid-section {
     grid-template-columns: repeat(2, 1fr);
@@ -348,6 +462,10 @@ document.addEventListener("DOMContentLoaded", function() {
   .plus-icon svg {
     width: 15px;
     height: 15px;
+  }
+
+   .popup-inner {
+    flex-direction: column;
   }
 }
 {% endstylesheet %}
