@@ -5,11 +5,7 @@
   gap: 20px;
 }
 
-@media (max-width: 767px) {
-  .grid-section {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
+
 
 .grid-item {
   position: relative;
@@ -26,6 +22,13 @@
   position: absolute;
   transform: translate(50%, -50%);
   cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  .grid-section {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+  }
 }
 {% endstylesheet %}
 
