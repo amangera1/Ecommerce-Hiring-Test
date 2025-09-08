@@ -535,45 +535,10 @@ document.addEventListener("DOMContentLoaded", function() {
                             </div>
                         {% endfor %}
                 {% endif %}
-            </div>
-            <!-- Left: Image -->
-            <div class="popup-left">
-           
-            </div>
 
-            <!-- Right: Content -->
-            <div class="popup-right">
-            <h3 class="popup-title">{{ product.title }}</h3>
-            <p class="popup-price">{{ product.price | money }}</p>
-            <p class="popup-desc">{{ product.description | strip_html | truncate: 120 }}</p>
-
-            {% if product.options.size > 0 %}
-                {% for option in product.options_with_values %}
-                <div class="popup-options">
-                    <label>{{ option.name }}</label>
-                    {% if option.name contains 'Color' %}
-                    <div class="option-buttons">
-                        {% for value in option.values %}
-                        <button class="option-btn">{{ value }}</button>
-                        {% endfor %}
-                    </div>
-                    {% else %}
-                    <div class="custom-select">
-                        <select>
-                        <option>Choose your {{ option.name }}</option>
-                        {% for value in option.values %}
-                            <option>{{ value }}</option>
-                        {% endfor %}
-                        </select>
-                    </div>
-                    {% endif %}
-                </div>
-                {% endfor %}
-            {% endif %}
-
-            <button class="add-to-cart-btn">Add to Cart →</button>
+                <button class="add-to-cart-btn">Add to Cart →</button>
             </div>
-        </div>
+            </div>
         {% endif %}
     </div>
     </div>
