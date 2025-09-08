@@ -106,11 +106,81 @@
         "button_link": "#",
         "bottom_text": "Sustainable Ethecally Made Sizes from XXS to 6XL"
       }
+    },
+    "product_grid_CgBr4M": {
+      "type": "Product-grid",
+      "blocks": {
+        "gridcol_pmcUDP": {
+          "type": "gridcol",
+          "settings": {
+            "grid_image": "shopify://shop_images/image_823.png",
+            "product": "",
+            "top_position": 50,
+            "right_poisition": 50
+          }
+        },
+        "gridcol_qEEcq6": {
+          "type": "gridcol",
+          "settings": {
+            "grid_image": "shopify://shop_images/image_824.png",
+            "product": "",
+            "top_position": 20,
+            "right_poisition": 20
+          }
+        },
+        "gridcol_CBqap6": {
+          "type": "gridcol",
+          "settings": {
+            "grid_image": "shopify://shop_images/image_822.png",
+            "product": "",
+            "top_position": 20,
+            "right_poisition": 78
+          }
+        },
+        "gridcol_FRarpg": {
+          "type": "gridcol",
+          "settings": {
+            "grid_image": "shopify://shop_images/image_826.png",
+            "product": "",
+            "top_position": 20,
+            "right_poisition": 20
+          }
+        },
+        "gridcol_VUnH4b": {
+          "type": "gridcol",
+          "settings": {
+            "grid_image": "shopify://shop_images/image_825.png",
+            "product": "",
+            "top_position": 20,
+            "right_poisition": 20
+          }
+        },
+        "gridcol_N4mq3c": {
+          "type": "gridcol",
+          "settings": {
+            "grid_image": "shopify://shop_images/image_827.png",
+            "product": "",
+            "top_position": 20,
+            "right_poisition": 20
+          }
+        }
+      },
+      "block_order": [
+        "gridcol_pmcUDP",
+        "gridcol_qEEcq6",
+        "gridcol_CBqap6",
+        "gridcol_FRarpg",
+        "gridcol_VUnH4b",
+        "gridcol_N4mq3c"
+      ],
+      "name": "Product Grid Section",
+      "settings": {}
     }
   },
   "order": [
     "banner_with_text_9ewzjp",
     "grid_section_hMiWNf",
-    "the_gift_guide_9zNYrB"
+    "the_gift_guide_9zNYrB",
+    "product_grid_CgBr4M"
   ]
 }
