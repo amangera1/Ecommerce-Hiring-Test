@@ -794,6 +794,40 @@
       }
     });
   });
+
+  document.addEventListener("DOMContentLoaded", () => {
+  const addToCartBtn = document.querySelector(".add-to-cart-btn");
+  let selectedOptions = {
+    Color: null,
+    Size: null,
+    VariantId: null,
+  };
+
+  // Handle color selection
+  document.querySelectorAll(".option-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      selectedOptions.Color = btn.dataset.value;
+      selectedOptions.VariantId = btn.dataset.variantId;
+
+      // Update data attribute
+      addToCartBtn.setAttribute("data-main-product", JSON.stringify(selectedOptions));
+    });
+  });
+
+  // Handle size selection (dropdown example)
+  document.querySelectorAll(".select-option").forEach(option => {
+    option.addEventListener("click", () => {
+      selectedOptions.Size = option.dataset.value;
+      if (option.dataset.variantId) {
+        selectedOptions.VariantId = option.dataset.variantId;
+      }
+
+      // Update data attribute
+      addToCartBtn.setAttribute("data-main-product", JSON.stringify(selectedOptions));
+    });
+  });
+});
+
 </script>
 
 {% schema %}
