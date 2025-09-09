@@ -882,7 +882,7 @@ document.addEventListener("DOMContentLoaded", () => {
   addToCartBtn.addEventListener("click", (e) => {
     e.preventDefault();
 
-    if (!selectedOptions.Color || !selectedOptions.Size || !selectedOptions.VariantId) {
+    if (!selectedOptions.Color || !selectedOptions.Size) {
       errorMsg.style.display = "block";
       errorMsg.textContent = "Please select all required options.";
       return;
@@ -905,6 +905,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .then(res => res.json())
       .then(data => {
         console.log("✅ Product added to cart:", data);
+        window.location.href = "/cart";
       })
       .catch(err => {
         console.error("❌ Error adding to cart:", err);
