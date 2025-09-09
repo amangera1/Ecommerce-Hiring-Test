@@ -831,7 +831,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Validate on Add to Cart click
   addToCartBtn.addEventListener("click", (e) => {
-    if (!selectedOptions.Color || !selectedOptions.Size || !selectedOptions.VariantId) {
+    if (!selectedOptions.Color || !selectedOptions.Size) {
       e.preventDefault(); // Stop add-to-cart action
       errorMsg.style.display = "block"; // Show error
       errorMsg.textContent = "Please select all required options.";
