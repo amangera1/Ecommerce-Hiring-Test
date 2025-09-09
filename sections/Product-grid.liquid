@@ -1,114 +1,581 @@
-{% comment %} {% stylesheet %}
-.grid-section {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-
-
-
-.grid-item {
-  position: relative;
-  overflow: hidden;
-}
-
-.grid-item img {
-  width: 100%;
-  display: block;
-  height: auto;
-}
-
-.plus-icon {
-  position: absolute;
-  transform: translate(50%, -50%);
-  cursor: pointer;
-}
-
-.product-popup-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.4);
-  z-index: 999;
-  justify-content: center;
-  align-items: center;
-}
-.product-popup {
-  background: #fff;
-  width: 80%;   /* percentage-based */
-  max-width: 450px;
-  box-shadow: 0px 2px 4px 0px #00000033;
-  padding: 16px;
-  position: relative;
-}
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 20px;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.main-image{
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-}
-
-@media (max-width: 767px) {
+{% comment %}
+  {% stylesheet %}
   .grid-section {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 4px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
   }
-  .plus-icon svg{
-    width: 15px;
-    height: 15px;
+
+
+
+  .grid-item {
+    position: relative;
+    overflow: hidden;
   }
-}
-{% endstylesheet %}
 
-{% comment %} <section class="custom-grid-section">
-  <div class="grid-section">
-    {% for block in section.blocks %}
-      <div class="grid-item" {{ block.shopify_attributes }}>
-        {% if block.settings.grid_image %}
-           {{ 
-                block.settings.grid_image 
-                | image_url: width:800
-                | image_tag: class:'main-image',loading:'lazy'
-            }}
-        {% endif %}
+  .grid-item img {
+    width: 100%;
+    display: block;
+    height: auto;
+  }
 
-        <div class="plus-icon"
-          style="top: {{ block.settings.top_position }}%; right: {{ block.settings.right_poisition }}%;">
-          <a href="{{ block.settings.product.url }}">
+  .plus-icon {
+    position: absolute;
+    transform: translate(50%, -50%);
+    cursor: pointer;
+  }
+
+  .product-popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+  }
+  .product-popup {
+    background: #fff;
+    width: 80%;   /* percentage-based */
+    max-width: 450px;
+    box-shadow: 0px 2px 4px 0px #00000033;
+    padding: 16px;
+    position: relative;
+  }
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .main-image{
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+  }
+
+  @media (max-width: 767px) {
+    .grid-section {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 4px;
+    }
+    .plus-icon svg{
+      width: 15px;
+      height: 15px;
+    }
+  }
+  {% endstylesheet %}
+
+  {% comment %} <section class="custom-grid-section">
+    <div class="grid-section">
+      {% for block in section.blocks %}
+        <div class="grid-item" {{ block.shopify_attributes }}>
+          {% if block.settings.grid_image %}
+             {{
+                  block.settings.grid_image
+                  | image_url: width:800
+                  | image_tag: class:'main-image',loading:'lazy'
+              }}
+          {% endif %}
+
+          <div class="plus-icon"
+            style="top: {{ block.settings.top_position }}%; right: {{ block.settings.right_poisition }}%;">
+            <a href="{{ block.settings.product.url }}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 16 17" fill="none">
+                <circle cx="7.86496" cy="8.27719" r="7.85714" fill="#F8F8F8" fill-opacity="0.9"/>
+                <path d="M8.1123 5.44995V11.4939" stroke="black" stroke-linecap="square" stroke-linejoin="round"/>
+                <path d="M5.09033 8.47192H11.1343" stroke="black" stroke-linecap="square" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </section> {% endcomment %}
+
+  <section class="custom-grid-section">
+    <div class="grid-section">
+      {% for block in section.blocks %}
+        <div class="grid-item" {{ block.shopify_attributes }}>
+          {% if block.settings.grid_image %}
+            {{ block.settings.grid_image | image_url: width:800 | image_tag: class:'main-image', loading:'lazy' }}
+          {% endif %}
+
+          <!-- Plus Icon -->
+          <div class="plus-icon"
+            style="top: {{ block.settings.top_position }}%; right: {{ block.settings.right_poisition }}%;"
+            data-popup-id="popup-{{ block.id }}">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 16 17" fill="none">
               <circle cx="7.86496" cy="8.27719" r="7.85714" fill="#F8F8F8" fill-opacity="0.9"/>
               <path d="M8.1123 5.44995V11.4939" stroke="black" stroke-linecap="square" stroke-linejoin="round"/>
               <path d="M5.09033 8.47192H11.1343" stroke="black" stroke-linecap="square" stroke-linejoin="round"/>
             </svg>
-          </a>
+          </div>
         </div>
-      </div>
-    {% endfor %}
-  </div>
-</section> {% endcomment %}
+
+        <!-- Hidden Popup for this product -->
+        <div class="product-popup-overlay" id="popup-{{ block.id }}">
+          <div class="product-popup">
+            <button class="close-btn" onclick="closePopup('{{ block.id }}')">×</button>
+
+            {% assign product = all_products[block.settings.product.handle] %}
+            {% if product %}
+              <div class="popup-inner">
+                {{ product.featured_image | image_url: width:800 | image_tag: class:'main-image', loading:'lazy' }}
+                <h3>{{ product.title }}</h3>
+                <p><strong>{{ product.price | money }}</strong></p>
+                <p>{{ product.description | strip_html | truncate: 120 }}</p>
+
+                {% if product.options.size > 0 %}
+                  {% for option in product.options_with_values %}
+                    <label>{{ option.name }}</label>
+                    {% if option.name contains 'Color' %}
+                      <div style="display:flex; gap:8px;">
+                        {% for value in option.values %}
+                          <button style="flex:1; border:1px solid #000; padding:6px;">{{ value }}</button>
+                        {% endfor %}
+                      </div>
+                    {% else %}
+                      <select style="width:100%; padding:6px;">
+                        <option>Choose your {{ option.name }}</option>
+                        {% for value in option.values %}
+                          <option>{{ value }}</option>
+                        {% endfor %}
+                      </select>
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+
+                <button style="margin-top:15px; width:100%; padding:10px; background:#000; color:#fff;">
+                  ADD TO CART →
+                </button>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+
+  <script>
+      function closePopup(id) {
+    document.getElementById("popup-" + id).style.display = "none";
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    const plusIcons = document.querySelectorAll(".plus-icon");
+
+    plusIcons.forEach(icon => {
+      icon.addEventListener("click", function(e) {
+        e.preventDefault();
+        const popupId = this.getAttribute("data-popup-id");
+        console.log(popupId,'popupId');
+        document.getElementById(popupId).style.display = "flex";
+      });
+    });
+  });
+  </script>
+
+  {% schema %}
+  {
+    "name": "Product Grid Section",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "gridcol",
+        "name": "Slides",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "grid_image",
+            "label": "Image"
+          },
+          {
+            "type": "product",
+            "id": "product",
+            "label": "Product"
+          },
+          {
+            "type": "range",
+            "id": "top_position",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Plus Icon Top",
+            "default": 20
+          },
+          {
+            "type": "range",
+            "id": "right_poisition",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Plus Icon from Right",
+            "default": 20
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Product Grid Section"
+      }
+    ]
+  }
+  {% endschema %}
+{% endcomment %}
+
+{% stylesheet %}
+  .grid-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .grid-item {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .main-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .plus-icon {
+    position: absolute;
+    transform: translate(50%, -50%);
+    cursor: pointer;
+  }
+
+  .plus-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .product-popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .product-popup {
+    background: #fff;
+    width: 80%;
+    max-width: 450px;
+    box-shadow: 0px 2px 4px 0px #00000033;
+    padding: 16px;
+    position: relative;
+    border-radius: 4px;
+  }
+
+
+  .popup-inner h3 {
+      color: #000000;
+      font-family: Jost;
+      font-weight: 300;
+      font-style: Light;
+      font-size: 16px;
+      leading-trim: NONE;
+      line-height: 120%;
+      letter-spacing: 0px;
+      vertical-align: middle;
+      margin: 0px;
+      margin-bottom:20px;
+      margin-top: 13px;
+  }
+
+  .popup-inner .popup-price {
+      margin: 0px;
+      color: #000000;
+      font-family: Lustria;
+      font-weight: 400;
+      font-style: Regular;
+      font-size: 16px;
+      leading-trim: NONE;
+      line-height: 120%;
+      letter-spacing: 0px;
+      vertical-align: middle;
+      margin-bottom: 12px;
+  }
+
+  .popup-inner .popup-desc {
+      margin: 0px;
+      color: #000000;
+      font-family: Jost;
+      font-weight: 300;
+      font-style: Light;
+      font-size: 14px;
+      leading-trim: NONE;
+      line-height: 110.00000000000001%;
+      letter-spacing: -1%;
+  }
+
+  .popup-options {
+    margin: 10px 0;
+  }
+
+  .popup-options label {
+    display: block;
+    margin: 0px;
+    color: #333333;
+    font-family: Jost;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 14px;
+  leading-trim: NONE;
+  line-height: 130%;
+  letter-spacing: 0%;
+  margin-bottom: 7px;
+  }
+
+  .option-buttons {
+    display: flex;
+    gap: 8px;
+  }
+
+  .option-buttons button {
+    flex: 1;
+    border: 1px solid #000;
+    padding: 6px;
+    background: #fff;
+    cursor: pointer;
+  }
+
+  .option-select {
+    width: 100%;
+    padding: 6px;
+  }
+
+  .add-to-cart-btn {
+    margin-top: 15px;
+    width: 100%;
+    padding: 10px;
+    background: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  .product-popup {
+    background: #fff;
+    width: 90%;
+    max-width: 350px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0;
+    box-shadow: 0px 2px 4px 0px #00000033;
+    padding: 36px 20px 25px 20px;
+  }
+
+  .popup-inner {
+    display: flex;
+    gap: 20px;
+  }
+
+  .popup-left {
+    flex: 1;
+  }
+
+  .popup-image {
+      width: 100%;
+      object-fit: cover;
+      height: auto;
+      height: 100%;
+  }
+
+  .popup-right {
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0px;
+  }
+
+
+  .popup-options {
+    margin-bottom: 16px;
+  }
+
+  .popup-options label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .option-buttons {
+    display: flex;
+    gap: 8px;
+  }
+
+  .option-btn {
+    flex: 1;
+    border: 1px solid #000;
+    padding: 8px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+  }
+
+  .option-btn:hover,
+  .option-btn.active {
+    background: #000;
+    color: #fff;
+  }
+
+  .custom-select select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #000;
+    font-size: 14px;
+  }
+
+  .add-to-cart-btn {
+    margin-top: auto;
+    width: 100%;
+    padding: 12px;
+    background: #000;
+    color: #fff;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    border-radius: 3px;
+  }
+
+  .product-image-and-information-container {
+      display: flex;
+      gap: 8px;
+  }
+
+  .product-left-side-image-container {
+      max-width: 120px;
+  }
+
+  .popup-options-values{
+      display: flex;
+      flex-direction: column-reverse;
+  }
+
+  /* --- Custom Select --- */
+  .custom-select {
+    position: relative;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .select-trigger {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid #ccc;
+      background: #fff;
+      transition: 0.3s;
+      padding-left: 12px;
+  }
+
+  .size-svg{
+      border-left: 0.5px solid #000000;
+      padding: 16px 21px;
+  }
+
+  .arrow {
+    font-size: 12px;
+    transition: transform 0.3s;
+  }
+
+  .select-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 0;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    border-top: none;
+    background: #fff;
+    transition: max-height 0.3s ease;
+    z-index: 10;
+  }
+
+  .custom-select.open .select-options {
+    max-height: 300px; /* enough for all options */
+  }
+
+  .custom-select.open .arrow {
+    transform: rotate(180deg);
+  }
+
+  .select-option {
+    padding: 10px;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .select-option:hover {
+    background: #000;
+    color: #fff;
+  }
+
+
+
+
+  @media (max-width: 767px) {
+    .grid-section {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 4px;
+    }
+
+    .plus-icon svg {
+      width: 15px;
+      height: 15px;
+    }
+
+     .popup-inner {
+      flex-direction: column;
+    }
+  }
+{% endstylesheet %}
 
 <section class="custom-grid-section">
   <div class="grid-section">
     {% for block in section.blocks %}
       <div class="grid-item" {{ block.shopify_attributes }}>
         {% if block.settings.grid_image %}
-          {{ block.settings.grid_image | image_url: width:800 | image_tag: class:'main-image', loading:'lazy' }}
+          {{ block.settings.grid_image | image_url: width: 800 | image_tag: class: 'main-image', loading: 'lazy' }}
         {% endif %}
 
         <!-- Plus Icon -->
-        <div class="plus-icon"
+        <div
+          class="plus-icon"
           style="top: {{ block.settings.top_position }}%; right: {{ block.settings.right_poisition }}%;"
-          data-popup-id="popup-{{ block.id }}">
-          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 16 17" fill="none">
+          data-popup-id="popup-{{ block.id }}"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 17" fill="none">
             <circle cx="7.86496" cy="8.27719" r="7.85714" fill="#F8F8F8" fill-opacity="0.9"/>
             <path d="M8.1123 5.44995V11.4939" stroke="black" stroke-linecap="square" stroke-linejoin="round"/>
             <path d="M5.09033 8.47192H11.1343" stroke="black" stroke-linecap="square" stroke-linejoin="round"/>
@@ -119,39 +586,102 @@
       <!-- Hidden Popup for this product -->
       <div class="product-popup-overlay" id="popup-{{ block.id }}">
         <div class="product-popup">
-          <button class="close-btn" onclick="closePopup('{{ block.id }}')">×</button>
+          <button class="close-btn" onclick="closePopup('{{ block.id }}')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M5.0376 4.94354L13.5229 13.4288" stroke="black" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+              <path d="M5.0376 13.4285L13.5229 4.94325" stroke="black" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+            </svg>
+          </button>
 
           {% assign product = all_products[block.settings.product.handle] %}
           {% if product %}
             <div class="popup-inner">
-              {{ product.featured_image | image_url: width:800 | image_tag: class:'main-image', loading:'lazy' }}
-              <h3>{{ product.title }}</h3>
-              <p><strong>{{ product.price | money }}</strong></p>
-              <p>{{ product.description | strip_html | truncate: 120 }}</p>
+              <div class="product-popup-main-container">
+                <div class="product-image-and-information-container">
+                  <div class="product-left-side-image-container">
+                    {{
+                      product.featured_image
+                      | image_url: width: 400
+                      | image_tag: class: 'popup-image', loading: 'lazy'
+                    }}
+                  </div>
+                  <div class="product-right-side-information">
+                    <h3 class="popup-title">{{ product.title }}</h3>
+                    <p class="popup-price">{{ product.price | money }}</p>
+                    <p class="popup-desc">{{ product.description | strip_html | truncate: 120 }}</p>
+                  </div>
+                </div>
+                {% if product.options.size > 0 %}
+                  <div class="popup-options-values">
+                    
+                    {% for option in product.options_with_values %}
 
-              {% if product.options.size > 0 %}
-                {% for option in product.options_with_values %}
-                  <label>{{ option.name }}</label>
-                  {% if option.name contains 'Color' %}
-                    <div style="display:flex; gap:8px;">
-                      {% for value in option.values %}
-                        <button style="flex:1; border:1px solid #000; padding:6px;">{{ value }}</button>
-                      {% endfor %}
-                    </div>
-                  {% else %}
-                    <select style="width:100%; padding:6px;">
-                      <option>Choose your {{ option.name }}</option>
-                      {% for value in option.values %}
-                        <option>{{ value }}</option>
-                      {% endfor %}
-                    </select>
-                  {% endif %}
-                {% endfor %}
-              {% endif %}
+                        {% assign variant = product.variants | where: "option1", value | first %}
+{% if variant == nil %}
+  {% assign variant = product.variants | where: "option2", value | first %}
+{% endif %}
+{% if variant == nil %}
+  {% assign variant = product.variants | where: "option3", value | first %}
+{% endif %}
+                      <div class="popup-options">
+                        <label>{{ option.name }}</label>
+                        {% if option.name contains 'Color' %}
+                          <div class="option-buttons">
+                            {% for value in option.values %}
+                              {% assign variant = product.variants | where: 'option1', value | first %}
+                              <button class="option-btn">
+                                {% if variant and variant.metafields.custom.color_code %}
+                                  <span
+                                    class="color-strip"
+                                    style="background-color: {{ variant.metafields.custom.color_code }}"
+                                  ></span>
+                                {% endif %}
+                                {{ value }}
+                              </button>
+                            {% endfor %}
+                          </div>
+                        {% else %}
+                          {% comment %}
+                            <div class="custom-select">
+                                <select>
+                                <option>Choose your {{ option.name }}</option>
+                                {% for value in option.values %}
+                                    <option>{{ value }}</option>
+                                {% endfor %}
+                                </select>
+                            </div>
+                          {% endcomment %}
+                          <div class="custom-select" data-select>
+                            <div class="select-trigger">
+                              <span>Choose your {{ option.name }}</span>
+                              <div class="size-svg">
+                                <span class="arrow">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="10"
+                                    viewBox="0 0 16 10"
+                                    fill="none"
+                                  >
+                                    <path d="M2 2L8 8L14 2" stroke="black" stroke-width="1.5" stroke-linecap="square"/>
+                                  </svg>
+                                </span>
+                              </div>
+                            </div>
+                            <div class="select-options">
+                              {% for value in option.values %}
+                                <div class="select-option" data-value="{{ value }}">{{ value }}</div>
+                              {% endfor %}
+                            </div>
+                          </div>
+                        {% endif %}
+                      </div>
+                    {% endfor %}
+                  </div>
+                {% endif %}
 
-              <button style="margin-top:15px; width:100%; padding:10px; background:#000; color:#fff;">
-                ADD TO CART →
-              </button>
+                <button class="add-to-cart-btn">Add to Cart →</button>
+              </div>
             </div>
           {% endif %}
         </div>
@@ -160,554 +690,47 @@
   </div>
 </section>
 
-
 <script>
-    function closePopup(id) {
-  document.getElementById("popup-" + id).style.display = "none";
-}
+  function closePopup(id) {
+    document.getElementById('popup-' + id).style.display = 'none';
+  }
 
-document.addEventListener("DOMContentLoaded", function() {
-  const plusIcons = document.querySelectorAll(".plus-icon");
+  document.addEventListener('DOMContentLoaded', function () {
+    const plusIcons = document.querySelectorAll('.plus-icon');
 
-  plusIcons.forEach(icon => {
-    icon.addEventListener("click", function(e) {
-      e.preventDefault();
-      const popupId = this.getAttribute("data-popup-id");
-      console.log(popupId,'popupId');
-      document.getElementById(popupId).style.display = "flex";
+    plusIcons.forEach((icon) => {
+      icon.addEventListener('click', function (e) {
+        e.preventDefault();
+        const popupId = this.getAttribute('data-popup-id');
+        document.getElementById(popupId).style.display = 'flex';
+      });
     });
   });
-});
+
+  document.querySelectorAll('[data-select]').forEach((select) => {
+    const trigger = select.querySelector('.select-trigger');
+    const options = select.querySelectorAll('.select-option');
+    const span = trigger.querySelector('span');
+
+    trigger.addEventListener('click', () => {
+      select.classList.toggle('open');
+    });
+
+    options.forEach((option) => {
+      option.addEventListener('click', () => {
+        span.textContent = option.textContent;
+        select.classList.remove('open');
+      });
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!select.contains(e.target)) {
+        select.classList.remove('open');
+      }
+    });
+  });
 </script>
-
-{% schema %}
-{
-  "name": "Product Grid Section",
-  "settings": [],
-  "blocks": [
-    {
-      "type": "gridcol",
-      "name": "Slides",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "grid_image",
-          "label": "Image"
-        },
-        {
-          "type": "product",
-          "id": "product",
-          "label": "Product"
-        },
-        {
-          "type": "range",
-          "id": "top_position",
-          "min": 0,
-          "max": 100,
-          "step": 1,
-          "unit": "%",
-          "label": "Plus Icon Top",
-          "default": 20
-        },
-        {
-          "type": "range",
-          "id": "right_poisition",
-          "min": 0,
-          "max": 100,
-          "step": 1,
-          "unit": "%",
-          "label": "Plus Icon from Right",
-          "default": 20
-        }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "Product Grid Section"
-    }
-  ]
-}
-{% endschema %} {% endcomment %}
-
-
-{% stylesheet %}
-.grid-section {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-
-.grid-item {
-  position: relative;
-  overflow: hidden;
-}
-
-.main-image {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-}
-
-.plus-icon {
-  position: absolute;
-  transform: translate(50%, -50%);
-  cursor: pointer;
-}
-
-.plus-icon svg {
-  width: 22px;
-  height: 22px;
-}
-
-.product-popup-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.4);
-  z-index: 999;
-  justify-content: center;
-  align-items: center;
-}
-
-.product-popup {
-  background: #fff;
-  width: 80%;
-  max-width: 450px;
-  box-shadow: 0px 2px 4px 0px #00000033;
-  padding: 16px;
-  position: relative;
-  border-radius: 4px;
-}
-
-
-.popup-inner h3 {
-    color: #000000;
-    font-family: Jost;
-    font-weight: 300;
-    font-style: Light;
-    font-size: 16px;
-    leading-trim: NONE;
-    line-height: 120%;
-    letter-spacing: 0px;
-    vertical-align: middle;
-    margin: 0px;
-    margin-bottom:20px;
-    margin-top: 13px;
-}
-
-.popup-inner .popup-price {
-    margin: 0px;
-    color: #000000;
-    font-family: Lustria;
-    font-weight: 400;
-    font-style: Regular;
-    font-size: 16px;
-    leading-trim: NONE;
-    line-height: 120%;
-    letter-spacing: 0px;
-    vertical-align: middle;
-    margin-bottom: 12px;
-}
-
-.popup-inner .popup-desc {
-    margin: 0px;
-    color: #000000;
-    font-family: Jost;
-    font-weight: 300;
-    font-style: Light;
-    font-size: 14px;
-    leading-trim: NONE;
-    line-height: 110.00000000000001%;
-    letter-spacing: -1%;
-}
-
-.popup-options {
-  margin: 10px 0;
-}
-
-.popup-options label {
-  display: block;
-  margin: 0px;
-  color: #333333;
-  font-family: Jost;
-font-weight: 400;
-font-style: Regular;
-font-size: 14px;
-leading-trim: NONE;
-line-height: 130%;
-letter-spacing: 0%;
-margin-bottom: 7px;
-}
-
-.option-buttons {
-  display: flex;
-  gap: 8px;
-}
-
-.option-buttons button {
-  flex: 1;
-  border: 1px solid #000;
-  padding: 6px;
-  background: #fff;
-  cursor: pointer;
-}
-
-.option-select {
-  width: 100%;
-  padding: 6px;
-}
-
-.add-to-cart-btn {
-  margin-top: 15px;
-  width: 100%;
-  padding: 10px;
-  background: #000;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-
-.product-popup {
-  background: #fff;
-  width: 90%;
-  max-width: 350px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  border-radius: 0;
-  box-shadow: 0px 2px 4px 0px #00000033;
-  padding: 36px 20px 25px 20px;
-}
-
-.popup-inner {
-  display: flex;
-  gap: 20px;
-}
-
-.popup-left {
-  flex: 1;
-}
-
-.popup-image {
-    width: 100%;
-    object-fit: cover;
-    height: auto;
-    height: 100%;
-}
-
-.popup-right {
-  flex: 1.5;
-  display: flex;
-  flex-direction: column;
-}
-
-.close-btn {
-  position: absolute;
-  top: 12px;
-  right: 15px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0px;
-}
-
-
-.popup-options {
-  margin-bottom: 16px;
-}
-
-.popup-options label {
-  display: block;
-  margin-bottom: 6px;
-  font-weight: 500;
-}
-
-.option-buttons {
-  display: flex;
-  gap: 8px;
-}
-
-.option-btn {
-  flex: 1;
-  border: 1px solid #000;
-  padding: 8px;
-  background: #fff;
-  cursor: pointer;
-  font-size: 14px;
-  transition: 0.2s;
-}
-
-.option-btn:hover,
-.option-btn.active {
-  background: #000;
-  color: #fff;
-}
-
-.custom-select select {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #000;
-  font-size: 14px;
-}
-
-.add-to-cart-btn {
-  margin-top: auto;
-  width: 100%;
-  padding: 12px;
-  background: #000;
-  color: #fff;
-  border: none;
-  font-size: 15px;
-  font-weight: bold;
-  cursor: pointer;
-  text-transform: uppercase;
-  border-radius: 3px;
-}
-
-.product-image-and-information-container {
-    display: flex;
-    gap: 8px;
-}
-
-.product-left-side-image-container {
-    max-width: 120px;
-}
-
-.popup-options-values{
-    display: flex;
-    flex-direction: column-reverse;
-}
-
-/* --- Custom Select --- */
-.custom-select {
-  position: relative;
-  width: 100%;
-  cursor: pointer;
-}
-
-.select-trigger {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 1px solid #ccc;
-    background: #fff;
-    transition: 0.3s;
-    padding-left: 12px;
-}
-
-.size-svg{
-    border-left: 0.5px solid #000000;
-    padding: 16px 21px;
-}
-
-.arrow {
-  font-size: 12px;
-  transition: transform 0.3s;
-}
-
-.select-options {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  max-height: 0;
-  overflow: hidden;
-  border: 1px solid #ccc;
-  border-top: none;
-  background: #fff;
-  transition: max-height 0.3s ease;
-  z-index: 10;
-}
-
-.custom-select.open .select-options {
-  max-height: 300px; /* enough for all options */
-}
-
-.custom-select.open .arrow {
-  transform: rotate(180deg);
-}
-
-.select-option {
-  padding: 10px;
-  transition: background 0.3s, color 0.3s;
-}
-
-.select-option:hover {
-  background: #000;
-  color: #fff;
-}
-
-
-
-
-@media (max-width: 767px) {
-  .grid-section {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 4px;
-  }
-
-  .plus-icon svg {
-    width: 15px;
-    height: 15px;
-  }
-
-   .popup-inner {
-    flex-direction: column;
-  }
-}
-{% endstylesheet %}
-
-
-<section class="custom-grid-section">
-  <div class="grid-section">
-    {% for block in section.blocks %}
-      <div class="grid-item" {{ block.shopify_attributes }}>
-        {% if block.settings.grid_image %}
-          {{ block.settings.grid_image | image_url: width:800 | image_tag: class:'main-image', loading:'lazy' }}
-        {% endif %}
-
-        <!-- Plus Icon -->
-        <div class="plus-icon"
-          style="top: {{ block.settings.top_position }}%; right: {{ block.settings.right_poisition }}%;"
-          data-popup-id="popup-{{ block.id }}">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 17" fill="none">
-            <circle cx="7.86496" cy="8.27719" r="7.85714" fill="#F8F8F8" fill-opacity="0.9"/>
-            <path d="M8.1123 5.44995V11.4939" stroke="black" stroke-linecap="square" stroke-linejoin="round"/>
-            <path d="M5.09033 8.47192H11.1343" stroke="black" stroke-linecap="square" stroke-linejoin="round"/>
-          </svg>
-        </div>
-      </div>
-
-      <!-- Hidden Popup for this product -->
-    <div class="product-popup-overlay" id="popup-{{ block.id }}">
-    <div class="product-popup">
-        <button class="close-btn" onclick="closePopup('{{ block.id }}')"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-<path d="M5.0376 4.94354L13.5229 13.4288" stroke="black" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
-<path d="M5.0376 13.4285L13.5229 4.94325" stroke="black" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
-</svg></button>
-
-        {% assign product = all_products[block.settings.product.handle] %}
-        {% if product %}
-        <div class="popup-inner">
-
-
-            <div class = "product-popup-main-container">
-                <div class = "product-image-and-information-container">
-                    <div class = "product-left-side-image-container">
-                         {{ product.featured_image | image_url: width:400 | image_tag: class:'popup-image', loading:'lazy' }}
-                    </div>
-                    <div class = "product-right-side-information">
-                        <h3 class="popup-title">{{ product.title }}</h3>
-                        <p class="popup-price">{{ product.price | money }}</p>
-                        <p class="popup-desc">{{ product.description | strip_html | truncate: 120 }}</p>
-                    </div>
-                </div>
-                {% if product.options.size > 0 %}
-                    <div class = "popup-options-values">
-                        {% for option in product.options_with_values %}
-                            <div class="popup-options">
-                                <label>{{ option.name }}</label>
-                                {% if option.name contains 'Color' %}
-                                <div class="option-buttons">
-                                    {% for value in option.values %}
-                                        {% assign variant = product.variants | where: "option1", value | first %}
-                                    <button class="option-btn">
-                                        {% if variant and variant.metafields.custom.color_code %}
-        <span class="color-strip" style="background-color: {{ variant.metafields.custom.color_code }}"></span>
-      {% endif %}
-                                        {{ value }}
-                                    </button>
-                                    {% endfor %}
-                                </div>
-                                {% else %}
-                                {% comment %} <div class="custom-select">
-                                    <select>
-                                    <option>Choose your {{ option.name }}</option>
-                                    {% for value in option.values %}
-                                        <option>{{ value }}</option>
-                                    {% endfor %}
-                                    </select>
-                                </div> {% endcomment %}
-                                  <div class="custom-select" data-select>
-                                    <div class="select-trigger">
-                                    <span>Choose your {{ option.name }}</span>
-                                    <div class = "size-svg">
-                                                                            <span class="arrow"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="10" viewBox="0 0 16 10" fill="none">
-<path d="M2 2L8 8L14 2" stroke="black" stroke-width="1.5" stroke-linecap="square"/>
-</svg></span>
-                                    </div>
-                                    </div>
-                                    <div class="select-options">
-                                    {% for value in option.values %}
-                                        <div class="select-option" data-value="{{ value }}">{{ value }}</div>
-                                    {% endfor %}
-                                    </div>
-                                </div>
-                                {% endif %}
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-
-                <button class="add-to-cart-btn">Add to Cart →</button>
-            </div>
-            </div>
-        {% endif %}
-    </div>
-    </div>
-
-    {% endfor %}
-  </div>
-</section>
-
-
-<script>
-function closePopup(id) {
-  document.getElementById("popup-" + id).style.display = "none";
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-  const plusIcons = document.querySelectorAll(".plus-icon");
-
-  plusIcons.forEach(icon => {
-    icon.addEventListener("click", function(e) {
-      e.preventDefault();
-      const popupId = this.getAttribute("data-popup-id");
-      document.getElementById(popupId).style.display = "flex";
-    });
-  });
-});
-
-
-document.querySelectorAll("[data-select]").forEach(select => {
-  const trigger = select.querySelector(".select-trigger");
-  const options = select.querySelectorAll(".select-option");
-  const span = trigger.querySelector("span");
-
-  trigger.addEventListener("click", () => {
-    select.classList.toggle("open");
-  });
-
-  options.forEach(option => {
-    option.addEventListener("click", () => {
-      span.textContent = option.textContent;
-      select.classList.remove("open");
-    });
-  });
-
-  // Close when clicking outside
-  document.addEventListener("click", e => {
-    if (!select.contains(e.target)) {
-      select.classList.remove("open");
-    }
-  });
-});
-
-</script>
-
 
 {% schema %}
 {
@@ -758,4 +781,3 @@ document.querySelectorAll("[data-select]").forEach(select => {
   ]
 }
 {% endschema %}
-
