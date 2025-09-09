@@ -765,7 +765,7 @@
   // Reset the Add to Cart button
   const addToCartBtn = popup.querySelector('.add-to-cart-btn');
   if (addToCartBtn) {
-    addToCartBtn.removeAttribute('data-main-product'); // Clear previous data
+    addToCartBtn.setAttribute('data-main-product', ''); // Clear previous data
     addToCartBtn.textContent = "Add to Cart →";
     addToCartBtn.disabled = false;
     addToCartBtn.style.opacity = "1";
