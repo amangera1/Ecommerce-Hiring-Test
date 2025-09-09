@@ -744,7 +744,18 @@
                   </div>
                 {% endif %}
                 <p class="popup-error-message" style="color:red; display:none;">Please select an option.</p>
-                <button class="add-to-cart-btn" data-main-product="">Add to Cart →</button>
+                {% comment %} <button class="add-to-cart-btn" data-main-product="">Add to Cart →</button> {% endcomment %}
+                 {% for variant in product.variants %}
+  <button 
+    type="button" 
+    class="option-btn"
+    data-variant-id="{{ variant.id }}"
+    {% unless variant.available %}disabled{% endunless %}
+  >
+    {{ variant.title }}
+    {% unless variant.available %} - Sold Out{% endunless %}
+  </button>
+{% endfor %}
               </div>
             </div>
           {% endif %}
