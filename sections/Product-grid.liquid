@@ -795,7 +795,7 @@
     });
   });
 
- document.addEventListener("DOMContentLoaded", () => {
+ {% comment %} document.addEventListener("DOMContentLoaded", () => {
   const addToCartBtn = document.querySelector(".add-to-cart-btn");
   const errorMsg = document.querySelector(".popup-error-message");
 
@@ -841,7 +841,76 @@
       console.log("Ready to add:", selectedOptions);
     }
   });
-}); 
+});  {% endcomment %}
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const addToCartBtn = document.querySelector(".add-to-cart-btn");
+  const errorMsg = document.querySelector(".popup-error-message");
+
+  let selectedOptions = {
+    Color: null,
+    Size: null,
+    VariantId: null,
+  };
+
+  // Handle color selection
+  document.querySelectorAll(".option-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      selectedOptions.Color = btn.dataset.value;
+      selectedOptions.VariantId = btn.dataset.variantId;
+
+      addToCartBtn.setAttribute("data-main-product", JSON.stringify(selectedOptions));
+      errorMsg.style.display = "none"; // Hide error if fixed
+    });
+  });
+
+  // Handle size selection
+  document.querySelectorAll(".select-option").forEach(option => {
+    option.addEventListener("click", () => {
+      selectedOptions.Size = option.dataset.value;
+      if (option.dataset.variantId) {
+        selectedOptions.VariantId = option.dataset.variantId;
+      }
+
+      addToCartBtn.setAttribute("data-main-product", JSON.stringify(selectedOptions));
+      errorMsg.style.display = "none"; // Hide error if fixed
+    });
+  });
+
+  // Validate and Add to Cart
+  addToCartBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    if (!selectedOptions.Color || !selectedOptions.Size || !selectedOptions.VariantId) {
+      errorMsg.style.display = "block";
+      errorMsg.textContent = "Please select all required options.";
+      return;
+    }
+
+    errorMsg.style.display = "none";
+
+    // ✅ Perform Add to Cart API call
+    fetch("/cart/add.js", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
+      body: JSON.stringify({
+        id: selectedOptions.VariantId,
+        quantity: 1,
+      }),
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log("✅ Product added to cart:", data);
+      })
+      .catch(err => {
+        console.error("❌ Error adding to cart:", err);
+      });
+  });
+});
 
 
 
