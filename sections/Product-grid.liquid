@@ -570,6 +570,18 @@
   color: #fff;
 }
 
+.select-trigger .label-name{
+    font-family: Jost;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 16px;
+    leading-trim: NONE;
+    line-height: 100%;
+    letter-spacing: -2%;
+    vertical-align: middle;
+    color: #000;
+}
+
 
 
 
@@ -679,7 +691,7 @@
                           {% endcomment %}
                           <div class="custom-select" data-select>
                             <div class="select-trigger">
-                              <span>Choose your {{ option.name }}</span>
+                              <span class = "label-name">Choose your {{ option.name }}</span>
                               <div class="size-svg">
                                 <span class="arrow">
                                   <svg
