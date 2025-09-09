@@ -539,13 +539,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>
                 {% if product.options.size > 0 %}
                     <div class = "popup-options-values">
-                                                {% for option in product.options_with_values %}
+                        {% for option in product.options_with_values %}
                             <div class="popup-options">
                                 <label>{{ option.name }}</label>
                                 {% if option.name contains 'Color' %}
                                 <div class="option-buttons">
                                     {% for value in option.values %}
-                                    <button class="option-btn">{{ value }}</button>
+                                    <button class="option-btn {{ value | handleize }}">{{ value }}</button>
                                     {% endfor %}
                                 </div>
                                 {% else %}
