@@ -549,13 +549,24 @@ document.addEventListener("DOMContentLoaded", function() {
                                     {% endfor %}
                                 </div>
                                 {% else %}
-                                <div class="custom-select">
+                                {% comment %} <div class="custom-select">
                                     <select>
                                     <option>Choose your {{ option.name }}</option>
                                     {% for value in option.values %}
                                         <option>{{ value }}</option>
                                     {% endfor %}
                                     </select>
+                                </div> {% endcomment %}
+                                  <div class="custom-select" data-select>
+                                    <div class="select-trigger">
+                                    <span>Choose your {{ option.name }}</span>
+                                    <span class="arrow">▼</span>
+                                    </div>
+                                    <div class="select-options">
+                                    {% for value in option.values %}
+                                        <div class="select-option" data-value="{{ value }}">{{ value }}</div>
+                                    {% endfor %}
+                                    </div>
                                 </div>
                                 {% endif %}
                             </div>
