@@ -795,7 +795,7 @@
     });
   });
 
-{% comment %} document.addEventListener("DOMContentLoaded", () => {
+ document.addEventListener("DOMContentLoaded", () => {
   const addToCartBtn = document.querySelector(".add-to-cart-btn");
   const errorMsg = document.querySelector(".popup-error-message");
 
@@ -841,140 +841,7 @@
       console.log("Ready to add:", selectedOptions);
     }
   });
-}); {% endcomment %}
-
-document.addEventListener("DOMContentLoaded", () => {
-  const addToCartBtn = document.querySelector(".add-to-cart-btn");
-  const errorMsg = document.querySelector(".popup-error-message");
-  const cartNotification = document.querySelector("cart-notification");
-  const cartNotificationWrapper = document.getElementById("cart-notification");
-  const cartNotificationProduct = document.getElementById("cart-notification-product");
-  const cartNotificationButton = document.getElementById("cart-notification-button");
-
-  let selectedOptions = {
-    Color: null,
-    Size: null,
-    VariantId: null,
-  };
-
-  // --- Handle color selection ---
-  document.querySelectorAll(".option-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      selectedOptions.Color = btn.dataset.value;
-      selectedOptions.VariantId = btn.dataset.variantId || null;
-
-      addToCartBtn.setAttribute("data-main-product", JSON.stringify(selectedOptions));
-      errorMsg.style.display = "none";
-    });
-  });
-
-  // --- Handle size selection (dropdown example) ---
-  document.querySelectorAll(".select-option").forEach(option => {
-    option.addEventListener("click", () => {
-      selectedOptions.Size = option.dataset.value;
-      if (option.dataset.variantId) {
-        selectedOptions.VariantId = option.dataset.variantId;
-      }
-
-      addToCartBtn.setAttribute("data-main-product", JSON.stringify(selectedOptions));
-      errorMsg.style.display = "none";
-    });
-  });
-
-  // --- Add to Cart Click Handler ---
-  addToCartBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-
-    const dataAttr = addToCartBtn.getAttribute("data-main-product");
-    let productData = null;
-
-    try {
-      productData = dataAttr ? JSON.parse(dataAttr) : null;
-    } catch (err) {
-      console.warn("Invalid product data:", dataAttr);
-    }
-
-    if (!productData || !productData.VariantId) {
-      errorMsg.style.display = "block";
-      errorMsg.textContent = "Please select all required options.";
-      return;
-    }
-
-    errorMsg.style.display = "none";
-
-    // --- Add to cart API call ---
-    fetch("/cart/add.js", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-      },
-      body: JSON.stringify({
-        id: productData.VariantId,
-        quantity: 1,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("Added to cart:", data);
-        updateCartNotification(data);
-      })
-      .catch((err) => {
-        console.error("Error adding to cart:", err);
-      });
-  });
-
-  // --- Update Dawn's cart-notification ---
-  function updateCartNotification(item) {
-    if (!item) return;
-
-    // Build product options (Size, Color, etc.)
-    let optionsHtml = "";
-    if (item.options_with_values) {
-      item.options_with_values.forEach(opt => {
-        optionsHtml += `
-          <div class="product-option">
-            <dt>${opt.name}:</dt>
-            <dd>${opt.value}</dd>
-          </div>
-        `;
-      });
-    }
-
-    // Update product info inside cart-notification
-    cartNotificationProduct.innerHTML = `
-      <div class="cart-notification-product__image global-media-settings">
-        <img src="${item.image}" alt="${item.product_title}" width="70" height="47" loading="lazy">
-      </div>
-      <div>
-        <h3 class="cart-notification-product__name h4">${item.product_title}</h3>
-        <dl>${optionsHtml}</dl>
-      </div>
-    `;
-
-    // Update cart count
-    fetch("/cart.js")
-      .then((res) => res.json())
-      .then((cart) => {
-        cartNotificationButton.textContent = `View cart (${cart.item_count})`;
-      });
-
-    // Show the cart notification popup
-    cartNotificationWrapper.classList.add("active");
-  }
-
-  // --- Close button + Continue shopping ---
-  const closeBtn = cartNotificationWrapper.querySelector(".cart-notification__close");
-  const continueBtn = cartNotificationWrapper.querySelector("button.button-label");
-
-  [closeBtn, continueBtn].forEach(btn => {
-    if (btn) {
-      btn.addEventListener("click", () => {
-        cartNotificationWrapper.classList.remove("active");
-      });
-    }
-  });
-});
+}); 
 
 
 
