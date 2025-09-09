@@ -795,7 +795,7 @@
     });
   });
 
-document.addEventListener("DOMContentLoaded", () => {
+{% comment %} document.addEventListener("DOMContentLoaded", () => {
   const addToCartBtn = document.querySelector(".add-to-cart-btn");
   const errorMsg = document.querySelector(".popup-error-message");
 
@@ -841,7 +841,91 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("Ready to add:", selectedOptions);
     }
   });
+}); {% endcomment %}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const addToCartBtn = document.querySelector(".add-to-cart-btn");
+  const errorMsg = document.querySelector(".popup-error-message");
+  const cartNotification = document.querySelector("cart-notification");
+  const cartNotificationWrapper = document.getElementById("cart-notification");
+  const cartNotificationProduct = document.getElementById("cart-notification-product");
+  const cartNotificationButton = document.getElementById("cart-notification-button");
+
+  addToCartBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    // Get variant details from data-main-product
+    const productData = JSON.parse(addToCartBtn.getAttribute("data-main-product"));
+
+    if (!productData || !productData.VariantId) {
+      errorMsg.style.display = "block";
+      errorMsg.textContent = "Please select all required options.";
+      return;
+    }
+
+    errorMsg.style.display = "none";
+
+    // Add to cart request
+    fetch("/cart/add.js", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
+      body: JSON.stringify({
+        id: productData.VariantId,
+        quantity: 1,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Added to cart:", data);
+        updateCartNotification(data);
+      })
+      .catch((err) => {
+        console.error("Error adding to cart:", err);
+      });
+  });
+
+  function updateCartNotification(item) {
+    if (!item) return;
+
+    // Build product options (Size, Color)
+    let optionsHtml = "";
+    if (item.options_with_values) {
+      item.options_with_values.forEach(opt => {
+        optionsHtml += `
+          <div class="product-option">
+            <dt>${opt.name}:</dt>
+            <dd>${opt.value}</dd>
+          </div>
+        `;
+      });
+    }
+
+    // Update product info inside cart-notification
+    cartNotificationProduct.innerHTML = `
+      <div class="cart-notification-product__image global-media-settings">
+        <img src="${item.image}" alt="${item.product_title}" width="70" height="47" loading="lazy">
+      </div>
+      <div>
+        <h3 class="cart-notification-product__name h4">${item.product_title}</h3>
+        <dl>${optionsHtml}</dl>
+      </div>
+    `;
+
+    // Update cart link with current count
+    fetch("/cart.js")
+      .then((res) => res.json())
+      .then((cart) => {
+        cartNotificationButton.textContent = `View cart (${cart.item_count})`;
+      });
+
+    // Show the cart notification popup
+    cartNotificationWrapper.classList.add("active");
+  }
 });
+
 
 
 </script>
