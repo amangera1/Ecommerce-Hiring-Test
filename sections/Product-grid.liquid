@@ -658,6 +658,32 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 });
+
+
+document.querySelectorAll("[data-select]").forEach(select => {
+  const trigger = select.querySelector(".select-trigger");
+  const options = select.querySelectorAll(".select-option");
+  const span = trigger.querySelector("span");
+
+  trigger.addEventListener("click", () => {
+    select.classList.toggle("open");
+  });
+
+  options.forEach(option => {
+    option.addEventListener("click", () => {
+      span.textContent = option.textContent;
+      select.classList.remove("open");
+    });
+  });
+
+  // Close when clicking outside
+  document.addEventListener("click", e => {
+    if (!select.contains(e.target)) {
+      select.classList.remove("open");
+    }
+  });
+});
+
 </script>
 
 
