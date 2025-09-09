@@ -757,9 +757,39 @@
 </section>
 
 <script>
-  function closePopup(id) {
-    document.getElementById('popup-' + id).style.display = 'none';
+
+    function closePopup(id) {
+  const popup = document.getElementById('popup-' + id);
+  popup.style.display = 'none';
+
+  // Reset the Add to Cart button
+  const addToCartBtn = popup.querySelector('.add-to-cart-btn');
+  if (addToCartBtn) {
+    addToCartBtn.removeAttribute('data-main-product'); // Clear previous data
+    addToCartBtn.textContent = "Add to Cart →";
+    addToCartBtn.disabled = false;
+    addToCartBtn.style.opacity = "1";
   }
+
+  // Reset selected options in the popup
+  const colorButtons = popup.querySelectorAll('.option-btn');
+  colorButtons.forEach(btn => btn.classList.remove('active')); // optional: reset active state
+
+  const selectTriggers = popup.querySelectorAll('.select-trigger .label-name');
+  selectTriggers.forEach(span => {
+    const parentSelect = span.closest('.custom-select');
+    const optionName = parentSelect.dataset.option || '';
+    span.textContent = `Choose your ${optionName}`;
+    parentSelect.classList.remove('open');
+  });
+
+  // Hide any error messages
+  const errorMsg = popup.querySelector('.popup-error-message');
+  if (errorMsg) {
+    errorMsg.style.display = 'none';
+  }
+}
+
 
   document.addEventListener('DOMContentLoaded', function () {
     const plusIcons = document.querySelectorAll('.plus-icon');
@@ -797,219 +827,6 @@
     });
   });
 
- {% comment %} document.addEventListener("DOMContentLoaded", () => {
-  const addToCartBtn = document.querySelector(".add-to-cart-btn");
-  const errorMsg = document.querySelector(".popup-error-message");
-
-  let selectedOptions = {
-    Color: null,
-    Size: null,
-    VariantId: null,
-  };
-
-  // Handle color selection
-  document.querySelectorAll(".option-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      selectedOptions.Color = btn.dataset.value;
-      selectedOptions.VariantId = btn.dataset.variantId;
-
-      addToCartBtn.setAttribute("data-main-product", JSON.stringify(selectedOptions));
-      errorMsg.style.display = "none"; // Hide error if fixed
-    });
-  });
-
-  // Handle size selection
-  document.querySelectorAll(".select-option").forEach(option => {
-    option.addEventListener("click", () => {
-      selectedOptions.Size = option.dataset.value;
-      if (option.dataset.variantId) {
-        selectedOptions.VariantId = option.dataset.variantId;
-      }
-
-      addToCartBtn.setAttribute("data-main-product", JSON.stringify(selectedOptions));
-      errorMsg.style.display = "none"; // Hide error if fixed
-    });
-  });
-
-  // Validate on Add to Cart click
-  addToCartBtn.addEventListener("click", (e) => {
-    if (!selectedOptions.Color || !selectedOptions.Size) {
-      e.preventDefault(); // Stop add-to-cart action
-      errorMsg.style.display = "block"; // Show error
-      errorMsg.textContent = "Please select all required options.";
-    } else {
-      errorMsg.style.display = "none"; // Hide error if all good
-      // ✅ You can now proceed with your actual add-to-cart logic here
-      console.log("Ready to add:", selectedOptions);
-    }
-  });
-});  {% endcomment %}
-
-
-{% comment %} document.addEventListener("DOMContentLoaded", () => {
-  const addToCartBtn = document.querySelector(".add-to-cart-btn");
-  const errorMsg = document.querySelector(".popup-error-message");
-
-  let selectedOptions = {
-    Color: null,
-    Size: null,
-    VariantId: null,
-  };
-
-  // Handle color selection
-  document.querySelectorAll(".option-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      selectedOptions.Color = btn.dataset.value;
-      selectedOptions.VariantId = btn.dataset.variantId;
-
-      addToCartBtn.setAttribute("data-main-product", JSON.stringify(selectedOptions));
-      errorMsg.style.display = "none"; // Hide error if fixed
-    });
-  });
-
-  // Handle size selection
-  document.querySelectorAll(".select-option").forEach(option => {
-    option.addEventListener("click", () => {
-      selectedOptions.Size = option.dataset.value;
-      if (option.dataset.variantId) {
-        selectedOptions.VariantId = option.dataset.variantId;
-      }
-
-      addToCartBtn.setAttribute("data-main-product", JSON.stringify(selectedOptions));
-      errorMsg.style.display = "none"; // Hide error if fixed
-    });
-  });
-
-  // Validate and Add to Cart
-  addToCartBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-
-    if (!selectedOptions.Color || !selectedOptions.Size) {
-      errorMsg.style.display = "block";
-      errorMsg.textContent = "Please select all required options.";
-      return;
-    }
-
-    errorMsg.style.display = "none";
-
-    // ✅ Perform Add to Cart API call
-    fetch("/cart/add.js", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-      },
-      body: JSON.stringify({
-        id: selectedOptions.VariantId,
-        quantity: 1,
-      }),
-    })
-      .then(res => res.json())
-      .then(data => {
-        console.log("✅ Product added to cart:", data);
-        window.location.href = "/cart";
-      })
-      .catch(err => {
-        console.error("❌ Error adding to cart:", err);
-      });
-  });
-}); {% endcomment %}
-
-{% comment %} document.addEventListener("DOMContentLoaded", () => {
-  const addToCartBtn = document.querySelector(".add-to-cart-btn");
-  const errorMsg = document.querySelector(".popup-error-message");
-
-  let selectedOptions = {
-    Color: null,
-    Size: null,
-    VariantId: null,
-    InStock: true, // New: track stock status
-  };
-
-  // Utility: update Add to Cart button based on stock
-  function updateATCButton() {
-    if (selectedOptions.InStock) {
-      addToCartBtn.textContent = "Add to Cart →";
-      addToCartBtn.disabled = false;
-      addToCartBtn.style.opacity = "1";
-    } else {
-      addToCartBtn.textContent = "Sold Out";
-      addToCartBtn.disabled = true;
-      addToCartBtn.style.opacity = "0.5";
-    }
-  }
-
-  // Handle color selection
-  document.querySelectorAll(".option-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      selectedOptions.Color = btn.dataset.value;
-      selectedOptions.VariantId = btn.dataset.variantId;
-      selectedOptions.InStock = btn.dataset.inStock === "true"; // Read stock
-
-      addToCartBtn.setAttribute("data-main-product", JSON.stringify(selectedOptions));
-      errorMsg.style.display = "none"; // Hide error if fixed
-
-      updateATCButton(); // ✅ Update ATC button
-    });
-  });
-
-  // Handle size selection
-  document.querySelectorAll(".select-option").forEach(option => {
-    option.addEventListener("click", () => {
-      selectedOptions.Size = option.dataset.value;
-      if (option.dataset.variantId) {
-        selectedOptions.VariantId = option.dataset.variantId;
-      }
-      selectedOptions.InStock = option.dataset.inStock === "true"; // Read stock
-
-      addToCartBtn.setAttribute("data-main-product", JSON.stringify(selectedOptions));
-      errorMsg.style.display = "none"; // Hide error if fixed
-
-      updateATCButton(); // ✅ Update ATC button
-    });
-  });
-
-  // Validate and Add to Cart
-  addToCartBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-
-    if (!selectedOptions.Color || !selectedOptions.Size) {
-      errorMsg.style.display = "block";
-      errorMsg.textContent = "Please select all required options.";
-      return;
-    }
-
-    // Prevent adding out-of-stock item
-    if (!selectedOptions.InStock) {
-      errorMsg.style.display = "block";
-      errorMsg.textContent = "This variant is out of stock.";
-      return;
-    }
-
-    errorMsg.style.display = "none";
-
-    // ✅ Perform Add to Cart API call
-    fetch("/cart/add.js", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-      },
-      body: JSON.stringify({
-        id: selectedOptions.VariantId,
-        quantity: 1,
-      }),
-    })
-      .then(res => res.json())
-      .then(data => {
-        console.log("✅ Product added to cart:", data);
-        window.location.href = "/cart";
-      })
-      .catch(err => {
-        console.error("❌ Error adding to cart:", err);
-      });
-  });
-}); {% endcomment %}
 
 document.addEventListener("DOMContentLoaded", () => {
   const popups = document.querySelectorAll(".product-popup-overlay");
