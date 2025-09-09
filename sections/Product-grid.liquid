@@ -529,7 +529,14 @@
 
   .custom-select.open .arrow svg {
     transform: rotate(180deg);
+
   }
+
+    .custom-select .arrow svg {
+        transition: transform .3s ease-in-out, opacity .3s ease-in-out;
+    }
+
+
 
   .select-option {
     padding: 10px;
