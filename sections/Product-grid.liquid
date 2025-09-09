@@ -795,8 +795,10 @@
     });
   });
 
-  document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
   const addToCartBtn = document.querySelector(".add-to-cart-btn");
+  const errorMsg = document.querySelector(".popup-error-message");
+
   let selectedOptions = {
     Color: null,
     Size: null,
@@ -809,12 +811,12 @@
       selectedOptions.Color = btn.dataset.value;
       selectedOptions.VariantId = btn.dataset.variantId;
 
-      // Update data attribute
       addToCartBtn.setAttribute("data-main-product", JSON.stringify(selectedOptions));
+      errorMsg.style.display = "none"; // Hide error if fixed
     });
   });
 
-  // Handle size selection (dropdown example)
+  // Handle size selection
   document.querySelectorAll(".select-option").forEach(option => {
     option.addEventListener("click", () => {
       selectedOptions.Size = option.dataset.value;
@@ -822,11 +824,25 @@
         selectedOptions.VariantId = option.dataset.variantId;
       }
 
-      // Update data attribute
       addToCartBtn.setAttribute("data-main-product", JSON.stringify(selectedOptions));
+      errorMsg.style.display = "none"; // Hide error if fixed
     });
   });
+
+  // Validate on Add to Cart click
+  addToCartBtn.addEventListener("click", (e) => {
+    if (!selectedOptions.Color || !selectedOptions.Size || !selectedOptions.VariantId) {
+      e.preventDefault(); // Stop add-to-cart action
+      errorMsg.style.display = "block"; // Show error
+      errorMsg.textContent = "Please select all required options.";
+    } else {
+      errorMsg.style.display = "none"; // Hide error if all good
+      // ✅ You can now proceed with your actual add-to-cart logic here
+      console.log("Ready to add:", selectedOptions);
+    }
+  });
 });
+
 
 </script>
 
