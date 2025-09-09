@@ -851,11 +851,48 @@ document.addEventListener("DOMContentLoaded", () => {
   const cartNotificationProduct = document.getElementById("cart-notification-product");
   const cartNotificationButton = document.getElementById("cart-notification-button");
 
+  let selectedOptions = {
+    Color: null,
+    Size: null,
+    VariantId: null,
+  };
+
+  // --- Handle color selection ---
+  document.querySelectorAll(".option-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      selectedOptions.Color = btn.dataset.value;
+      selectedOptions.VariantId = btn.dataset.variantId || null;
+
+      addToCartBtn.setAttribute("data-main-product", JSON.stringify(selectedOptions));
+      errorMsg.style.display = "none";
+    });
+  });
+
+  // --- Handle size selection (dropdown example) ---
+  document.querySelectorAll(".select-option").forEach(option => {
+    option.addEventListener("click", () => {
+      selectedOptions.Size = option.dataset.value;
+      if (option.dataset.variantId) {
+        selectedOptions.VariantId = option.dataset.variantId;
+      }
+
+      addToCartBtn.setAttribute("data-main-product", JSON.stringify(selectedOptions));
+      errorMsg.style.display = "none";
+    });
+  });
+
+  // --- Add to Cart Click Handler ---
   addToCartBtn.addEventListener("click", (e) => {
     e.preventDefault();
 
-    // Get variant details from data-main-product
-    const productData = JSON.parse(addToCartBtn.getAttribute("data-main-product"));
+    const dataAttr = addToCartBtn.getAttribute("data-main-product");
+    let productData = null;
+
+    try {
+      productData = dataAttr ? JSON.parse(dataAttr) : null;
+    } catch (err) {
+      console.warn("Invalid product data:", dataAttr);
+    }
 
     if (!productData || !productData.VariantId) {
       errorMsg.style.display = "block";
@@ -865,7 +902,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     errorMsg.style.display = "none";
 
-    // Add to cart request
+    // --- Add to cart API call ---
     fetch("/cart/add.js", {
       method: "POST",
       headers: {
@@ -887,10 +924,11 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   });
 
+  // --- Update Dawn's cart-notification ---
   function updateCartNotification(item) {
     if (!item) return;
 
-    // Build product options (Size, Color)
+    // Build product options (Size, Color, etc.)
     let optionsHtml = "";
     if (item.options_with_values) {
       item.options_with_values.forEach(opt => {
@@ -914,7 +952,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
     `;
 
-    // Update cart link with current count
+    // Update cart count
     fetch("/cart.js")
       .then((res) => res.json())
       .then((cart) => {
@@ -924,6 +962,18 @@ document.addEventListener("DOMContentLoaded", () => {
     // Show the cart notification popup
     cartNotificationWrapper.classList.add("active");
   }
+
+  // --- Close button + Continue shopping ---
+  const closeBtn = cartNotificationWrapper.querySelector(".cart-notification__close");
+  const continueBtn = cartNotificationWrapper.querySelector("button.button-label");
+
+  [closeBtn, continueBtn].forEach(btn => {
+    if (btn) {
+      btn.addEventListener("click", () => {
+        cartNotificationWrapper.classList.remove("active");
+      });
+    }
+  });
 });
 
 
