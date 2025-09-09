@@ -613,6 +613,7 @@ margin-bottom: 7px;
                                 {% if option.name contains 'Color' %}
                                 <div class="option-buttons">
                                     {% for value in option.values %}
+                                        {% assign variant = product.variants | where: "option1", value | first %}
                                     <button class="option-btn">
                                         {% if variant and variant.metafields.custom.color_code %}
         <span class="color-strip" style="background-color: {{ variant.metafields.custom.color_code }}"></span>
