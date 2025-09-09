@@ -473,6 +473,62 @@ document.addEventListener("DOMContentLoaded", function() {
     flex-direction: column-reverse;
 }
 
+/* --- Custom Select --- */
+.custom-select {
+  position: relative;
+  width: 200px;
+  font-family: sans-serif;
+  cursor: pointer;
+}
+
+.select-trigger {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background: #fff;
+  transition: 0.3s;
+}
+
+.arrow {
+  font-size: 12px;
+  transition: transform 0.3s;
+}
+
+.select-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 0;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  border-top: none;
+  background: #fff;
+  transition: max-height 0.3s ease;
+  z-index: 10;
+}
+
+.custom-select.open .select-options {
+  max-height: 300px; /* enough for all options */
+}
+
+.custom-select.open .arrow {
+  transform: rotate(180deg);
+}
+
+.select-option {
+  padding: 10px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.select-option:hover {
+  background: #000;
+  color: #fff;
+}
+
+
 
 
 @media (max-width: 767px) {
