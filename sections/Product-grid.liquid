@@ -694,16 +694,6 @@
                             {% endfor %}
                           </div>
                         {% else %}
-                          {% comment %}
-                            <div class="custom-select">
-                                <select>
-                                <option>Choose your {{ option.name }}</option>
-                                {% for value in option.values %}
-                                    <option>{{ value }}</option>
-                                {% endfor %}
-                                </select>
-                            </div>
-                          {% endcomment %}
                           <div class="custom-select" data-select>
                             <div class="select-trigger">
                                 <div class = "size-label-name">
@@ -735,7 +725,7 @@
                   </div>
                 {% endif %}
 
-                <button class="add-to-cart-btn">Add to Cart →</button>
+                <button class="add-to-cart-btn" data-main-product = >Add to Cart →</button>
               </div>
             </div>
           {% endif %}
