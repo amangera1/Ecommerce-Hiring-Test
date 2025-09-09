@@ -616,19 +616,19 @@
                     
                     {% for option in product.options_with_values %}
 
-                        {% assign variant = product.variants | where: "option1", value | first %}
-{% if variant == nil %}
-  {% assign variant = product.variants | where: "option2", value | first %}
-{% endif %}
-{% if variant == nil %}
-  {% assign variant = product.variants | where: "option3", value | first %}
-{% endif %}
+                        
                       <div class="popup-options">
                         <label>{{ option.name }}</label>
                         {% if option.name contains 'Color' %}
                           <div class="option-buttons">
                             {% for value in option.values %}
-                              {% assign variant = product.variants | where: 'option1', value | first %}
+                                 {% assign variant = product.variants | where: "option1", value | first %}
+          {% if variant == nil %}
+            {% assign variant = product.variants | where: "option2", value | first %}
+          {% endif %}
+          {% if variant == nil %}
+            {% assign variant = product.variants | where: "option3", value | first %}
+          {% endif %}
                               <button class="option-btn">
                                 {% if variant and variant.metafields.custom.color_code %}
                                   <span
