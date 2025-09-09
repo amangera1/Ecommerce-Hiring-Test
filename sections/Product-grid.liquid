@@ -744,18 +744,7 @@
                   </div>
                 {% endif %}
                 <p class="popup-error-message" style="color:red; display:none;">Please select an option.</p>
-               {% assign first_variant = product.selected_or_first_available_variant %}
-                <button 
-                class="add-to-cart-btn"
-                data-main-product="{{ first_variant.id }}"
-                {% unless first_variant.available %}disabled{% endunless %}
-                >
-                {% if first_variant.available %}
-                    Add to Cart →
-                {% else %}
-                    Sold Out
-                {% endif %}
-                </button>
+                <button class="add-to-cart-btn" data-main-product="" data-variants='{{ product.variants | json | escape }}'>Add to Cart →</button>
               </div>
             </div>
           {% endif %}
