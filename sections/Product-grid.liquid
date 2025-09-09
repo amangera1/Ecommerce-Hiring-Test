@@ -233,388 +233,388 @@
 {% endcomment %}
 
 {% stylesheet %}
-  .grid-section {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
+    .grid-section {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
 
-  .grid-item {
-    position: relative;
-    overflow: hidden;
-  }
+    .grid-item {
+      position: relative;
+      overflow: hidden;
+    }
 
-  .main-image {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-  }
+    .main-image {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
 
-  .plus-icon {
-    position: absolute;
-    transform: translate(50%, -50%);
-    cursor: pointer;
-  }
+    .plus-icon {
+      position: absolute;
+      transform: translate(50%, -50%);
+      cursor: pointer;
+    }
 
-  .plus-icon svg {
-    width: 22px;
-    height: 22px;
-  }
+    .plus-icon svg {
+      width: 22px;
+      height: 22px;
+    }
 
-  .product-popup-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.4);
-    z-index: 999;
-    justify-content: center;
-    align-items: center;
-  }
+    .product-popup-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 999;
+      justify-content: center;
+      align-items: center;
+    }
 
-  .product-popup {
-    background: #fff;
-    width: 80%;
-    max-width: 450px;
-    box-shadow: 0px 2px 4px 0px #00000033;
-    padding: 16px;
-    position: relative;
-    border-radius: 4px;
-  }
+    .product-popup {
+      background: #fff;
+      width: 80%;
+      max-width: 450px;
+      box-shadow: 0px 2px 4px 0px #00000033;
+      padding: 16px;
+      position: relative;
+      border-radius: 4px;
+    }
 
 
-  .popup-inner h3 {
-      color: #000000;
+    .popup-inner h3 {
+        color: #000000;
+        font-family: Jost;
+        font-weight: 300;
+        font-style: Light;
+        font-size: 16px;
+        leading-trim: NONE;
+        line-height: 120%;
+        letter-spacing: 0px;
+        vertical-align: middle;
+        margin: 0px;
+        margin-bottom:20px;
+        margin-top: 13px;
+    }
+
+    .popup-inner .popup-price {
+        margin: 0px;
+        color: #000000;
+        font-family: Lustria;
+        font-weight: 400;
+        font-style: Regular;
+        font-size: 16px;
+        leading-trim: NONE;
+        line-height: 120%;
+        letter-spacing: 0px;
+        vertical-align: middle;
+        margin-bottom: 12px;
+    }
+
+    .popup-inner .popup-desc {
+        margin: 0px;
+        color: #000000;
+        font-family: Jost;
+        font-weight: 300;
+        font-style: Light;
+        font-size: 14px;
+        leading-trim: NONE;
+        line-height: 110.00000000000001%;
+        letter-spacing: -1%;
+    }
+
+    .popup-options {
+      margin: 10px 0;
+    }
+
+    .popup-options label {
+      display: block;
+      margin: 0px;
+      color: #333333;
       font-family: Jost;
-      font-weight: 300;
-      font-style: Light;
-      font-size: 16px;
-      leading-trim: NONE;
-      line-height: 120%;
-      letter-spacing: 0px;
-      vertical-align: middle;
-      margin: 0px;
-      margin-bottom:20px;
-      margin-top: 13px;
-  }
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 14px;
+    leading-trim: NONE;
+    line-height: 130%;
+    letter-spacing: 0%;
+    margin-bottom: 7px;
+    }
 
-  .popup-inner .popup-price {
-      margin: 0px;
-      color: #000000;
-      font-family: Lustria;
+    .option-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .option-buttons button {
+      flex: 1;
+      border: 1px solid #000;
+      padding: 6px;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .option-select {
+      width: 100%;
+      padding: 6px;
+    }
+
+    .add-to-cart-btn {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      background: #000;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .product-popup {
+      background: #fff;
+      width: 90%;
+      max-width: 350px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      border-radius: 0;
+      box-shadow: 0px 2px 4px 0px #00000033;
+      padding: 36px 20px 25px 20px;
+    }
+
+    .popup-inner {
+      display: flex;
+      gap: 20px;
+    }
+
+    .popup-left {
+      flex: 1;
+    }
+
+    .popup-image {
+        width: 100%;
+        object-fit: cover;
+        height: auto;
+        height: 100%;
+    }
+
+    .popup-right {
+      flex: 1.5;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 15px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0px;
+    }
+
+
+    .popup-options {
+      margin-bottom: 16px;
+    }
+
+    .popup-options label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .option-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .option-btn {
+      flex: 1;
+      border: 1px solid #000;
+      padding: 8px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+
+    .option-btn:hover,
+    .option-btn.active {
+      background: #000;
+      color: #fff;
+    }
+
+    .custom-select select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #000;
+      font-size: 14px;
+    }
+
+    .add-to-cart-btn {
+      margin-top: auto;
+      width: 100%;
+      padding: 12px;
+      background: #000;
+      color: #fff;
+      border: none;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      text-transform: uppercase;
+      border-radius: 3px;
+    }
+
+    .product-image-and-information-container {
+        display: flex;
+        gap: 8px;
+    }
+
+    .product-left-side-image-container {
+        max-width: 120px;
+    }
+
+    .popup-options-values{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    /* --- Custom Select --- */
+    .custom-select {
+      position: relative;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .select-trigger {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #fff;
+        transition: 0.3s;
+        padding-left: 12px;
+        border: 0.5px solid #000000;
+    }
+
+    .size-svg{
+        border-left: 0.5px solid #000000;
+        padding: 12px 18px;
+    }
+
+    .arrow {
+      font-size: 12px;
+      transition: transform 0.3s;
+    }
+
+    .select-options {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      max-height: 0;
+      overflow: hidden;
+      border: 1px solid #ccc;
+      border-top: none;
+      background: #fff;
+      transition: max-height 0.3s ease;
+      z-index: 10;
+    }
+
+    .custom-select.open .select-options {
+      max-height: 300px; /* enough for all options */
+    }
+
+    .custom-select.open .arrow svg {
+      transform: rotate(180deg);
+
+    }
+
+      .custom-select .arrow svg {
+          transition: transform .3s ease-in-out, opacity .3s ease-in-out;
+      }
+
+
+
+    .select-option {
+      padding: 10px;
+      transition: background .3s, color .3s;
+      text-align: center;
+      font-family: Jost;
       font-weight: 400;
       font-style: Regular;
       font-size: 16px;
       leading-trim: NONE;
-      line-height: 120%;
-      letter-spacing: 0px;
+      line-height: 100%;
+      letter-spacing: -2%;
+      text-align: center;
       vertical-align: middle;
-      margin-bottom: 12px;
+    }
+
+    .select-option:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    .color-strip {
+    width: 12px;
+    height: 20px;
+    margin-right: 8px;
+    display: inline-block;
+    border-left: 4px solid currentColor; /* matches Figma left bar look */
+    border-radius: 2px;
   }
-
-  .popup-inner .popup-desc {
-      margin: 0px;
-      color: #000000;
-      font-family: Jost;
-      font-weight: 300;
-      font-style: Light;
-      font-size: 14px;
-      leading-trim: NONE;
-      line-height: 110.00000000000001%;
-      letter-spacing: -1%;
-  }
-
-  .popup-options {
-    margin: 10px 0;
-  }
-
-  .popup-options label {
-    display: block;
-    margin: 0px;
-    color: #333333;
-    font-family: Jost;
-  font-weight: 400;
-  font-style: Regular;
-  font-size: 14px;
-  leading-trim: NONE;
-  line-height: 130%;
-  letter-spacing: 0%;
-  margin-bottom: 7px;
-  }
-
-  .option-buttons {
-    display: flex;
-    gap: 8px;
-  }
-
-  .option-buttons button {
-    flex: 1;
-    border: 1px solid #000;
-    padding: 6px;
-    background: #fff;
-    cursor: pointer;
-  }
-
-  .option-select {
-    width: 100%;
-    padding: 6px;
-  }
-
-  .add-to-cart-btn {
-    margin-top: 15px;
-    width: 100%;
-    padding: 10px;
-    background: #000;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    text-transform: uppercase;
-    font-weight: bold;
-  }
-
-  .product-popup {
-    background: #fff;
-    width: 90%;
-    max-width: 350px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    border-radius: 0;
-    box-shadow: 0px 2px 4px 0px #00000033;
-    padding: 36px 20px 25px 20px;
-  }
-
-  .popup-inner {
-    display: flex;
-    gap: 20px;
-  }
-
-  .popup-left {
-    flex: 1;
-  }
-
-  .popup-image {
-      width: 100%;
-      object-fit: cover;
-      height: auto;
-      height: 100%;
-  }
-
-  .popup-right {
-    flex: 1.5;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .close-btn {
-    position: absolute;
-    top: 12px;
-    right: 15px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0px;
-  }
-
-
-  .popup-options {
-    margin-bottom: 16px;
-  }
-
-  .popup-options label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 500;
-  }
-
-  .option-buttons {
-    display: flex;
-    gap: 8px;
-  }
-
   .option-btn {
-    flex: 1;
+    display: flex;
+    align-items: center;
     border: 1px solid #000;
-    padding: 8px;
+    padding: 6px 12px;
     background: #fff;
     cursor: pointer;
-    font-size: 14px;
-    transition: 0.2s;
+    transition: background 0.3s ease;
   }
-
-  .option-btn:hover,
-  .option-btn.active {
+  .option-btn:hover {
     background: #000;
     color: #fff;
   }
 
-  .custom-select select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #000;
-    font-size: 14px;
+  .select-trigger .label-name{
+      font-family: Jost;
+      font-weight: 400;
+      font-style: Regular;
+      font-size: 16px;
+      leading-trim: NONE;
+      line-height: 100%;
+      letter-spacing: -2%;
+      vertical-align: middle;
+      color: #000;
   }
 
-  .add-to-cart-btn {
-    margin-top: auto;
-    width: 100%;
-    padding: 12px;
-    background: #000;
-    color: #fff;
-    border: none;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    text-transform: uppercase;
-    border-radius: 3px;
+  .size-label-name{
+      width: 100%;
+      text-align: center;
   }
 
-  .product-image-and-information-container {
-      display: flex;
-      gap: 8px;
-  }
 
-  .product-left-side-image-container {
-      max-width: 120px;
-  }
 
-  .popup-options-values{
-      display: flex;
-      flex-direction: column-reverse;
-  }
 
-  /* --- Custom Select --- */
-  .custom-select {
-    position: relative;
-    width: 100%;
-    cursor: pointer;
-  }
+    @media (max-width: 767px) {
+      .grid-section {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4px;
+      }
 
-  .select-trigger {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #fff;
-      transition: 0.3s;
-      padding-left: 12px;
-      border: 0.5px solid #000000;
-  }
+      .plus-icon svg {
+        width: 15px;
+        height: 15px;
+      }
 
-  .size-svg{
-      border-left: 0.5px solid #000000;
-      padding: 12px 18px;
-  }
-
-  .arrow {
-    font-size: 12px;
-    transition: transform 0.3s;
-  }
-
-  .select-options {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    max-height: 0;
-    overflow: hidden;
-    border: 1px solid #ccc;
-    border-top: none;
-    background: #fff;
-    transition: max-height 0.3s ease;
-    z-index: 10;
-  }
-
-  .custom-select.open .select-options {
-    max-height: 300px; /* enough for all options */
-  }
-
-  .custom-select.open .arrow svg {
-    transform: rotate(180deg);
-
-  }
-
-    .custom-select .arrow svg {
-        transition: transform .3s ease-in-out, opacity .3s ease-in-out;
+       .popup-inner {
+        flex-direction: column;
+      }
     }
-
-
-
-  .select-option {
-    padding: 10px;
-    transition: background .3s, color .3s;
-    text-align: center;
-    font-family: Jost;
-    font-weight: 400;
-    font-style: Regular;
-    font-size: 16px;
-    leading-trim: NONE;
-    line-height: 100%;
-    letter-spacing: -2%;
-    text-align: center;
-    vertical-align: middle;
-  }
-
-  .select-option:hover {
-    background: #000;
-    color: #fff;
-  }
-
-  .color-strip {
-  width: 12px;
-  height: 20px;
-  margin-right: 8px;
-  display: inline-block;
-  border-left: 4px solid currentColor; /* matches Figma left bar look */
-  border-radius: 2px;
-}
-.option-btn {
-  display: flex;
-  align-items: center;
-  border: 1px solid #000;
-  padding: 6px 12px;
-  background: #fff;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-.option-btn:hover {
-  background: #000;
-  color: #fff;
-}
-
-.select-trigger .label-name{
-    font-family: Jost;
-    font-weight: 400;
-    font-style: Regular;
-    font-size: 16px;
-    leading-trim: NONE;
-    line-height: 100%;
-    letter-spacing: -2%;
-    vertical-align: middle;
-    color: #000;
-}
-
-.size-label-name{
-    width: 100%;
-    text-align: center;
-}
-
-
-
-
-  @media (max-width: 767px) {
-    .grid-section {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 4px;
-    }
-
-    .plus-icon svg {
-      width: 15px;
-      height: 15px;
-    }
-
-     .popup-inner {
-      flex-direction: column;
-    }
-  }
 {% endstylesheet %}
 
 <section class="custom-grid-section">
@@ -669,26 +669,31 @@
                 </div>
                 {% if product.options.size > 0 %}
                   <div class="popup-options-values">
-                    
                     {% for option in product.options_with_values %}
-
-                        
                       <div class="popup-options">
                         <label>{{ option.name }}</label>
                         {% if option.name contains 'Color' %}
                           <div class="option-buttons">
                             {% for value in option.values %}
-                                 {% assign variant = product.variants | where: "option1", value | first %}
-          {% if variant == nil %}
-            {% assign variant = product.variants | where: "option2", value | first %}
-          {% endif %}
-          {% if variant == nil %}
-            {% assign variant = product.variants | where: "option3", value | first %}
-          {% endif %}
-                              <button class="option-btn">
+                              {% assign variant = product.variants | where: 'option1', value | first %}
+                              {% if variant == null %}
+                                {% assign variant = product.variants | where: 'option2', value | first %}
+                              {% endif %}
+                              {% if variant == null %}
+                                {% assign variant = product.variants | where: 'option3', value | first %}
+                              {% endif %}
+                              <button
+                                class="option-btn"
+                                data-option="{{ option.name }}"
+                                data-value="{{ value }}"
+                                data-variant-id="{{ variant.id | default: '' }}"
+                              >
                                 {% if variant and variant.metafields.custom.color_code %}
-              <span class="color-strip" style="background-color: {{ variant.metafields.custom.color_code }}"></span>
-            {% endif %}
+                                  <span
+                                    class="color-strip"
+                                    style="background-color: {{ variant.metafields.custom.color_code }}"
+                                  ></span>
+                                {% endif %}
                                 {{ value }}
                               </button>
                             {% endfor %}
@@ -696,9 +701,9 @@
                         {% else %}
                           <div class="custom-select" data-select>
                             <div class="select-trigger">
-                                <div class = "size-label-name">
-                                    <span class = "label-name">Choose your {{ option.name }}</span>
-                                </div>
+                              <div class="size-label-name">
+                                <span class="label-name">Choose your {{ option.name }}</span>
+                              </div>
                               <div class="size-svg">
                                 <span class="arrow">
                                   <svg
@@ -715,7 +720,21 @@
                             </div>
                             <div class="select-options">
                               {% for value in option.values %}
-                                <div class="select-option" data-value="{{ value }}">{{ value }}</div>
+                                {% assign variant = product.variants | where: 'option1', value | first %}
+                                {% if variant == null %}
+                                  {% assign variant = product.variants | where: 'option2', value | first %}
+                                {% endif %}
+                                {% if variant == null %}
+                                  {% assign variant = product.variants | where: 'option3', value | first %}
+                                {% endif %}
+                                <div
+                                  class="select-option"
+                                  data-option="{{ option.name }}"
+                                  data-value="{{ value }}"
+                                  data-variant-id="{{ variant.id | default: '' }}"
+                                >
+                                  {{ value }}
+                                </div>
                               {% endfor %}
                             </div>
                           </div>
@@ -725,7 +744,7 @@
                   </div>
                 {% endif %}
 
-                <button class="add-to-cart-btn" data-main-product = >Add to Cart →</button>
+                <button class="add-to-cart-btn" data-main-product="">Add to Cart →</button>
               </div>
             </div>
           {% endif %}
