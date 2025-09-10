@@ -798,7 +798,7 @@
   </div>
 </section>
 
-{% comment %} <script>
+<script>
   function closePopup(id) {
     const popup = document.getElementById('popup-' + id);
     popup.style.display = 'none';
@@ -967,12 +967,14 @@
   
 
 
-{% comment %} document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
   const popups = document.querySelectorAll('.product-popup-overlay');
 
   popups.forEach((popup) => {
     const addToCartBtn = popup.querySelector('.add-to-cart-btn');
     const errorMsg = popup.querySelector('.popup-error-message');
+    const variantsScript = popup.querySelector('[data-variants]');
+    const productVariants = variantsScript ? JSON.parse(variantsScript.textContent) : [];
 
     let selectedOptions = {
       Color: null,
@@ -980,6 +982,29 @@
       VariantId: null,
       InStock: true,
     };
+
+     function findMatchingVariant() {
+        return productVariants.find((variant) => {
+          let colorMatch = true;
+          let sizeMatch = true;
+
+          if (selectedOptions.Color) {
+            colorMatch =
+              variant.option1 === selectedOptions.Color ||
+              variant.option2 === selectedOptions.Color ||
+              variant.option3 === selectedOptions.Color;
+          }
+
+          if (selectedOptions.Size) {
+            sizeMatch =
+              variant.option1 === selectedOptions.Size ||
+              variant.option2 === selectedOptions.Size ||
+              variant.option3 === selectedOptions.Size;
+          }
+
+          return colorMatch && sizeMatch;
+        });
+      }
 
 
 
@@ -991,38 +1016,10 @@
       return false; 
     }
 
-    // Handle color selection
-    {% comment %} popup.querySelectorAll('.option-btn').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        selectedOptions.Color = btn.dataset.value;
-        selectedOptions.VariantId = btn.dataset.variantId;
-        selectedOptions.InStock = btn.dataset.inStock === 'true';
 
-        addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
-        errorMsg.style.display = 'none';
-
-        updateATCButton();
-      });
-    });
-
-    // Handle size selection
-    popup.querySelectorAll('.select-option').forEach((option) => {
-      option.addEventListener('click', () => {
-        selectedOptions.Size = option.dataset.value;
-        if (option.dataset.variantId) {
-          selectedOptions.VariantId = option.dataset.variantId;
-        }
-        selectedOptions.InStock = option.dataset.inStock === 'true';
-
-        addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
-        errorMsg.style.display = 'none';
-
-        updateATCButton();
-      });
-    }); {% endcomment %}
 
     // Handle color selection
-  popup.querySelectorAll('.option-btn').forEach((btn) => {
+  {% comment %} popup.querySelectorAll('.option-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
       // Remove the active class from all color buttons
       popup.querySelectorAll('.option-btn').forEach((button) => {
@@ -1063,7 +1060,48 @@
       errorMsg.style.display = 'none';
 
     });
-  });
+  }); {% endcomment %}
+
+
+    // Handle color selection
+      popup.querySelectorAll('.option-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          selectedOptions.Color = btn.dataset.value;
+
+          const variant = findMatchingVariant();
+          if (variant) {
+            selectedOptions.VariantId = variant.id;
+            selectedOptions.InStock = variant.available;
+          } else {
+            selectedOptions.VariantId = null;
+          }
+
+          addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
+          errorMsg.style.display = 'none';
+
+          updateATCButton();
+        });
+      });
+
+      // Handle size selection
+      popup.querySelectorAll('.select-option').forEach((option) => {
+        option.addEventListener('click', () => {
+          selectedOptions.Size = option.dataset.value;
+
+          const variant = findMatchingVariant();
+          if (variant) {
+            selectedOptions.VariantId = variant.id;
+            selectedOptions.InStock = variant.available;
+          } else {
+            selectedOptions.VariantId = null;
+          }
+
+          addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
+          errorMsg.style.display = 'none';
+
+          updateATCButton();
+        });
+      });
 
 
     // Add to cart
@@ -1124,11 +1162,11 @@
         });
     });
   });
-}); {% endcomment %}
-</script> {% endcomment %}
+}); 
+</script> 
 
 
-<script>
+{% comment %} <script>
   function closePopup(id) {
     const popup = document.getElementById('popup-' + id);
     popup.style.display = 'none';
@@ -1331,7 +1369,7 @@
       updateATCButton();
     });
   });
-</script> 
+</script>  {% endcomment %}
 
 
 
