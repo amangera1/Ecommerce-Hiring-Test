@@ -890,6 +890,12 @@
         }
       }
 
+    function checkFreeProductEligibility() {
+      if (selectedOptions.Color === 'Black' && selectedOptions.Size === 'M') {
+        console.log('🎁 You are eligible for a free product!');
+      }
+    }
+
       // Handle color selection
       popup.querySelectorAll('.option-btn').forEach((btn) => {
         btn.addEventListener('click', () => {
