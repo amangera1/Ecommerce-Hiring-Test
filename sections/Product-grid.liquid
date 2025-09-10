@@ -794,7 +794,7 @@
   </div>
 </section>
 
-<script>
+{% comment %} <script>
   function closePopup(id) {
     const popup = document.getElementById('popup-' + id);
     popup.style.display = 'none';
@@ -960,136 +960,7 @@
       });
     });
   });  {% endcomment %}
-
-  document.addEventListener('DOMContentLoaded', () => {
-  const popups = document.querySelectorAll('.product-popup-overlay');
-
-  popups.forEach((popup) => {
-    const addToCartBtn = popup.querySelector('.add-to-cart-btn');
-    const errorMsg = popup.querySelector('.popup-error-message');
-
-    let selectedOptions = {
-      Color: null,
-      Size: null,
-      VariantId: null,
-      InStock: true,
-    };
-
-    // Get all variants from Liquid data (you already have them in Shopify)
-    const productVariants = JSON.parse(popup.querySelector('[data-variants]').textContent);
-
-    function findMatchingVariant() {
-      if (!selectedOptions.Color || !selectedOptions.Size) return null;
-
-      return productVariants.find((variant) => {
-        return (
-          variant.option1 === selectedOptions.Color ||
-          variant.option2 === selectedOptions.Color ||
-          variant.option3 === selectedOptions.Color
-        ) && (
-          variant.option1 === selectedOptions.Size ||
-          variant.option2 === selectedOptions.Size ||
-          variant.option3 === selectedOptions.Size
-        );
-      });
-    }
-
-    function updateATCButton() {
-      if (selectedOptions.VariantId && selectedOptions.InStock) {
-        addToCartBtn.textContent = 'Add to Cart →';
-        addToCartBtn.disabled = false;
-        addToCartBtn.style.opacity = '1';
-      } else {
-        addToCartBtn.textContent = 'Sold Out';
-        addToCartBtn.disabled = true;
-        addToCartBtn.style.opacity = '0.5';
-      }
-    }
-
-    // Handle color selection
-    popup.querySelectorAll('.option-btn').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        selectedOptions.Color = btn.dataset.value;
-
-        const variant = findMatchingVariant();
-        if (variant) {
-          selectedOptions.VariantId = variant.id;
-          selectedOptions.InStock = variant.available;
-        }
-
-        addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
-        errorMsg.style.display = 'none';
-
-        updateATCButton();
-      });
-    });
-
-    // Handle size selection
-    popup.querySelectorAll('.select-option').forEach((option) => {
-      option.addEventListener('click', () => {
-        selectedOptions.Size = option.dataset.value;
-
-        const variant = findMatchingVariant();
-        if (variant) {
-          selectedOptions.VariantId = variant.id;
-          selectedOptions.InStock = variant.available;
-        }
-
-        addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
-        errorMsg.style.display = 'none';
-
-        updateATCButton();
-      });
-    });
-
-    // Add to cart
-    addToCartBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-
-      if (!selectedOptions.Color || !selectedOptions.Size) {
-        errorMsg.style.display = 'block';
-        errorMsg.textContent = 'Please select all required options.';
-        return;
-      }
-
-      if (!selectedOptions.VariantId) {
-        errorMsg.style.display = 'block';
-        errorMsg.textContent = 'This combination is not available.';
-        return;
-      }
-
-      if (!selectedOptions.InStock) {
-        errorMsg.style.display = 'block';
-        errorMsg.textContent = 'This variant is out of stock.';
-        return;
-      }
-
-      errorMsg.style.display = 'none';
-
-      // Add to cart API
-      fetch('/cart/add.js', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({
-          id: selectedOptions.VariantId,
-          quantity: 1,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log('✅ Product added to cart:', data);
-          window.location.href = '/cart';
-        })
-        .catch((err) => {
-          console.error('❌ Error adding to cart:', err);
-        });
-    });
-  });
-});
-
+  
 
 
 {% comment %} document.addEventListener('DOMContentLoaded', () => {
@@ -1250,8 +1121,209 @@
     });
   });
 }); {% endcomment %}
-</script>
+</script> {% endcomment %}
 
+
+<script>
+  function closePopup(id) {
+    const popup = document.getElementById('popup-' + id);
+    popup.style.display = 'none';
+
+    // Reset selected options in the popup
+    const colorButtons = popup.querySelectorAll('.option-btn');
+    colorButtons.forEach((btn) => btn.classList.remove('active')); // optional: reset active state
+
+    const selectTriggers = popup.querySelectorAll('.select-trigger .label-name');
+    selectTriggers.forEach((span) => {
+      const parentSelect = span.closest('.custom-select');
+      const optionName = parentSelect.dataset.optionName || '';
+      span.textContent = `Choose your ${optionName}`;
+      parentSelect.classList.remove('open');
+    });
+
+    // Hide any error messages
+    const errorMsg = popup.querySelector('.popup-error-message');
+    if (errorMsg) {
+      errorMsg.style.display = 'none';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const plusIcons = document.querySelectorAll('.plus-icon');
+
+    plusIcons.forEach((icon) => {
+      icon.addEventListener('click', function (e) {
+        e.preventDefault();
+        const popupId = this.getAttribute('data-popup-id');
+        document.getElementById(popupId).style.display = 'flex';
+      });
+    });
+  });
+
+  document.querySelectorAll('[data-select]').forEach((select) => {
+    const trigger = select.querySelector('.select-trigger');
+    const options = select.querySelectorAll('.select-option');
+    const span = trigger.querySelector('.label-name');
+
+    trigger.addEventListener('click', () => {
+      select.classList.toggle('open');
+    });
+
+    options.forEach((option) => {
+      option.addEventListener('click', () => {
+        span.textContent = option.textContent;
+        select.classList.remove('open');
+      });
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!select.contains(e.target)) {
+        select.classList.remove('open');
+      }
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const popups = document.querySelectorAll('.product-popup-overlay');
+
+    popups.forEach((popup) => {
+      const addToCartBtn = popup.querySelector('.add-to-cart-btn');
+      const errorMsg = popup.querySelector('.popup-error-message');
+      
+      // Get all product variants from the popup
+      const productTitle = popup.querySelector('.popup-title').textContent;
+      
+      // Track selected options
+      let selectedOptions = {
+        Color: null,
+        Size: null,
+        VariantId: null,
+        InStock: true,
+      };
+
+      function updateATCButton() {
+        if (selectedOptions.InStock) {
+          addToCartBtn.textContent = 'Add to Cart →';
+          addToCartBtn.disabled = false;
+          addToCartBtn.style.opacity = '1';
+        } else {
+          addToCartBtn.textContent = 'Sold Out';
+          addToCartBtn.disabled = true;
+          addToCartBtn.style.opacity = '0.5';
+        }
+      }
+
+      // Function to find the correct variant based on selected options
+      function findVariant() {
+        if (!selectedOptions.Color || !selectedOptions.Size) return null;
+        
+        // Get all variants for this product
+        const variants = {{ product.variants | json }};
+        
+        // Find the variant that matches both selected options
+        const matchingVariant = variants.find(variant => {
+          return variant.option1 === selectedOptions.Color && variant.option2 === selectedOptions.Size ||
+                 variant.option1 === selectedOptions.Size && variant.option2 === selectedOptions.Color ||
+                 variant.option2 === selectedOptions.Color && variant.option3 === selectedOptions.Size ||
+                 variant.option2 === selectedOptions.Size && variant.option3 === selectedOptions.Color ||
+                 variant.option1 === selectedOptions.Color && variant.option3 === selectedOptions.Size ||
+                 variant.option1 === selectedOptions.Size && variant.option3 === selectedOptions.Color;
+        });
+        
+        return matchingVariant || null;
+      }
+
+      // Handle color selection
+      popup.querySelectorAll('.option-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          // Remove active class from all color buttons
+          popup.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
+          // Add active class to clicked button
+          btn.classList.add('active');
+          
+          selectedOptions.Color = btn.dataset.value;
+          
+          // Find the matching variant
+          const variant = findVariant();
+          if (variant) {
+            selectedOptions.VariantId = variant.id;
+            selectedOptions.InStock = variant.available;
+          }
+          
+          addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
+          errorMsg.style.display = 'none';
+
+          updateATCButton();
+        });
+      });
+
+      // Handle size selection
+      popup.querySelectorAll('.select-option').forEach((option) => {
+        option.addEventListener('click', () => {
+          selectedOptions.Size = option.dataset.value;
+          
+          // Update the select trigger text
+          const select = option.closest('.custom-select');
+          const trigger = select.querySelector('.label-name');
+          trigger.textContent = option.textContent;
+          
+          // Find the matching variant
+          const variant = findVariant();
+          if (variant) {
+            selectedOptions.VariantId = variant.id;
+            selectedOptions.InStock = variant.available;
+          }
+          
+          addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
+          errorMsg.style.display = 'none';
+
+          updateATCButton();
+        });
+      });
+
+      // Add to cart
+      addToCartBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        if (!selectedOptions.Color || !selectedOptions.Size) {
+          errorMsg.style.display = 'block';
+          errorMsg.textContent = 'Please select all required options.';
+          return;
+        }
+
+        if (!selectedOptions.InStock) {
+          errorMsg.style.display = 'block';
+          errorMsg.textContent = 'This variant is out of stock.';
+          return;
+        }
+
+        errorMsg.style.display = 'none';
+
+        // Add to cart API
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify({
+            id: selectedOptions.VariantId,
+            quantity: 1,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log('✅ Product added to cart:', data);
+            window.location.href = '/cart';
+          })
+          .catch((err) => {
+            console.error('❌ Error adding to cart:', err);
+          });
+      });
+    });
+  });
+</script>
 {% schema %}
 {
   "name": "Product Grid Section",
