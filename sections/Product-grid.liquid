@@ -633,7 +633,6 @@
         return false;
       }
 
-      // Handle color selection
       popup.querySelectorAll('.option-btn').forEach((btn) => {
         btn.addEventListener('click', () => {
           // Remove the active class from all color buttons
@@ -657,7 +656,6 @@
         });
       });
 
-      // Handle size selection (this remains unchanged, no active class for size)
       popup.querySelectorAll('.select-option').forEach((option) => {
         option.addEventListener('click', () => {
           // Update selected options
