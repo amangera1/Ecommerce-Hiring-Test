@@ -855,7 +855,7 @@
     });
   });
 
-  document.addEventListener('DOMContentLoaded', () => {
+  {% comment %} document.addEventListener('DOMContentLoaded', () => {
     const popups = document.querySelectorAll('.product-popup-overlay');
 
     popups.forEach((popup) => {
@@ -959,10 +959,10 @@
           });
       });
     });
-  }); 
+  });  {% endcomment %}
 
 
-{% comment %} document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
   const popups = document.querySelectorAll('.product-popup-overlay');
 
   popups.forEach((popup) => {
@@ -1119,7 +1119,8 @@
         });
     });
   });
-}); {% endcomment %}
+}); 
+
 </script>
 
 {% schema %}
