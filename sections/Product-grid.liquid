@@ -794,9 +794,6 @@
   function closePopup(id) {
     const popup = document.getElementById('popup-' + id);
     popup.style.display = 'none';
-
-
-    // Reset selected options in the popup
     const colorButtons = popup.querySelectorAll('.option-btn');
     colorButtons.forEach((btn) => btn.classList.remove('active')); // optional: reset active state
 
@@ -841,13 +838,6 @@
         span.textContent = option.textContent;
         select.classList.remove('open');
       });
-    });
-
-    // Close when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!select.contains(e.target)) {
-        select.classList.remove('open');
-      }
     });
   });
 
