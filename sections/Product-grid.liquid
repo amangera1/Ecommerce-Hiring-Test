@@ -1066,6 +1066,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle color selection
       popup.querySelectorAll('.option-btn').forEach((btn) => {
         btn.addEventListener('click', () => {
+          popup.querySelectorAll('.option-btn').forEach((button) => {
+            button.classList.remove('active');
+          });
+        btn.classList.add('active');
           selectedOptions.Color = btn.dataset.value;
 
           const variant = findMatchingVariant();
