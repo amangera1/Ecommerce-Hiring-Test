@@ -1007,7 +1007,7 @@
     }
 
     // Handle color selection
-    popup.querySelectorAll('.option-btn').forEach((btn) => {
+    {% comment %} popup.querySelectorAll('.option-btn').forEach((btn) => {
       btn.addEventListener('click', () => {
         selectedOptions.Color = btn.dataset.value;
         selectedOptions.VariantId = btn.dataset.variantId;
@@ -1034,7 +1034,56 @@
 
         updateATCButton();
       });
+    }); {% endcomment %}
+
+    // Handle color selection
+popup.querySelectorAll('.option-btn').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    // Remove the active class from all color buttons
+    popup.querySelectorAll('.option-btn').forEach((button) => {
+      button.classList.remove('active');
     });
+
+    // Add the active class to the clicked color button
+    btn.classList.add('active');
+
+    // Update the selected options
+    selectedOptions.Color = btn.dataset.value;
+    selectedOptions.VariantId = btn.dataset.variantId;
+    selectedOptions.InStock = btn.dataset.inStock === 'true';
+
+    // Update the 'data-main-product' attribute on the Add to Cart button
+    addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
+
+    // Hide the error message if it's visible
+    errorMsg.style.display = 'none';
+
+    // Update the Add to Cart button state (enabled/disabled)
+    updateATCButton();
+  });
+});
+
+// Handle size selection (this remains unchanged, no active class for size)
+popup.querySelectorAll('.select-option').forEach((option) => {
+  option.addEventListener('click', () => {
+    // Update selected options
+    selectedOptions.Size = option.dataset.value;
+    if (option.dataset.variantId) {
+      selectedOptions.VariantId = option.dataset.variantId;
+    }
+    selectedOptions.InStock = option.dataset.inStock === 'true';
+
+    // Update the 'data-main-product' attribute on the Add to Cart button
+    addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
+
+    // Hide the error message if it's visible
+    errorMsg.style.display = 'none';
+
+    // Update the Add to Cart button state (enabled/disabled)
+    updateATCButton();
+  });
+});
+
 
     // Add to cart
     addToCartBtn.addEventListener('click', (e) => {
