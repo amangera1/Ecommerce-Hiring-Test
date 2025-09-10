@@ -974,14 +974,12 @@
 
 
 
-
-    // Function to check free product eligibility
     function checkFreeProductEligibility() {
       if (selectedOptions.Color === 'Black' && selectedOptions.Size === 'M') {
-        console.log('🎁 You are eligible for a free product!');
-        return true;  // Eligible for free product
+        console.log('You are eligible for a free product!');
+        return true;
       }
-      return false; // Not eligible for free product
+      return false; 
     }
 
     // Handle color selection
