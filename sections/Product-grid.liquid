@@ -991,10 +991,38 @@ document.addEventListener('DOMContentLoaded', () => {
       return false; 
     }
 
+    // Handle color selection
+    {% comment %} popup.querySelectorAll('.option-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        selectedOptions.Color = btn.dataset.value;
+        selectedOptions.VariantId = btn.dataset.variantId;
+        selectedOptions.InStock = btn.dataset.inStock === 'true';
 
+        addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
+        errorMsg.style.display = 'none';
+
+        updateATCButton();
+      });
+    });
+
+    // Handle size selection
+    popup.querySelectorAll('.select-option').forEach((option) => {
+      option.addEventListener('click', () => {
+        selectedOptions.Size = option.dataset.value;
+        if (option.dataset.variantId) {
+          selectedOptions.VariantId = option.dataset.variantId;
+        }
+        selectedOptions.InStock = option.dataset.inStock === 'true';
+
+        addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
+        errorMsg.style.display = 'none';
+
+        updateATCButton();
+      });
+    }); {% endcomment %}
 
     // Handle color selection
-  {% comment %} popup.querySelectorAll('.option-btn').forEach((btn) => {
+  popup.querySelectorAll('.option-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
       // Remove the active class from all color buttons
       popup.querySelectorAll('.option-btn').forEach((button) => {
@@ -1035,56 +1063,7 @@ document.addEventListener('DOMContentLoaded', () => {
       errorMsg.style.display = 'none';
 
     });
-  }); {% endcomment %}
-
-
-  // Utility to find the correct variant ID from both Color + Size
-function getVariantId(color, size) {
-  const variant = window.productVariants.find(
-    (v) => v.option1 === color && v.option2 === size
-  );
-  return variant ? variant.id : null;
-}
-
-// Handle color selection
-popup.querySelectorAll('.option-btn').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    // Active class handling
-    popup.querySelectorAll('.option-btn').forEach((button) => {
-      button.classList.remove('active');
-    });
-    btn.classList.add('active');
-
-    // Update selected color
-    selectedOptions.Color = btn.dataset.value;
-
-    // Recalculate variant ID using both options
-    selectedOptions.VariantId = getVariantId(selectedOptions.Color, selectedOptions.Size);
-    selectedOptions.InStock = btn.dataset.inStock === 'true';
-
-    addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
-    errorMsg.style.display = 'none';
   });
-});
-
-// Handle size selection
-popup.querySelectorAll('.select-option').forEach((option) => {
-  option.addEventListener('click', () => {
-    selectedOptions.Size = option.dataset.value;
-
-    // Recalculate variant ID using both options
-    selectedOptions.VariantId = getVariantId(selectedOptions.Color, selectedOptions.Size);
-    selectedOptions.InStock = option.dataset.inStock === 'true';
-
-    addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
-    errorMsg.style.display = 'none';
-  });
-});
-
-
-
-
-
 
 
     // Add to cart
