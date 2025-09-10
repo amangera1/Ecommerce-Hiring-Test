@@ -795,7 +795,7 @@
     const popup = document.getElementById('popup-' + id);
     popup.style.display = 'none';
     const colorButtons = popup.querySelectorAll('.option-btn');
-    colorButtons.forEach((btn) => btn.classList.remove('active')); // optional: reset active state
+    colorButtons.forEach((btn) => btn.classList.remove('active'));
 
     const selectTriggers = popup.querySelectorAll('.select-trigger .label-name');
     selectTriggers.forEach((span) => {
