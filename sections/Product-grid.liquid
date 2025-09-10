@@ -714,7 +714,6 @@
                               {% if variant and variant.metafields.custom.color_code %}
                                 {% assign strip = variant.metafields.custom.color_code %}
                               {% endif %}
-                              {{ strip }}
                               <button
                                 class="option-btn {% unless strip != blank %} btn-without-strip {% endunless %}"
                                 data-option="{{ option.name }}"
