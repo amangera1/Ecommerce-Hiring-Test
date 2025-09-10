@@ -705,6 +705,9 @@
                               {% if variant == null %}
                                 {% assign variant = product.variants | where: 'option3', value | first %}
                               {% endif %}
+                              {% if variant and variant.metafields.custom.color_code %}
+                                {% assign strip = variant.metafields.custom.color_code %}
+                              {% endif %}
                               <button
                                 class="option-btn"
                                 data-option="{{ option.name }}"
