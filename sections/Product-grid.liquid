@@ -664,10 +664,7 @@
       </div>
 
       <!-- Hidden Popup for this product -->
-      <div class="product-popup-overlay" id="popup-{{ block.id }}"
-        data-product-variants='{{ product.variants | json | escape }}'
-        data-option-names='{{ product.options | json | escape }}'
-      >
+      <div class="product-popup-overlay" id="popup-{{ block.id }}">
         <div class="product-popup">
           <button class="close-btn" onclick="closePopup('{{ block.id }}')">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
@@ -858,7 +855,7 @@
     });
   });
 
-  {% comment %} document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('DOMContentLoaded', () => {
     const popups = document.querySelectorAll('.product-popup-overlay');
 
     popups.forEach((popup) => {
@@ -962,10 +959,10 @@
           });
       });
     });
-  });  {% endcomment %}
+  }); 
 
 
-document.addEventListener('DOMContentLoaded', () => {
+{% comment %} document.addEventListener('DOMContentLoaded', () => {
   const popups = document.querySelectorAll('.product-popup-overlay');
 
   popups.forEach((popup) => {
@@ -978,8 +975,6 @@ document.addEventListener('DOMContentLoaded', () => {
       VariantId: null,
       InStock: true,
     };
-
-    console.log(selectedOptions,'selectedOptions');
 
 
 
@@ -1065,6 +1060,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+
     // Add to cart
     addToCartBtn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -1088,8 +1084,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // If the user is eligible for the free product, add both the main product and the addon product
       const isEligibleForFreeProduct = checkFreeProductEligibility();
-
-      console.log(selectedOptions.VariantId,'selectedOptions.VariantId');
 
       const productsToAdd = [
         {
@@ -1125,8 +1119,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
   });
-}); 
-
+}); {% endcomment %}
 </script>
 
 {% schema %}
