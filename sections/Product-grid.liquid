@@ -1,3 +1,237 @@
+{% comment %}
+  {% stylesheet %}
+  .grid-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+
+
+  .grid-item {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .grid-item img {
+    width: 100%;
+    display: block;
+    height: auto;
+  }
+
+  .plus-icon {
+    position: absolute;
+    transform: translate(50%, -50%);
+    cursor: pointer;
+  }
+
+  .product-popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+  }
+  .product-popup {
+    background: #fff;
+    width: 80%;   /* percentage-based */
+    max-width: 450px;
+    box-shadow: 0px 2px 4px 0px #00000033;
+    padding: 16px;
+    position: relative;
+  }
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .main-image{
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+  }
+
+  @media (max-width: 767px) {
+    .grid-section {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 4px;
+    }
+    .plus-icon svg{
+      width: 15px;
+      height: 15px;
+    }
+  }
+  {% endstylesheet %}
+
+  {% comment %} <section class="custom-grid-section">
+    <div class="grid-section">
+      {% for block in section.blocks %}
+        <div class="grid-item" {{ block.shopify_attributes }}>
+          {% if block.settings.grid_image %}
+             {{
+                  block.settings.grid_image
+                  | image_url: width:800
+                  | image_tag: class:'main-image',loading:'lazy'
+              }}
+          {% endif %}
+
+          <div class="plus-icon"
+            style="top: {{ block.settings.top_position }}%; right: {{ block.settings.right_poisition }}%;">
+            <a href="{{ block.settings.product.url }}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 16 17" fill="none">
+                <circle cx="7.86496" cy="8.27719" r="7.85714" fill="#F8F8F8" fill-opacity="0.9"/>
+                <path d="M8.1123 5.44995V11.4939" stroke="black" stroke-linecap="square" stroke-linejoin="round"/>
+                <path d="M5.09033 8.47192H11.1343" stroke="black" stroke-linecap="square" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </section> {% endcomment %}
+
+  <section class="custom-grid-section">
+    <div class="grid-section">
+      {% for block in section.blocks %}
+        <div class="grid-item" {{ block.shopify_attributes }}>
+          {% if block.settings.grid_image %}
+            {{ block.settings.grid_image | image_url: width:800 | image_tag: class:'main-image', loading:'lazy' }}
+          {% endif %}
+
+          <!-- Plus Icon -->
+          <div class="plus-icon"
+            style="top: {{ block.settings.top_position }}%; right: {{ block.settings.right_poisition }}%;"
+            data-popup-id="popup-{{ block.id }}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 16 17" fill="none">
+              <circle cx="7.86496" cy="8.27719" r="7.85714" fill="#F8F8F8" fill-opacity="0.9"/>
+              <path d="M8.1123 5.44995V11.4939" stroke="black" stroke-linecap="square" stroke-linejoin="round"/>
+              <path d="M5.09033 8.47192H11.1343" stroke="black" stroke-linecap="square" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Hidden Popup for this product -->
+        <div class="product-popup-overlay" id="popup-{{ block.id }}">
+          <div class="product-popup">
+            <button class="close-btn" onclick="closePopup('{{ block.id }}')">×</button>
+
+            {% assign product = all_products[block.settings.product.handle] %}
+            {% if product %}
+              <div class="popup-inner">
+                {{ product.featured_image | image_url: width:800 | image_tag: class:'main-image', loading:'lazy' }}
+                <h3>{{ product.title }}</h3>
+                <p><strong>{{ product.price | money }}</strong></p>
+                <p>{{ product.description | strip_html | truncate: 120 }}</p>
+
+                {% if product.options.size > 0 %}
+                  {% for option in product.options_with_values %}
+                    <label>{{ option.name }}</label>
+                    {% if option.name contains 'Color' %}
+                      <div style="display:flex; gap:8px;">
+                        {% for value in option.values %}
+                          <button style="flex:1; border:1px solid #000; padding:6px;">{{ value }}</button>
+                        {% endfor %}
+                      </div>
+                    {% else %}
+                      <select style="width:100%; padding:6px;">
+                        <option>Choose your {{ option.name }}</option>
+                        {% for value in option.values %}
+                          <option>{{ value }}</option>
+                        {% endfor %}
+                      </select>
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+
+                <button style="margin-top:15px; width:100%; padding:10px; background:#000; color:#fff;">
+                  ADD TO CART →
+                </button>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+
+  <script>
+      function closePopup(id) {
+    document.getElementById("popup-" + id).style.display = "none";
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    const plusIcons = document.querySelectorAll(".plus-icon");
+
+    plusIcons.forEach(icon => {
+      icon.addEventListener("click", function(e) {
+        e.preventDefault();
+        const popupId = this.getAttribute("data-popup-id");
+        console.log(popupId,'popupId');
+        document.getElementById(popupId).style.display = "flex";
+      });
+    });
+  });
+  </script>
+
+  {% schema %}
+  {
+    "name": "Product Grid Section",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "gridcol",
+        "name": "Slides",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "grid_image",
+            "label": "Image"
+          },
+          {
+            "type": "product",
+            "id": "product",
+            "label": "Product"
+          },
+          {
+            "type": "range",
+            "id": "top_position",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Plus Icon Top",
+            "default": 20
+          },
+          {
+            "type": "range",
+            "id": "right_poisition",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Plus Icon from Right",
+            "default": 20
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Product Grid Section"
+      }
+    ]
+  }
+  {% endschema %}
+{% endcomment %}
+
 {% stylesheet %}
     .grid-section {
       display: grid;
@@ -564,9 +798,11 @@
   function closePopup(id) {
     const popup = document.getElementById('popup-' + id);
     popup.style.display = 'none';
-    document.body.style.overflow = 'unset';
+
+
+    // Reset selected options in the popup
     const colorButtons = popup.querySelectorAll('.option-btn');
-    colorButtons.forEach((btn) => btn.classList.remove('active'));
+    colorButtons.forEach((btn) => btn.classList.remove('active')); // optional: reset active state
 
     const selectTriggers = popup.querySelectorAll('.select-trigger .label-name');
     selectTriggers.forEach((span) => {
@@ -591,7 +827,6 @@
         e.preventDefault();
         const popupId = this.getAttribute('data-popup-id');
         document.getElementById(popupId).style.display = 'flex';
-        document.body.style.overflow = 'hidden';
       });
     });
   });
@@ -611,6 +846,13 @@
         select.classList.remove('open');
       });
     });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!select.contains(e.target)) {
+        select.classList.remove('open');
+      }
+    });
   });
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -627,56 +869,60 @@
         InStock: true,
       };
 
-      function checkFreeProductEligibility() {
-        if (selectedOptions.Color === 'Black' && selectedOptions.Size === 'M') {
-          console.log('You are eligible for a free product!');
-          return true;
+      function updateATCButton() {
+        if (selectedOptions.InStock) {
+          addToCartBtn.textContent = 'Add to Cart →';
+          addToCartBtn.disabled = false;
+          addToCartBtn.style.opacity = '1';
+        } else {
+          addToCartBtn.textContent = 'Sold Out';
+          addToCartBtn.disabled = true;
+          addToCartBtn.style.opacity = '0.5';
         }
-        return false;
       }
 
+    function checkFreeProductEligibility() {
+      if (selectedOptions.Color === 'Black' && selectedOptions.Size === 'M') {
+        console.log('🎁 You are eligible for a free product!');
+      }
+    }
+
+      // Handle color selection
       popup.querySelectorAll('.option-btn').forEach((btn) => {
         btn.addEventListener('click', () => {
-          // Remove the active class from all color buttons
-          popup.querySelectorAll('.option-btn').forEach((button) => {
-            button.classList.remove('active');
-          });
-
-          // Add the active class to the clicked color button
-          btn.classList.add('active');
-
-          // Update the selected options
           selectedOptions.Color = btn.dataset.value;
           selectedOptions.VariantId = btn.dataset.variantId;
           selectedOptions.InStock = btn.dataset.inStock === 'true';
 
-          // Update the 'data-main-product' attribute on the Add to Cart button
           addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
-
-          // Hide the error message if it's visible
           errorMsg.style.display = 'none';
+
+          updateATCButton();
+          checkFreeProductEligibility();
         });
       });
 
+      // Handle size selection
       popup.querySelectorAll('.select-option').forEach((option) => {
         option.addEventListener('click', () => {
-          // Update selected options
           selectedOptions.Size = option.dataset.value;
           if (option.dataset.variantId) {
             selectedOptions.VariantId = option.dataset.variantId;
           }
           selectedOptions.InStock = option.dataset.inStock === 'true';
 
-          // Update the 'data-main-product' attribute on the Add to Cart button
           addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
-
-          // Hide the error message if it's visible
           errorMsg.style.display = 'none';
+
+          updateATCButton();
+          checkFreeProductEligibility();
         });
       });
 
       // Add to cart
       addToCartBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+
         if (!selectedOptions.Color || !selectedOptions.Size) {
           errorMsg.style.display = 'block';
           errorMsg.textContent = 'Please select all required options.';
@@ -691,27 +937,6 @@
 
         errorMsg.style.display = 'none';
 
-        // Get the variant ID of the addon product (from data attribute)
-        const addonProductId = addToCartBtn.dataset.addonProduct;
-
-        // If the user is eligible for the free product, add both the main product and the addon product
-        const isEligibleForFreeProduct = checkFreeProductEligibility();
-
-        const productsToAdd = [
-          {
-            id: selectedOptions.VariantId,
-            quantity: 1,
-          },
-        ];
-
-        if (isEligibleForFreeProduct && addonProductId) {
-          // If eligible for free product, add the addon product as well
-          productsToAdd.push({
-            id: addonProductId,
-            quantity: 1,
-          });
-        }
-
         // Add to cart API
         fetch('/cart/add.js', {
           method: 'POST',
@@ -719,11 +944,14 @@
             'Content-Type': 'application/json',
             Accept: 'application/json',
           },
-          body: JSON.stringify({ items: productsToAdd }),
+          body: JSON.stringify({
+            id: selectedOptions.VariantId,
+            quantity: 1,
+          }),
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log('✅ Products added to cart:', data);
+            console.log('✅ Product added to cart:', data);
             window.location.href = '/cart';
           })
           .catch((err) => {
@@ -731,7 +959,167 @@
           });
       });
     });
+  }); 
+
+
+{% comment %} document.addEventListener('DOMContentLoaded', () => {
+  const popups = document.querySelectorAll('.product-popup-overlay');
+
+  popups.forEach((popup) => {
+    const addToCartBtn = popup.querySelector('.add-to-cart-btn');
+    const errorMsg = popup.querySelector('.popup-error-message');
+
+    let selectedOptions = {
+      Color: null,
+      Size: null,
+      VariantId: null,
+      InStock: true,
+    };
+
+
+
+    function checkFreeProductEligibility() {
+      if (selectedOptions.Color === 'Black' && selectedOptions.Size === 'M') {
+        console.log('You are eligible for a free product!');
+        return true;
+      }
+      return false; 
+    }
+
+    // Handle color selection
+    {% comment %} popup.querySelectorAll('.option-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        selectedOptions.Color = btn.dataset.value;
+        selectedOptions.VariantId = btn.dataset.variantId;
+        selectedOptions.InStock = btn.dataset.inStock === 'true';
+
+        addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
+        errorMsg.style.display = 'none';
+
+        updateATCButton();
+      });
+    });
+
+    // Handle size selection
+    popup.querySelectorAll('.select-option').forEach((option) => {
+      option.addEventListener('click', () => {
+        selectedOptions.Size = option.dataset.value;
+        if (option.dataset.variantId) {
+          selectedOptions.VariantId = option.dataset.variantId;
+        }
+        selectedOptions.InStock = option.dataset.inStock === 'true';
+
+        addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
+        errorMsg.style.display = 'none';
+
+        updateATCButton();
+      });
+    }); {% endcomment %}
+
+    // Handle color selection
+  popup.querySelectorAll('.option-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      // Remove the active class from all color buttons
+      popup.querySelectorAll('.option-btn').forEach((button) => {
+        button.classList.remove('active');
+      });
+
+      // Add the active class to the clicked color button
+      btn.classList.add('active');
+
+      // Update the selected options
+      selectedOptions.Color = btn.dataset.value;
+      selectedOptions.VariantId = btn.dataset.variantId;
+      selectedOptions.InStock = btn.dataset.inStock === 'true';
+
+      // Update the 'data-main-product' attribute on the Add to Cart button
+      addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
+
+      // Hide the error message if it's visible
+      errorMsg.style.display = 'none';
+
+    });
   });
+
+  // Handle size selection (this remains unchanged, no active class for size)
+  popup.querySelectorAll('.select-option').forEach((option) => {
+    option.addEventListener('click', () => {
+      // Update selected options
+      selectedOptions.Size = option.dataset.value;
+      if (option.dataset.variantId) {
+        selectedOptions.VariantId = option.dataset.variantId;
+      }
+      selectedOptions.InStock = option.dataset.inStock === 'true';
+
+      // Update the 'data-main-product' attribute on the Add to Cart button
+      addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
+
+      // Hide the error message if it's visible
+      errorMsg.style.display = 'none';
+
+    });
+  });
+
+
+    // Add to cart
+    addToCartBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      if (!selectedOptions.Color || !selectedOptions.Size) {
+        errorMsg.style.display = 'block';
+        errorMsg.textContent = 'Please select all required options.';
+        return;
+      }
+
+      if (!selectedOptions.InStock) {
+        errorMsg.style.display = 'block';
+        errorMsg.textContent = 'This variant is out of stock.';
+        return;
+      }
+
+      errorMsg.style.display = 'none';
+
+      // Get the variant ID of the addon product (from data attribute)
+      const addonProductId = addToCartBtn.dataset.addonProduct;
+
+      // If the user is eligible for the free product, add both the main product and the addon product
+      const isEligibleForFreeProduct = checkFreeProductEligibility();
+
+      const productsToAdd = [
+        {
+          id: selectedOptions.VariantId,
+          quantity: 1,
+        },
+      ];
+
+      if (isEligibleForFreeProduct && addonProductId) {
+        // If eligible for free product, add the addon product as well
+        productsToAdd.push({
+          id: addonProductId,
+          quantity: 1,
+        });
+      }
+
+      // Add to cart API
+      fetch('/cart/add.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({ items: productsToAdd }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log('✅ Products added to cart:', data);
+          window.location.href = '/cart';
+        })
+        .catch((err) => {
+          console.error('❌ Error adding to cart:', err);
+        });
+    });
+  });
+}); {% endcomment %}
 </script>
 
 {% schema %}
