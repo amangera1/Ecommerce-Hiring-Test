@@ -1335,9 +1335,67 @@
 
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const popups = document.querySelectorAll('.product-popup-overlay');
+  // ✅ Close popup
+  function closePopup(id) {
+    const popup = document.getElementById('popup-' + id);
+    popup.style.display = 'none';
 
+    // Reset selected states
+    const colorButtons = popup.querySelectorAll('.option-btn');
+    colorButtons.forEach((btn) => btn.classList.remove('active'));
+
+    const selectTriggers = popup.querySelectorAll('.select-trigger .label-name');
+    selectTriggers.forEach((span) => {
+      const parentSelect = span.closest('.custom-select');
+      const optionName = parentSelect.dataset.option || '';
+      span.textContent = `Choose your ${optionName}`;
+      parentSelect.classList.remove('open');
+    });
+
+    // Hide error messages
+    const errorMsg = popup.querySelector('.popup-error-message');
+    if (errorMsg) {
+      errorMsg.style.display = 'none';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // ✅ Open popup
+    const plusIcons = document.querySelectorAll('.plus-icon');
+    plusIcons.forEach((icon) => {
+      icon.addEventListener('click', function (e) {
+        e.preventDefault();
+        const popupId = this.getAttribute('data-popup-id');
+        document.getElementById(popupId).style.display = 'flex';
+      });
+    });
+
+    // ✅ Custom select toggle
+    document.querySelectorAll('[data-select]').forEach((select) => {
+      const trigger = select.querySelector('.select-trigger');
+      const options = select.querySelectorAll('.select-option');
+      const span = trigger.querySelector('span');
+
+      trigger.addEventListener('click', () => {
+        select.classList.toggle('open');
+      });
+
+      options.forEach((option) => {
+        option.addEventListener('click', () => {
+          span.textContent = option.textContent;
+          select.classList.remove('open');
+        });
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!select.contains(e.target)) {
+          select.classList.remove('open');
+        }
+      });
+    });
+
+    // ✅ Variant + add to cart logic
+    const popups = document.querySelectorAll('.product-popup-overlay');
     popups.forEach((popup) => {
       const addToCartBtn = popup.querySelector('.add-to-cart-btn');
       const errorMsg = popup.querySelector('.popup-error-message');
@@ -1362,7 +1420,7 @@
         }
       }
 
-      // Handle option selections (Color + Size)
+      // Handle color + size clicks
       popup.querySelectorAll('.option-btn, .select-option').forEach((el) => {
         el.addEventListener('click', () => {
           const optionName = el.dataset.option;
@@ -1421,10 +1479,12 @@
           });
       });
 
+      // Init
       updateATCButton();
     });
   });
 </script>
+
 
 
 {% schema %}
