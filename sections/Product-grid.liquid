@@ -1047,7 +1047,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Handle size selection (this remains unchanged, no active class for size)
-  {% comment %} popup.querySelectorAll('.select-option').forEach((option) => {
+  popup.querySelectorAll('.select-option').forEach((option) => {
     option.addEventListener('click', () => {
       // Update selected options
       selectedOptions.Size = option.dataset.value;
@@ -1063,30 +1063,7 @@ document.addEventListener('DOMContentLoaded', () => {
       errorMsg.style.display = 'none';
 
     });
-  }); {% endcomment %}
-
-  popup.querySelectorAll('.select-option').forEach((option) => {
-  option.addEventListener('click', () => {
-    // Update selected size
-    selectedOptions.Size = option.dataset.value;
-    selectedOptions.InStock = option.dataset.inStock === 'true';
-
-    // Find the currently active color button
-    const activeColorBtn = popup.querySelector('.option-btn.active');
-
-    if (activeColorBtn) {
-      // Trigger the click again on the selected color
-      activeColorBtn.click();
-    }
-
-    // Update Add to Cart attribute
-    addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
-
-    // Hide error if visible
-    errorMsg.style.display = 'none';
   });
-});
-
 
     // Add to cart
     addToCartBtn.addEventListener('click', (e) => {
