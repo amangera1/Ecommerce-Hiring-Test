@@ -1135,12 +1135,12 @@
 
     // Reset selected options in the popup
     const colorButtons = popup.querySelectorAll('.option-btn');
-    colorButtons.forEach((btn) => btn.classList.remove('active')); // optional: reset active state
+    colorButtons.forEach((btn) => btn.classList.remove('active'));
 
     const selectTriggers = popup.querySelectorAll('.select-trigger .label-name');
     selectTriggers.forEach((span) => {
       const parentSelect = span.closest('.custom-select');
-      const optionName = parentSelect.dataset.optionName || '';
+      const optionName = parentSelect.dataset.option || '';
       span.textContent = `Choose your ${optionName}`;
       parentSelect.classList.remove('open');
     });
@@ -1167,7 +1167,7 @@
   document.querySelectorAll('[data-select]').forEach((select) => {
     const trigger = select.querySelector('.select-trigger');
     const options = select.querySelectorAll('.select-option');
-    const span = trigger.querySelector('.label-name');
+    const span = trigger.querySelector('span');
 
     trigger.addEventListener('click', () => {
       select.classList.toggle('open');
@@ -1180,7 +1180,6 @@
       });
     });
 
-    // Close when clicking outside
     document.addEventListener('click', (e) => {
       if (!select.contains(e.target)) {
         select.classList.remove('open');
@@ -1194,11 +1193,9 @@
     popups.forEach((popup) => {
       const addToCartBtn = popup.querySelector('.add-to-cart-btn');
       const errorMsg = popup.querySelector('.popup-error-message');
-      
-      // Get all product variants from the popup
-      const productTitle = popup.querySelector('.popup-title').textContent;
-      
-      // Track selected options
+      const variantsScript = popup.querySelector('[data-variants]');
+      const productVariants = variantsScript ? JSON.parse(variantsScript.textContent) : [];
+
       let selectedOptions = {
         Color: null,
         Size: null,
@@ -1206,55 +1203,58 @@
         InStock: true,
       };
 
+      function findMatchingVariant() {
+        return productVariants.find((variant) => {
+          let colorMatch = true;
+          let sizeMatch = true;
+
+          if (selectedOptions.Color) {
+            colorMatch =
+              variant.option1 === selectedOptions.Color ||
+              variant.option2 === selectedOptions.Color ||
+              variant.option3 === selectedOptions.Color;
+          }
+
+          if (selectedOptions.Size) {
+            sizeMatch =
+              variant.option1 === selectedOptions.Size ||
+              variant.option2 === selectedOptions.Size ||
+              variant.option3 === selectedOptions.Size;
+          }
+
+          return colorMatch && sizeMatch;
+        });
+      }
+
       function updateATCButton() {
-        if (selectedOptions.InStock) {
+        if (selectedOptions.VariantId && selectedOptions.InStock) {
           addToCartBtn.textContent = 'Add to Cart →';
           addToCartBtn.disabled = false;
           addToCartBtn.style.opacity = '1';
-        } else {
+        } else if (selectedOptions.VariantId && !selectedOptions.InStock) {
           addToCartBtn.textContent = 'Sold Out';
+          addToCartBtn.disabled = true;
+          addToCartBtn.style.opacity = '0.5';
+        } else {
+          addToCartBtn.textContent = 'Select Options';
           addToCartBtn.disabled = true;
           addToCartBtn.style.opacity = '0.5';
         }
       }
 
-      // Function to find the correct variant based on selected options
-      function findVariant() {
-        if (!selectedOptions.Color || !selectedOptions.Size) return null;
-        
-        // Get all variants for this product
-        const variants = {{ product.variants | json }};
-        
-        // Find the variant that matches both selected options
-        const matchingVariant = variants.find(variant => {
-          return variant.option1 === selectedOptions.Color && variant.option2 === selectedOptions.Size ||
-                 variant.option1 === selectedOptions.Size && variant.option2 === selectedOptions.Color ||
-                 variant.option2 === selectedOptions.Color && variant.option3 === selectedOptions.Size ||
-                 variant.option2 === selectedOptions.Size && variant.option3 === selectedOptions.Color ||
-                 variant.option1 === selectedOptions.Color && variant.option3 === selectedOptions.Size ||
-                 variant.option1 === selectedOptions.Size && variant.option3 === selectedOptions.Color;
-        });
-        
-        return matchingVariant || null;
-      }
-
       // Handle color selection
       popup.querySelectorAll('.option-btn').forEach((btn) => {
         btn.addEventListener('click', () => {
-          // Remove active class from all color buttons
-          popup.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
-          // Add active class to clicked button
-          btn.classList.add('active');
-          
           selectedOptions.Color = btn.dataset.value;
-          
-          // Find the matching variant
-          const variant = findVariant();
+
+          const variant = findMatchingVariant();
           if (variant) {
             selectedOptions.VariantId = variant.id;
             selectedOptions.InStock = variant.available;
+          } else {
+            selectedOptions.VariantId = null;
           }
-          
+
           addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
           errorMsg.style.display = 'none';
 
@@ -1266,19 +1266,15 @@
       popup.querySelectorAll('.select-option').forEach((option) => {
         option.addEventListener('click', () => {
           selectedOptions.Size = option.dataset.value;
-          
-          // Update the select trigger text
-          const select = option.closest('.custom-select');
-          const trigger = select.querySelector('.label-name');
-          trigger.textContent = option.textContent;
-          
-          // Find the matching variant
-          const variant = findVariant();
+
+          const variant = findMatchingVariant();
           if (variant) {
             selectedOptions.VariantId = variant.id;
             selectedOptions.InStock = variant.available;
+          } else {
+            selectedOptions.VariantId = null;
           }
-          
+
           addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
           errorMsg.style.display = 'none';
 
@@ -1296,6 +1292,12 @@
           return;
         }
 
+        if (!selectedOptions.VariantId) {
+          errorMsg.style.display = 'block';
+          errorMsg.textContent = 'This combination is not available.';
+          return;
+        }
+
         if (!selectedOptions.InStock) {
           errorMsg.style.display = 'block';
           errorMsg.textContent = 'This variant is out of stock.';
@@ -1304,7 +1306,6 @@
 
         errorMsg.style.display = 'none';
 
-        // Add to cart API
         fetch('/cart/add.js', {
           method: 'POST',
           headers: {
@@ -1325,9 +1326,13 @@
             console.error('❌ Error adding to cart:', err);
           });
       });
+
+      // Init button state
+      updateATCButton();
     });
   });
 </script>
+
 {% schema %}
 {
   "name": "Product Grid Section",
