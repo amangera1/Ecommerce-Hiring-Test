@@ -1090,6 +1090,8 @@
       // If the user is eligible for the free product, add both the main product and the addon product
       const isEligibleForFreeProduct = checkFreeProductEligibility();
 
+      console.log(selectedOptions.VariantId,'selectedOptions.VariantId');
+
       const productsToAdd = [
         {
           id: selectedOptions.VariantId,
