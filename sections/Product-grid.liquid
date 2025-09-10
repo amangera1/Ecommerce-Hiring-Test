@@ -1016,6 +1016,22 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }); {% endcomment %}
 
+    function updateVariantSelection() {
+  const matchedVariant = window.productVariants.find(variant => 
+    variant.Color === selectedOptions.Color &&
+    variant.Size === selectedOptions.Size
+  );
+
+  if (matchedVariant) {
+    selectedOptions.VariantId = matchedVariant.id;
+    selectedOptions.InStock = matchedVariant.inStock;
+    addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
+  } else {
+    selectedOptions.VariantId = null;
+    selectedOptions.InStock = false;
+  }
+}
+
     // Handle color selection
   popup.querySelectorAll('.option-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -1037,6 +1053,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Hide the error message if it's visible
       errorMsg.style.display = 'none';
+      updateVariantSelection();
 
     });
   });
@@ -1062,6 +1079,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+
+  
 
     // Add to cart
     addToCartBtn.addEventListener('click', (e) => {
