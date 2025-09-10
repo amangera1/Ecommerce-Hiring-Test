@@ -1,0 +1,152 @@
+<style>
+   @font-face {
+     font-family: '{{ settings['font-file-h1'] | split: '?v=' | first | split: '/' | last | split: '.' | first }}';
+     src: url("{{ settings['font-file-h1'] }}");
+     font-display: swap;
+   }
+   @font-face {
+     font-family: '{{ settings['font-file-h2'] | split: '?v=' | first | split: '/' | last | split: '.' | first }}';
+     src: url("{{ settings['font-file-h2'] }}");
+     font-display: swap;
+   }
+   @font-face {
+     font-family: '{{ settings['font-file-h3'] | split: '?v=' | first | split: '/' | last | split: '.' | first }}';
+     src: url("{{ settings['font-file-h3'] }}");
+     font-display: swap;
+   }
+   @font-face {
+     font-family: '{{ settings['font-file-h4'] | split: '?v=' | first | split: '/' | last | split: '.' | first }}';
+     src: url("{{ settings['font-file-h4'] }}");
+     font-display: swap;
+   }
+   @font-face {
+     font-family: '{{ settings['font-file-h5'] | split: '?v=' | first | split: '/' | last | split: '.' | first }}';
+     src: url("{{ settings['font-file-h5'] }}");
+     font-display: swap;
+   }
+   @font-face {
+     font-family: '{{ settings['font-file-h6'] | split: '?v=' | first | split: '/' | last | split: '.' | first }}';
+     src: url("{{ settings['font-file-h6'] }}");
+     font-display: swap;
+   }
+   @font-face {
+     font-family: '{{ settings['font-file-p'] | split: '?v=' | first | split: '/' | last | split: '.' | first }}';
+     src: url("{{ settings['font-file-p'] }}");
+     font-display: swap;
+   }
+   @font-face {
+     font-family: '{{ settings['font-file-a'] | split: '?v=' | first | split: '/' | last | split: '.' | first }}';
+     src: url("{{ settings['font-file-a'] }}");
+     font-display: swap;
+   }
+
+  {% comment %} @font-face {
+    font-family: 'Neue-Helvetica-Bold';
+    src: url('https://cdn.shopify.com/s/files/1/0764/2808/3500/files/neue-helvetica-bold.otf?v=1684414272');
+    font-display: swap;
+  } {% endcomment %}
+
+  @font-face {
+    font-family: 'Poppins-Regular';
+    src: url('https://cdn.shopify.com/s/files/1/0564/3111/6374/files/Poppins-Regular.ttf?v=1703072808');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Poppins-Bold';
+    src: url('https://cdn.shopify.com/s/files/1/0564/3111/6374/files/Poppins-Bold.ttf?v=1703072870');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Poppins-Medium';
+    src: url('https://cdn.shopify.com/s/files/1/0564/3111/6374/files/Poppins-Medium.ttf?v=1703072770');
+    font-display: swap;
+  }
+   @font-face {
+    font-family: 'Poppins-SemiBold';
+    src: url('https://cdn.shopify.com/s/files/1/0564/3111/6374/files/Poppins-SemiBold.ttf?v=1703836674');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Poppins-Light';
+    src: url('https://cdn.shopify.com/s/files/1/0564/3111/6374/files/Poppins-Light.ttf?v=1703072837');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Raleway-Regular';
+    src: url('https://cdn.shopify.com/s/files/1/0564/3111/6374/files/Raleway-Regular.ttf?v=1703072966');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Raleway-Bold';
+    src: url('https://cdn.shopify.com/s/files/1/0564/3111/6374/files/Raleway-Bold.ttf?v=1703072978');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Raleway-Medium';
+    src: url('https://cdn.shopify.com/s/files/1/0564/3111/6374/files/Raleway-Medium.ttf?v=1703072989');
+    font-display: swap;
+  }
+  @font-face {
+
+    font-family: 'Raleway-Light';
+    src: url('https://cdn.shopify.com/s/files/1/0564/3111/6374/files/Raleway-Light.ttf?v=1703072984');
+    font-display: swap;
+  }
+    @font-face {
+      font-family: 'Roboto-Medium';
+      src: url('https://cdn.shopify.com/s/files/1/0564/3111/6374/files/Roboto-Medium.ttf?v=1703656427');
+      font-display: swap;
+    }
+   @font-face {
+      font-family: 'Playfair_Display_Medium';
+      src: url('https://cdn.shopify.com/s/files/1/0564/3111/6374/files/Playfair_Display_Medium_3146.ttf?v=1732509249');
+      font-display: swap;
+    }
+      @font-face {
+      font-family: 'Mulish-Regular';
+      src: url('https://cdn.shopify.com/s/files/1/0564/3111/6374/files/Mulish-Regular.ttf?v=1704865661');
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Mulish-Extrabold';
+      src: url('https://cdn.shopify.com/s/files/1/0564/3111/6374/files/Mulish-ExtraBold.ttf?v=1704865764');
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'PlayfairDisplay-Bold';
+      src: url('https://cdn.shopify.com/s/files/1/0564/3111/6374/files/PlayfairDisplay-Bold_4b0f7272-b230-4754-91eb-200a10ac52ee.ttf?v=1730177295');
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'PlayfairDisplay-Regular';
+      src: url('https://cdn.shopify.com/s/files/1/0564/3111/6374/files/PlayfairDisplay-Regular_520aac54-aa44-4007-bc53-a80e98000041.ttf?v=1730177295');
+      font-display: swap;
+    }
+     @font-face {
+      font-family: 'Inter';
+      src: url('https://cdn.shopify.com/s/files/1/0564/3111/6374/files/Inter_24pt-SemiBold.ttf?v=1752654613');
+      font-display: swap;
+    }
+     @font-face {
+      font-family: 'FuturaStdMedium';
+      src: url('https://cdn.shopify.com/s/files/1/0564/3111/6374/files/FuturaStdMedium.otf?v=1752655434');
+      font-display: swap;
+    }
+      @font-face {
+      font-family: 'Times_New_Roman';
+      src: url('https://cdn.shopify.com/s/files/1/0564/3111/6374/files/times_new_roman.ttf?v=1752662700');
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Playfair Display';
+      src: url('https://cdn.shopify.com/s/files/1/0564/3111/6374/files/PlayfairDisplay-VariableFont_wght.ttf?v=1731563631');
+      font-family: 'PlayfairDisplay-Medium';
+      src: url('https://cdn.shopify.com/s/files/1/0564/3111/6374/files/PlayfairDisplay-Medium_5322f1a4-d86d-48f6-8073-f0f89eaffe6f.ttf?v=1731914698');
+      font-display: swap;
+    }
+     @font-face {
+      font-family: 'HouseOfMontague';
+      src: url('https://cdn.shopify.com/s/files/1/0564/3111/6374/files/HouseOfMontagueDEMO.otf?v=1755508887');
+      font-display: swap;
+    }
+</style>
