@@ -539,7 +539,11 @@
                   </div>
                 {% endif %}
                 <p class="popup-error-message" style="color:red; display:none;">Please select an option.</p>
-                <button class="add-to-cart-btn" data-main-product="" data-addon-product = "{{ section.settings.free_product_variant_id }}">
+                <button
+                  class="add-to-cart-btn"
+                  data-main-product=""
+                  data-addon-product="{{ section.settings.free_product_variant_id }}"
+                >
                   Add to Cart
                   <span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="31" height="12" viewBox="0 0 31 12" fill="none">
@@ -607,179 +611,141 @@
     });
   });
 
-
-
   document.addEventListener('DOMContentLoaded', () => {
-  const popups = document.querySelectorAll('.product-popup-overlay');
+    const popups = document.querySelectorAll('.product-popup-overlay');
 
-  popups.forEach((popup) => {
-    const addToCartBtn = popup.querySelector('.add-to-cart-btn');
-    const errorMsg = popup.querySelector('.popup-error-message');
+    popups.forEach((popup) => {
+      const addToCartBtn = popup.querySelector('.add-to-cart-btn');
+      const errorMsg = popup.querySelector('.popup-error-message');
 
-    let selectedOptions = {
-      Color: null,
-      Size: null,
-      VariantId: null,
-      InStock: true,
-    };
+      let selectedOptions = {
+        Color: null,
+        Size: null,
+        VariantId: null,
+        InStock: true,
+      };
 
-
-
-    function checkFreeProductEligibility() {
-      if (selectedOptions.Color === 'Black' && selectedOptions.Size === 'M') {
-        console.log('You are eligible for a free product!');
-        return true;
-      }
-      return false; 
-    }
-
-    // Handle color selection
-    {% comment %} popup.querySelectorAll('.option-btn').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        selectedOptions.Color = btn.dataset.value;
-        selectedOptions.VariantId = btn.dataset.variantId;
-        selectedOptions.InStock = btn.dataset.inStock === 'true';
-
-        addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
-        errorMsg.style.display = 'none';
-
-        updateATCButton();
-      });
-    });
-
-    // Handle size selection
-    popup.querySelectorAll('.select-option').forEach((option) => {
-      option.addEventListener('click', () => {
-        selectedOptions.Size = option.dataset.value;
-        if (option.dataset.variantId) {
-          selectedOptions.VariantId = option.dataset.variantId;
+      function checkFreeProductEligibility() {
+        if (selectedOptions.Color === 'Black' && selectedOptions.Size === 'M') {
+          console.log('You are eligible for a free product!');
+          return true;
         }
-        selectedOptions.InStock = option.dataset.inStock === 'true';
+        return false;
+      }
 
-        addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
+      // Handle color selection
+      popup.querySelectorAll('.option-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          // Remove the active class from all color buttons
+          popup.querySelectorAll('.option-btn').forEach((button) => {
+            button.classList.remove('active');
+          });
+
+          // Add the active class to the clicked color button
+          btn.classList.add('active');
+
+          // Update the selected options
+          selectedOptions.Color = btn.dataset.value;
+          selectedOptions.VariantId = btn.dataset.variantId;
+          selectedOptions.InStock = btn.dataset.inStock === 'true';
+
+          // Update the 'data-main-product' attribute on the Add to Cart button
+          addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
+
+          // Hide the error message if it's visible
+          errorMsg.style.display = 'none';
+        });
+      });
+
+      // Handle size selection (this remains unchanged, no active class for size)
+      popup.querySelectorAll('.select-option').forEach((option) => {
+        option.addEventListener('click', () => {
+          // Update selected options
+          selectedOptions.Size = option.dataset.value;
+          if (option.dataset.variantId) {
+            selectedOptions.VariantId = option.dataset.variantId;
+          }
+          selectedOptions.InStock = option.dataset.inStock === 'true';
+
+          // Update the 'data-main-product' attribute on the Add to Cart button
+          addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
+
+          // Hide the error message if it's visible
+          errorMsg.style.display = 'none';
+        });
+      });
+
+      // Add to cart
+      addToCartBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        if (!selectedOptions.Color || !selectedOptions.Size) {
+          errorMsg.style.display = 'block';
+          errorMsg.textContent = 'Please select all required options.';
+          return;
+        }
+
+        if (!selectedOptions.InStock) {
+          errorMsg.style.display = 'block';
+          errorMsg.textContent = 'This variant is out of stock.';
+          return;
+        }
+
         errorMsg.style.display = 'none';
 
-        updateATCButton();
-      });
-    }); {% endcomment %}
+        // Get the variant ID of the addon product (from data attribute)
+        const addonProductId = addToCartBtn.dataset.addonProduct;
 
-    // Handle color selection
-popup.querySelectorAll('.option-btn').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    // Remove the active class from all color buttons
-    popup.querySelectorAll('.option-btn').forEach((button) => {
-      button.classList.remove('active');
-    });
+        // If the user is eligible for the free product, add both the main product and the addon product
+        const isEligibleForFreeProduct = checkFreeProductEligibility();
 
-    // Add the active class to the clicked color button
-    btn.classList.add('active');
+        const productsToAdd = [
+          {
+            id: selectedOptions.VariantId,
+            quantity: 1,
+          },
+        ];
 
-    // Update the selected options
-    selectedOptions.Color = btn.dataset.value;
-    selectedOptions.VariantId = btn.dataset.variantId;
-    selectedOptions.InStock = btn.dataset.inStock === 'true';
+        if (isEligibleForFreeProduct && addonProductId) {
+          // If eligible for free product, add the addon product as well
+          productsToAdd.push({
+            id: addonProductId,
+            quantity: 1,
+          });
+        }
 
-    // Update the 'data-main-product' attribute on the Add to Cart button
-    addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
-
-    // Hide the error message if it's visible
-    errorMsg.style.display = 'none';
-
-  });
-});
-
-// Handle size selection (this remains unchanged, no active class for size)
-popup.querySelectorAll('.select-option').forEach((option) => {
-  option.addEventListener('click', () => {
-    // Update selected options
-    selectedOptions.Size = option.dataset.value;
-    if (option.dataset.variantId) {
-      selectedOptions.VariantId = option.dataset.variantId;
-    }
-    selectedOptions.InStock = option.dataset.inStock === 'true';
-
-    // Update the 'data-main-product' attribute on the Add to Cart button
-    addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
-
-    // Hide the error message if it's visible
-    errorMsg.style.display = 'none';
-
-  });
-});
-
-
-    // Add to cart
-    addToCartBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-
-      if (!selectedOptions.Color || !selectedOptions.Size) {
-        errorMsg.style.display = 'block';
-        errorMsg.textContent = 'Please select all required options.';
-        return;
-      }
-
-      if (!selectedOptions.InStock) {
-        errorMsg.style.display = 'block';
-        errorMsg.textContent = 'This variant is out of stock.';
-        return;
-      }
-
-      errorMsg.style.display = 'none';
-
-      // Get the variant ID of the addon product (from data attribute)
-      const addonProductId = addToCartBtn.dataset.addonProduct;
-
-      // If the user is eligible for the free product, add both the main product and the addon product
-      const isEligibleForFreeProduct = checkFreeProductEligibility();
-
-      const productsToAdd = [
-        {
-          id: selectedOptions.VariantId,
-          quantity: 1,
-        },
-      ];
-
-      if (isEligibleForFreeProduct && addonProductId) {
-        // If eligible for free product, add the addon product as well
-        productsToAdd.push({
-          id: addonProductId,
-          quantity: 1,
-        });
-      }
-
-      // Add to cart API
-      fetch('/cart/add.js', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({ items: productsToAdd }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log('✅ Products added to cart:', data);
-          window.location.href = '/cart';
+        // Add to cart API
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify({ items: productsToAdd }),
         })
-        .catch((err) => {
-          console.error('❌ Error adding to cart:', err);
-        });
+          .then((res) => res.json())
+          .then((data) => {
+            console.log('✅ Products added to cart:', data);
+            window.location.href = '/cart';
+          })
+          .catch((err) => {
+            console.error('❌ Error adding to cart:', err);
+          });
+      });
     });
   });
-});
-
 </script>
 
 {% schema %}
 {
   "name": "Product Grid Section",
   "settings": [
-     {
-          "type": "text",
-          "id": "free_product_variant_id",
-          "label": "Free Product Variant ID",
-          "info": "Enter the Variant ID for the free product here."
-        }
+    {
+      "type": "text",
+      "id": "free_product_variant_id",
+      "label": "Free Product Variant ID",
+      "info": "Enter the Variant ID for the free product here."
+    }
   ],
   "blocks": [
     {
