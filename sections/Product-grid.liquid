@@ -620,6 +620,12 @@
       line-height: 0px;
   }
 
+  .option-buttons button.btn-without-strip{
+    height: 40px;
+    max-height: 40px;
+    padding-left: 10px;
+  }
+
 
 
 
@@ -709,7 +715,7 @@
                                 {% assign strip = variant.metafields.custom.color_code %}
                               {% endif %}
                               <button
-                                class="option-btn"
+                                class="option-btn {% if strip == blank %} btn-without-strip {% endif %}"
                                 data-option="{{ option.name }}"
                                 data-value="{{ value }}"
                                 data-variant-id="{{ variant.id | default: '' }}"
