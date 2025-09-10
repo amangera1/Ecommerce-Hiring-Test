@@ -788,6 +788,10 @@
               </div>
             </div>
           {% endif %}
+
+          <script type="application/json" data-variants>
+          {{ product.variants | json }}
+        </script>
         </div>
       </div>
     {% endfor %}
