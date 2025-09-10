@@ -761,7 +761,14 @@
                   </div>
                 {% endif %}
                 <p class="popup-error-message" style="color:red; display:none;">Please select an option.</p>
-                <button class="add-to-cart-btn" data-main-product="">Add to Cart →</button>
+                <button class="add-to-cart-btn" data-main-product="">
+                  Add to Cart
+                  <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="31" height="12" viewBox="0 0 31 12" fill="none">
+                      <path d="M1.36377 4.80469L0.61377 4.80469L0.613769 6.30469L1.36377 6.30469L1.36377 4.80469ZM30.184 6.08502C30.4768 5.79213 30.4768 5.31725 30.184 5.02436L25.411 0.251388C25.1181 -0.0415052 24.6432 -0.0415052 24.3503 0.251388C24.0574 0.544282 24.0574 1.01916 24.3503 1.31205L28.593 5.55469L24.3503 9.79733C24.0574 10.0902 24.0574 10.5651 24.3503 10.858C24.6432 11.1509 25.1181 11.1509 25.411 10.858L30.184 6.08502ZM1.36377 6.30469L29.6536 6.30469L29.6536 4.80469L1.36377 4.80469L1.36377 6.30469Z" fill="black"/>
+                    </svg>
+                  </span>
+                </button>
               </div>
             </div>
           {% endif %}
@@ -772,39 +779,37 @@
 </section>
 
 <script>
+  function closePopup(id) {
+    const popup = document.getElementById('popup-' + id);
+    popup.style.display = 'none';
 
-    function closePopup(id) {
-  const popup = document.getElementById('popup-' + id);
-  popup.style.display = 'none';
+    // Reset the Add to Cart button
+    const addToCartBtn = popup.querySelector('.add-to-cart-btn');
+    if (addToCartBtn) {
+      addToCartBtn.setAttribute('data-main-product', ''); // Clear previous data
+      addToCartBtn.textContent = 'Add to Cart →';
+      addToCartBtn.disabled = false;
+      addToCartBtn.style.opacity = '1';
+    }
 
-  // Reset the Add to Cart button
-  const addToCartBtn = popup.querySelector('.add-to-cart-btn');
-  if (addToCartBtn) {
-    addToCartBtn.setAttribute('data-main-product', ''); // Clear previous data
-    addToCartBtn.textContent = "Add to Cart →";
-    addToCartBtn.disabled = false;
-    addToCartBtn.style.opacity = "1";
+    // Reset selected options in the popup
+    const colorButtons = popup.querySelectorAll('.option-btn');
+    colorButtons.forEach((btn) => btn.classList.remove('active')); // optional: reset active state
+
+    const selectTriggers = popup.querySelectorAll('.select-trigger .label-name');
+    selectTriggers.forEach((span) => {
+      const parentSelect = span.closest('.custom-select');
+      const optionName = parentSelect.dataset.option || '';
+      span.textContent = `Choose your ${optionName}`;
+      parentSelect.classList.remove('open');
+    });
+
+    // Hide any error messages
+    const errorMsg = popup.querySelector('.popup-error-message');
+    if (errorMsg) {
+      errorMsg.style.display = 'none';
+    }
   }
-
-  // Reset selected options in the popup
-  const colorButtons = popup.querySelectorAll('.option-btn');
-  colorButtons.forEach(btn => btn.classList.remove('active')); // optional: reset active state
-
-  const selectTriggers = popup.querySelectorAll('.select-trigger .label-name');
-  selectTriggers.forEach(span => {
-    const parentSelect = span.closest('.custom-select');
-    const optionName = parentSelect.dataset.option || '';
-    span.textContent = `Choose your ${optionName}`;
-    parentSelect.classList.remove('open');
-  });
-
-  // Hide any error messages
-  const errorMsg = popup.querySelector('.popup-error-message');
-  if (errorMsg) {
-    errorMsg.style.display = 'none';
-  }
-}
-
 
   document.addEventListener('DOMContentLoaded', function () {
     const plusIcons = document.querySelectorAll('.plus-icon');
@@ -842,109 +847,103 @@
     });
   });
 
+  document.addEventListener('DOMContentLoaded', () => {
+    const popups = document.querySelectorAll('.product-popup-overlay');
 
-document.addEventListener("DOMContentLoaded", () => {
-  const popups = document.querySelectorAll(".product-popup-overlay");
+    popups.forEach((popup) => {
+      const addToCartBtn = popup.querySelector('.add-to-cart-btn');
+      const errorMsg = popup.querySelector('.popup-error-message');
 
-  popups.forEach((popup) => {
-    const addToCartBtn = popup.querySelector(".add-to-cart-btn");
-    const errorMsg = popup.querySelector(".popup-error-message");
+      let selectedOptions = {
+        Color: null,
+        Size: null,
+        VariantId: null,
+        InStock: true,
+      };
 
-    let selectedOptions = {
-      Color: null,
-      Size: null,
-      VariantId: null,
-      InStock: true,
-    };
-
-    function updateATCButton() {
-      if (selectedOptions.InStock) {
-        addToCartBtn.textContent = "Add to Cart →";
-        addToCartBtn.disabled = false;
-        addToCartBtn.style.opacity = "1";
-      } else {
-        addToCartBtn.textContent = "Sold Out";
-        addToCartBtn.disabled = true;
-        addToCartBtn.style.opacity = "0.5";
-      }
-    }
-
-    // Handle color selection
-    popup.querySelectorAll(".option-btn").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        selectedOptions.Color = btn.dataset.value;
-        selectedOptions.VariantId = btn.dataset.variantId;
-        selectedOptions.InStock = btn.dataset.inStock === "true";
-
-        addToCartBtn.setAttribute("data-main-product", JSON.stringify(selectedOptions));
-        errorMsg.style.display = "none";
-
-        updateATCButton();
-      });
-    });
-
-    // Handle size selection
-    popup.querySelectorAll(".select-option").forEach((option) => {
-      option.addEventListener("click", () => {
-        selectedOptions.Size = option.dataset.value;
-        if (option.dataset.variantId) {
-          selectedOptions.VariantId = option.dataset.variantId;
+      function updateATCButton() {
+        if (selectedOptions.InStock) {
+          addToCartBtn.textContent = 'Add to Cart →';
+          addToCartBtn.disabled = false;
+          addToCartBtn.style.opacity = '1';
+        } else {
+          addToCartBtn.textContent = 'Sold Out';
+          addToCartBtn.disabled = true;
+          addToCartBtn.style.opacity = '0.5';
         }
-        selectedOptions.InStock = option.dataset.inStock === "true";
-
-        addToCartBtn.setAttribute("data-main-product", JSON.stringify(selectedOptions));
-        errorMsg.style.display = "none";
-
-        updateATCButton();
-      });
-    });
-
-    // Add to cart
-    addToCartBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-
-      if (!selectedOptions.Color || !selectedOptions.Size) {
-        errorMsg.style.display = "block";
-        errorMsg.textContent = "Please select all required options.";
-        return;
       }
 
-      if (!selectedOptions.InStock) {
-        errorMsg.style.display = "block";
-        errorMsg.textContent = "This variant is out of stock.";
-        return;
-      }
+      // Handle color selection
+      popup.querySelectorAll('.option-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          selectedOptions.Color = btn.dataset.value;
+          selectedOptions.VariantId = btn.dataset.variantId;
+          selectedOptions.InStock = btn.dataset.inStock === 'true';
 
-      errorMsg.style.display = "none";
+          addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
+          errorMsg.style.display = 'none';
 
-      // Add to cart API
-      fetch("/cart/add.js", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-        },
-        body: JSON.stringify({
-          id: selectedOptions.VariantId,
-          quantity: 1,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log("✅ Product added to cart:", data);
-          window.location.href = "/cart";
-        })
-        .catch((err) => {
-          console.error("❌ Error adding to cart:", err);
+          updateATCButton();
         });
+      });
+
+      // Handle size selection
+      popup.querySelectorAll('.select-option').forEach((option) => {
+        option.addEventListener('click', () => {
+          selectedOptions.Size = option.dataset.value;
+          if (option.dataset.variantId) {
+            selectedOptions.VariantId = option.dataset.variantId;
+          }
+          selectedOptions.InStock = option.dataset.inStock === 'true';
+
+          addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
+          errorMsg.style.display = 'none';
+
+          updateATCButton();
+        });
+      });
+
+      // Add to cart
+      addToCartBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        if (!selectedOptions.Color || !selectedOptions.Size) {
+          errorMsg.style.display = 'block';
+          errorMsg.textContent = 'Please select all required options.';
+          return;
+        }
+
+        if (!selectedOptions.InStock) {
+          errorMsg.style.display = 'block';
+          errorMsg.textContent = 'This variant is out of stock.';
+          return;
+        }
+
+        errorMsg.style.display = 'none';
+
+        // Add to cart API
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify({
+            id: selectedOptions.VariantId,
+            quantity: 1,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log('✅ Product added to cart:', data);
+            window.location.href = '/cart';
+          })
+          .catch((err) => {
+            console.error('❌ Error adding to cart:', err);
+          });
+      });
     });
   });
-});
-
-
-
-
-
 </script>
 
 {% schema %}
