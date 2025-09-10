@@ -590,6 +590,7 @@
         e.preventDefault();
         const popupId = this.getAttribute('data-popup-id');
         document.getElementById(popupId).style.display = 'flex';
+        document.body.style.overflow = 'hidden';
       });
     });
   });
