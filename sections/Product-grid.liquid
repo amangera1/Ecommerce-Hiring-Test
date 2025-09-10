@@ -675,7 +675,6 @@
 
       // Add to cart
       addToCartBtn.addEventListener('click', (e) => {
-        {% comment %} e.preventDefault(); {% endcomment %}
 
         if (!selectedOptions.Color || !selectedOptions.Size) {
           errorMsg.style.display = 'block';
