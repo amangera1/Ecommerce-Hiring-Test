@@ -864,7 +864,7 @@
     });
   });
 
-  document.addEventListener('DOMContentLoaded', () => {
+  {% comment %} document.addEventListener('DOMContentLoaded', () => {
     const popups = document.querySelectorAll('.product-popup-overlay');
 
     popups.forEach((popup) => {
@@ -968,7 +968,134 @@
           });
       });
     });
+  }); {% endcomment %}
+
+
+  document.addEventListener('DOMContentLoaded', () => {
+  const popups = document.querySelectorAll('.product-popup-overlay');
+
+  popups.forEach((popup) => {
+    const addToCartBtn = popup.querySelector('.add-to-cart-btn');
+    const errorMsg = popup.querySelector('.popup-error-message');
+
+    let selectedOptions = {
+      Color: null,
+      Size: null,
+      VariantId: null,
+      InStock: true,
+    };
+
+    function updateATCButton() {
+      if (selectedOptions.InStock) {
+        addToCartBtn.textContent = 'Add to Cart →';
+        addToCartBtn.disabled = false;
+        addToCartBtn.style.opacity = '1';
+      } else {
+        addToCartBtn.textContent = 'Sold Out';
+        addToCartBtn.disabled = true;
+        addToCartBtn.style.opacity = '0.5';
+      }
+    }
+
+    // Function to check free product eligibility
+    function checkFreeProductEligibility() {
+      if (selectedOptions.Color === 'Black' && selectedOptions.Size === 'M') {
+        console.log('🎁 You are eligible for a free product!');
+        return true;  // Eligible for free product
+      }
+      return false; // Not eligible for free product
+    }
+
+    // Handle color selection
+    popup.querySelectorAll('.option-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        selectedOptions.Color = btn.dataset.value;
+        selectedOptions.VariantId = btn.dataset.variantId;
+        selectedOptions.InStock = btn.dataset.inStock === 'true';
+
+        addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
+        errorMsg.style.display = 'none';
+
+        updateATCButton();
+      });
+    });
+
+    // Handle size selection
+    popup.querySelectorAll('.select-option').forEach((option) => {
+      option.addEventListener('click', () => {
+        selectedOptions.Size = option.dataset.value;
+        if (option.dataset.variantId) {
+          selectedOptions.VariantId = option.dataset.variantId;
+        }
+        selectedOptions.InStock = option.dataset.inStock === 'true';
+
+        addToCartBtn.setAttribute('data-main-product', JSON.stringify(selectedOptions));
+        errorMsg.style.display = 'none';
+
+        updateATCButton();
+      });
+    });
+
+    // Add to cart
+    addToCartBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      if (!selectedOptions.Color || !selectedOptions.Size) {
+        errorMsg.style.display = 'block';
+        errorMsg.textContent = 'Please select all required options.';
+        return;
+      }
+
+      if (!selectedOptions.InStock) {
+        errorMsg.style.display = 'block';
+        errorMsg.textContent = 'This variant is out of stock.';
+        return;
+      }
+
+      errorMsg.style.display = 'none';
+
+      // Get the variant ID of the addon product (from data attribute)
+      const addonProductId = addToCartBtn.dataset.addonProduct;
+
+      // If the user is eligible for the free product, add both the main product and the addon product
+      const isEligibleForFreeProduct = checkFreeProductEligibility();
+
+      const productsToAdd = [
+        {
+          id: selectedOptions.VariantId,
+          quantity: 1,
+        },
+      ];
+
+      if (isEligibleForFreeProduct && addonProductId) {
+        // If eligible for free product, add the addon product as well
+        productsToAdd.push({
+          id: addonProductId,
+          quantity: 1,
+        });
+      }
+
+      // Add to cart API
+      fetch('/cart/add.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({ items: productsToAdd }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log('✅ Products added to cart:', data);
+          window.location.href = '/cart';
+        })
+        .catch((err) => {
+          console.error('❌ Error adding to cart:', err);
+        });
+    });
   });
+});
+
 </script>
 
 {% schema %}
