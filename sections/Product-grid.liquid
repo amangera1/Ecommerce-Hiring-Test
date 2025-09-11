@@ -1,4 +1,11 @@
-{% stylesheet %}
+<style>
+
+.product-grid-container{{ section.id }}{
+  margin-top: {{ section.settings.margin_top_desktop }}px;
+  margin-bottom: {{ section.settings.margin_bottom_desktop }}px;
+  padding-top: {{ section.settings.padding_top_desktop }}px;
+  padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+}
     .grid-section {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -392,6 +399,12 @@
 
 
     @media (max-width: 767px) {
+      .product-grid-container{{ section.id }}{
+          margin-top: {{ section.settings.margin_top_mobile }}px;
+          margin-bottom: {{ section.settings.margin_bottom_mobile }}px;
+          padding-top: {{ section.settings.padding_top_mobile }}px;
+          padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+      }
       .grid-section {
         grid-template-columns: repeat(2, 1fr);
         gap: 4px;
@@ -406,9 +419,9 @@
         flex-direction: column;
       }
     }
-{% endstylesheet %}
+</style>
 
-<section class="custom-grid-section">
+<section class="custom-grid-section product-grid-container{{ section.id }}">
   <div class="grid-section">
     {% for block in section.blocks %}
       <div class="grid-item" {{ block.shopify_attributes }}>
