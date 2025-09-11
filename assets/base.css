@@ -2803,7 +2803,7 @@ details[open] > .header__submenu {
 }
 
 .header__menu-item:hover span{
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 .header__menu-item span {
