@@ -728,8 +728,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add to cart
     addToCartBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-
       if (!selectedOptions.Color || !selectedOptions.Size) {
         errorMsg.style.display = 'block';
         errorMsg.textContent = 'Please select all required options.';
