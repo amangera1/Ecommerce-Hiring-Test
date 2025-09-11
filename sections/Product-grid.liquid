@@ -582,8 +582,7 @@
   function closePopup(id) {
     const popup = document.getElementById('popup-' + id);
     popup.style.display = 'none';
-
-
+    document.body.style.overflow = 'auto';
     // Reset selected options in the popup
     const colorButtons = popup.querySelectorAll('.option-btn');
     colorButtons.forEach((btn) => btn.classList.remove('active')); // optional: reset active state
