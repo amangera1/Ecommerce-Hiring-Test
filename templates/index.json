@@ -220,6 +220,7 @@
     },
     "animated_split_banner": {
       "type": "animated-split-banner",
+      "disabled": true,
       "settings": {
         "heading": "Innovative Solutions",
         "subheading": "Leading the Industry",
@@ -248,6 +249,7 @@
     },
     "animated_product_showcase": {
       "type": "animated-product-showcase",
+      "disabled": true,
       "settings": {
         "heading": "Featured Products",
         "description": "<p>Discover our handpicked selection of amazing products</p>",
@@ -429,6 +431,7 @@
         "testimonial_2",
         "testimonial_3"
       ],
+      "disabled": true,
       "settings": {
         "heading": "What Our Customers Say",
         "description": "<p>Read testimonials from our satisfied customers</p>",
@@ -470,6 +473,7 @@
         "feature_2",
         "feature_3"
       ],
+      "disabled": true,
       "settings": {
         "heading": "Ready to Get Started?",
         "description": "<p>Join thousands of satisfied customers today</p>",
