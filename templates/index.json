@@ -351,8 +351,8 @@
         "overlay_button_hover_color": "#ffffff",
         "card_border_radius": 8,
         "image_aspect_ratio": "4 / 3",
-        "header_spacing": 50,
-        "padding_top": 80,
+        "header_spacing": 30,
+        "padding_top": 40,
         "padding_bottom": 80
       }
     }
