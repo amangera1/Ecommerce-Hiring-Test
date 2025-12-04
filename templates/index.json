@@ -509,39 +509,42 @@
             "button_link": "#"
           }
         },
-        "blog_post_kcLBL9": {
+        "blog_post_rphair": {
           "type": "blog_post",
           "settings": {
-            "title": "Blog Post Title",
-            "description": "Blog post description goes here...",
+            "image": "shopify://shop_images/4_940x_1c784695-9d58-4161-a9b6-b7ae57399e2d.webp",
+            "title": "Unipart Fluid management system",
+            "description": "The Nilkamal Inkjet Printer is unconventionally simple that comes with a simple Unipart Fluid management system with no-lock out hours, a modular design with plug and play serviceability and is mess free & spill proof and quick changing cartridge system. \n\nIts highly durable IP55 rated construction ensures the printer can survive the harshest of environments giving it a long life and it has a patented quick change along with combo external filter unit which has a life upto 2 years.",
             "button_text": "View Details",
-            "button_link": ""
+            "button_link": "#"
           }
         },
-        "blog_post_RJ6Epa": {
+        "blog_post_EhnKtV": {
           "type": "blog_post",
           "settings": {
-            "title": "Blog Post Title",
-            "description": "Blog post description goes here...",
+            "image": "shopify://shop_images/4_940x_1c784695-9d58-4161-a9b6-b7ae57399e2d.webp",
+            "title": "Unipart Fluid management system",
+            "description": "The Nilkamal Inkjet Printer is unconventionally simple that comes with a simple Unipart Fluid management system with no-lock out hours, a modular design with plug and play serviceability and is mess free & spill proof and quick changing cartridge system. \n\nIts highly durable IP55 rated construction ensures the printer can survive the harshest of environments giving it a long life and it has a patented quick change along with combo external filter unit which has a life upto 2 years.",
             "button_text": "View Details",
-            "button_link": ""
+            "button_link": "#"
           }
         },
-        "blog_post_ydRwUr": {
+        "blog_post_6hagNr": {
           "type": "blog_post",
           "settings": {
-            "title": "Blog Post Title",
-            "description": "Blog post description goes here...",
+            "image": "shopify://shop_images/4_940x_1c784695-9d58-4161-a9b6-b7ae57399e2d.webp",
+            "title": "Unipart Fluid management system",
+            "description": "The Nilkamal Inkjet Printer is unconventionally simple that comes with a simple Unipart Fluid management system with no-lock out hours, a modular design with plug and play serviceability and is mess free & spill proof and quick changing cartridge system. \n\nIts highly durable IP55 rated construction ensures the printer can survive the harshest of environments giving it a long life and it has a patented quick change along with combo external filter unit which has a life upto 2 years.",
             "button_text": "View Details",
-            "button_link": ""
+            "button_link": "#"
           }
         }
       },
       "block_order": [
         "blog_post_UEzxVt",
-        "blog_post_kcLBL9",
-        "blog_post_RJ6Epa",
-        "blog_post_ydRwUr"
+        "blog_post_rphair",
+        "blog_post_EhnKtV",
+        "blog_post_6hagNr"
       ],
       "name": "Animated Blog Carousel",
       "settings": {
