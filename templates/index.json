@@ -9,181 +9,253 @@
  */
 {
   "sections": {
-    "banner_with_text_9ewzjp": {
-      "type": "Banner-with-text",
-      "disabled": true,
+    "animated_hero_banner": {
+      "type": "animated-hero-banner",
       "settings": {
-        "desktop_main_image": "shopify://shop_images/Group_1000008197.png",
-        "mobile_main_image": "shopify://shop_images/Frame_1958_1.jpg",
-        "heading": "The Gift Guide",
-        "subheading": "Discover Joy: Your ultimate holiday gift Destination",
+        "heading": "Welcome to Our Store",
+        "subheading": "Discover amazing products with smooth animations and parallax effects",
         "button_text": "Shop Now",
-        "button_link": "#",
-        "bottom_text": "Sustainable Ethecally Made Sizes from XXS to 6XL",
-        "color_text": "#ffffff"
+        "button_link": "/collections/all",
+        "text_color": "#ffffff",
+        "button_bg_color": "#000000",
+        "button_text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 40
       }
     },
-    "grid_section_hMiWNf": {
-      "type": "grid-section",
+    "animated_features": {
+      "type": "animated-features",
+      "settings": {
+        "heading": "Why Choose Us",
+        "description": "Discover what makes us special",
+        "background_color": "#ffffff",
+        "heading_color": "#000000",
+        "text_color": "#666666",
+        "card_bg_color": "#f8f8f8",
+        "card_text_color": "#000000",
+        "icon_bg_color": "#e8e8e8"
+      },
       "blocks": {
-        "gridcol_6WEmwh": {
-          "type": "gridcol",
-          "disabled": true,
+        "feature_1": {
+          "type": "feature",
           "settings": {
-            "grid_image": "shopify://shop_images/image_822.png",
-            "product": "black-leather-bag",
-            "top_position": 12,
-            "right_poisition": 68
+            "icon_text": "🚀",
+            "title": "Fast Delivery",
+            "description": "Quick and reliable shipping worldwide"
           }
         },
-        "gridcol_EgbTNi": {
-          "type": "gridcol",
+        "feature_2": {
+          "type": "feature",
           "settings": {
-            "grid_image": "shopify://shop_images/image_823.png",
-            "product": "blue-silk-tuxedo",
-            "top_position": 31,
-            "right_poisition": 63
+            "icon_text": "💎",
+            "title": "Premium Quality",
+            "description": "Only the best products for our customers"
           }
         },
-        "gridcol_eTwmAc": {
-          "type": "gridcol",
+        "feature_3": {
+          "type": "feature",
           "settings": {
-            "grid_image": "shopify://shop_images/image_824.png",
-            "product": "chequered-red-shirt",
-            "top_position": 50,
-            "right_poisition": 48
-          }
-        },
-        "gridcol_h7VVWR": {
-          "type": "gridcol",
-          "settings": {
-            "grid_image": "shopify://shop_images/image_825.png",
-            "product": "classic-leather-jacket",
-            "top_position": 51,
-            "right_poisition": 38
-          }
-        },
-        "gridcol_bn4eeg": {
-          "type": "gridcol",
-          "settings": {
-            "grid_image": "shopify://shop_images/image_826.png",
-            "product": "classic-varsity-top",
-            "top_position": 16,
-            "right_poisition": 16
-          }
-        },
-        "gridcol_im9B7p": {
-          "type": "gridcol",
-          "settings": {
-            "grid_image": "shopify://shop_images/image_827.png",
-            "product": "dark-denim-top",
-            "top_position": 16,
-            "right_poisition": 16
+            "icon_text": "❤️",
+            "title": "Customer Support",
+            "description": "24/7 dedicated customer support"
           }
         }
       },
       "block_order": [
-        "gridcol_6WEmwh",
-        "gridcol_EgbTNi",
-        "gridcol_eTwmAc",
-        "gridcol_h7VVWR",
-        "gridcol_bn4eeg",
-        "gridcol_im9B7p"
-      ],
-      "disabled": true,
-      "settings": {}
+        "feature_1",
+        "feature_2",
+        "feature_3"
+      ]
     },
-    "the_gift_guide_9zNYrB": {
-      "type": "The-Gift-Guide",
-      "name": "The Gift Guide",
+    "animated_product_showcase": {
+      "type": "animated-product-showcase",
       "settings": {
-        "desktop_main_image_upper": "shopify://shop_images/Frame.png",
-        "desktop_main_image_Bottom_right": "shopify://shop_images/Frame_1.png",
-        "mobile_main_image": "shopify://shop_images/Frame_1958_1_2950f0ce-985c-4318-a14a-0ff78691ebd7.jpg",
-        "heading": "The Gift Guide",
-        "subheading": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
-        "subheading_mobile": "Discover Joy: Your Ultimate Holiday Gift Destination.",
-        "button_text": "Shop Now",
-        "button_link": "#",
-        "bottom_text": "Sustainable Ethecally Made Sizes from XXS to 6XL"
+        "heading": "Featured Products",
+        "description": "Discover our handpicked selection of amazing products",
+        "background_color": "#f8f8f8",
+        "heading_color": "#000000",
+        "text_color": "#666666",
+        "card_bg_color": "#ffffff",
+        "card_text_color": "#000000",
+        "price_color": "#000000",
+        "button_bg_color": "#000000",
+        "button_text_color": "#ffffff",
+        "button_hover_color": "#333333"
       }
     },
-    "product_grid_CgBr4M": {
-      "type": "Product-grid",
+    "animated_testimonials": {
+      "type": "animated-testimonials",
+      "settings": {
+        "heading": "What Our Customers Say",
+        "description": "Read testimonials from our satisfied customers",
+        "background_color": "#ffffff",
+        "heading_color": "#000000",
+        "text_color": "#666666",
+        "card_bg_color": "#f8f8f8",
+        "card_text_color": "#000000",
+        "accent_color": "#000000"
+      },
       "blocks": {
-        "gridcol_pmcUDP": {
-          "type": "gridcol",
+        "testimonial_1": {
+          "type": "testimonial",
           "settings": {
-            "grid_image": "shopify://shop_images/image_823.png",
-            "product": "blue-silk-tuxedo",
-            "top_position": 50,
-            "right_poisition": 50
+            "rating": 5,
+            "quote": "Amazing quality and fast shipping! The product exceeded my expectations.",
+            "author_name": "Sarah Johnson",
+            "author_role": "Verified Customer"
           }
         },
-        "gridcol_qEEcq6": {
-          "type": "gridcol",
+        "testimonial_2": {
+          "type": "testimonial",
           "settings": {
-            "grid_image": "shopify://shop_images/image_824.png",
-            "product": "chequered-red-shirt",
-            "top_position": 20,
-            "right_poisition": 20
+            "rating": 5,
+            "quote": "Best purchase I've made this year! Highly recommend to everyone.",
+            "author_name": "Michael Chen",
+            "author_role": "Verified Customer"
           }
         },
-        "gridcol_CBqap6": {
-          "type": "gridcol",
+        "testimonial_3": {
+          "type": "testimonial",
           "settings": {
-            "grid_image": "shopify://shop_images/image_822.png",
-            "product": "black-leather-bag",
-            "top_position": 20,
-            "right_poisition": 78
-          }
-        },
-        "gridcol_FRarpg": {
-          "type": "gridcol",
-          "settings": {
-            "grid_image": "shopify://shop_images/image_826.png",
-            "product": "classic-varsity-top",
-            "top_position": 20,
-            "right_poisition": 20
-          }
-        },
-        "gridcol_VUnH4b": {
-          "type": "gridcol",
-          "settings": {
-            "grid_image": "shopify://shop_images/image_825.png",
-            "product": "classic-leather-jacket",
-            "top_position": 20,
-            "right_poisition": 20
-          }
-        },
-        "gridcol_N4mq3c": {
-          "type": "gridcol",
-          "settings": {
-            "grid_image": "shopify://shop_images/image_827.png",
-            "product": "dark-denim-top",
-            "top_position": 20,
-            "right_poisition": 20
+            "rating": 5,
+            "quote": "Exceeded my expectations in every way. Will definitely shop again!",
+            "author_name": "Emily Davis",
+            "author_role": "Verified Customer"
           }
         }
       },
       "block_order": [
-        "gridcol_pmcUDP",
-        "gridcol_qEEcq6",
-        "gridcol_CBqap6",
-        "gridcol_FRarpg",
-        "gridcol_VUnH4b",
-        "gridcol_N4mq3c"
-      ],
-      "name": "Product Grid Section",
+        "testimonial_1",
+        "testimonial_2",
+        "testimonial_3"
+      ]
+    },
+    "animated_product_slider": {
+      "type": "animated-product-slider",
       "settings": {
-        "free_product_variant_id": "45988011376897"
-      }
+        "heading": "Explore Our Product",
+        "description": "high-performance solutions designed to meet every printing and production need.",
+        "view_all_text": "VIEW ALL",
+        "view_all_link": "/collections/all",
+        "heading_animation": "from-bottom",
+        "description_animation": "from-bottom",
+        "view_all_animation": "from-right",
+        "default_slide_animation": "from-bottom",
+        "slides_per_view": 3,
+        "slide_gap": 20,
+        "transition_speed": 800,
+        "loop_slides": true,
+        "autoplay": false,
+        "autoplay_delay": 5000,
+        "show_navigation": true,
+        "background_color": "#ffffff",
+        "heading_color": "#333333",
+        "text_color": "#666666",
+        "view_all_color": "#333333",
+        "view_all_hover_color": "#000000",
+        "title_color": "#333333",
+        "overlay_button_color": "#333333",
+        "overlay_button_hover_bg": "#333333",
+        "overlay_button_hover_color": "#ffffff",
+        "card_border_radius": 8,
+        "image_aspect_ratio": "4 / 3",
+        "header_spacing": 50,
+        "padding_top": 80,
+        "padding_bottom": 80
+      },
+      "blocks": {
+        "product_1": {
+          "type": "product",
+          "settings": {
+            "title": "Continuous Inkjet Printer",
+            "view_all_text": "VIEW ALL",
+            "view_all_link": "/collections/continuous-inkjet",
+            "slide_animation": ""
+          }
+        },
+        "product_2": {
+          "type": "product",
+          "settings": {
+            "title": "Thermal Inkjet Printer",
+            "view_all_text": "VIEW ALL",
+            "view_all_link": "/collections/thermal-inkjet",
+            "slide_animation": ""
+          }
+        },
+        "product_3": {
+          "type": "product",
+          "settings": {
+            "title": "Thermal Transfer Over Printer",
+            "view_all_text": "VIEW ALL",
+            "view_all_link": "/collections/thermal-transfer",
+            "slide_animation": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_1",
+        "product_2",
+        "product_3"
+      ]
+    },
+    "animated_cta": {
+      "type": "animated-cta",
+      "settings": {
+        "heading": "Ready to Get Started?",
+        "description": "Join thousands of satisfied customers today",
+        "primary_button_text": "Shop Now",
+        "primary_button_link": "/collections/all",
+        "secondary_button_text": "Learn More",
+        "secondary_button_link": "/pages/about",
+        "show_features": true,
+        "background_color": "#000000",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 50,
+        "primary_button_bg": "#ffffff",
+        "primary_button_text_color": "#000000",
+        "primary_button_hover": "#f0f0f0",
+        "secondary_button_text_color": "#ffffff",
+        "secondary_button_border": "#ffffff",
+        "secondary_button_bg": "#ffffff",
+        "secondary_button_hover_text": "#000000"
+      },
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "🚚",
+            "text": "Free Shipping"
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "↩️",
+            "text": "Easy Returns"
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "🔒",
+            "text": "Secure Checkout"
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3"
+      ]
     }
   },
   "order": [
-    "banner_with_text_9ewzjp",
-    "grid_section_hMiWNf",
-    "the_gift_guide_9zNYrB",
-    "product_grid_CgBr4M"
+    "animated_hero_banner",
+    "animated_features",
+    "animated_product_showcase",
+    "animated_product_slider",
+    "animated_testimonials",
+    "animated_cta"
   ]
 }
