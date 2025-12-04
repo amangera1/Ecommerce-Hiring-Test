@@ -355,6 +355,61 @@
         "padding_top": 80,
         "padding_bottom": 80
       }
+    },
+    "animated_feature_showcase_Enaq6t": {
+      "type": "animated-feature-showcase",
+      "blocks": {
+        "slide_4JQfQw": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Group_8_1850x_aaa2f448-6162-48dc-b45c-c3d6ab585b5b.webp",
+            "hotspots": "20,30,⚙️,Simple Unipart Ink System with NO lock-out hours|50,70,🔧,Advanced Control Panel|80,40,📦,Easy Maintenance"
+          }
+        },
+        "slide_biDjxa": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Group_8_1850x_aaa2f448-6162-48dc-b45c-c3d6ab585b5b.webp",
+            "hotspots": "20,30,⚙️,Simple Unipart Ink System with NO lock-out hours|50,70,🔧,Advanced Control Panel|80,40,📦,Easy Maintenance"
+          }
+        },
+        "slide_fhh8yi": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Group_8_1850x_aaa2f448-6162-48dc-b45c-c3d6ab585b5b.webp",
+            "hotspots": "20,30,⚙️,Simple Unipart Ink System with NO lock-out hours|50,70,🔧,Advanced Control Panel|80,40,📦,Easy Maintenance"
+          }
+        }
+      },
+      "block_order": [
+        "slide_4JQfQw",
+        "slide_biDjxa",
+        "slide_fhh8yi"
+      ],
+      "name": "Animated Feature Showcase",
+      "settings": {
+        "heading": "Machine Feature",
+        "description": "<p>Continuous inkjet printing has served as an integral business process in many industries, including food and beverage, Pharma, wire and cable, automobile, and cosmetics. Resilient, superior-quality printers</p>",
+        "heading_animation": "from-left",
+        "description_animation": "from-left",
+        "loop_slides": true,
+        "autoplay": false,
+        "autoplay_delay": 5000,
+        "transition_speed": 800,
+        "show_navigation": true,
+        "background_color": "#ffffff",
+        "heading_color": "#333333",
+        "text_color": "#666666",
+        "hotspot_color": "#0066cc",
+        "icon_bg_color": "#e6f2ff",
+        "icon_color": "#0066cc",
+        "popup_text_color": "#333333",
+        "image_border_radius": 8,
+        "image_aspect_ratio": "4 / 3",
+        "content_gap": 60,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
     }
   },
   "order": [
@@ -362,6 +417,7 @@
     "animated_content_section",
     "animated_features_grid",
     "animated_image_slider",
-    "animated_product_slider"
+    "animated_product_slider",
+    "animated_feature_showcase_Enaq6t"
   ]
 }
