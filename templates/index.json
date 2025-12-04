@@ -90,7 +90,7 @@
       "settings": {
         "slider_height": 100,
         "mobile_slider_height": 70,
-        "slide_effect": "fade",
+        "slide_effect": "slide",
         "transition_speed": 800,
         "loop_slides": true,
         "autoplay": true,
