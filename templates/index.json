@@ -338,6 +338,7 @@
         "slide_1": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/Food_570x_3663e23c-fa2f-410f-ad96-9e5ad2d17b88.webp",
             "title": "Food",
             "slide_animation": ""
           }
@@ -345,6 +346,7 @@
         "slide_2": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/cable-and-wire_570x_4d1b5e58-07b2-435a-9bf2-cbe8bf6e9ea1.webp",
             "title": "Cable & Wire",
             "slide_animation": ""
           }
@@ -352,6 +354,7 @@
         "slide_3": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/beverages_570x_00cd5c53-9d9f-4715-a876-682a062c3382.webp",
             "title": "Beverage",
             "slide_animation": ""
           }
@@ -359,6 +362,7 @@
         "slide_4": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/pharma_570x_f0b7bf72-46bb-4ee9-a5d6-ccc659fe4453.webp",
             "title": "Pharma",
             "slide_animation": ""
           }
