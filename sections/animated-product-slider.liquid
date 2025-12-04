@@ -265,119 +265,26 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const sliderEl = document.getElementById('product-slider-{{ section.id }}');
-    if (!sliderEl) return;
-
-    // Wait for Swiper to be available
-    if (typeof Swiper === 'undefined') {
-      console.error('Swiper library not loaded');
-      return;
-    }
-
-    // Function to show/hide navigation based on slides count
-    function toggleNavigation(swiperInstance) {
-      const nextBtn = sliderEl.querySelector('.product-slider-button-next');
-      const prevBtn = sliderEl.querySelector('.product-slider-button-prev');
-      
-      if (!nextBtn || !prevBtn || !swiperInstance) return;
-      
-      // Count only non-duplicate slides (actual content blocks)
-      const uniqueSlides = Array.from(swiperInstance.slides).filter(slide => !slide.classList.contains('swiper-slide-duplicate'));
-      const actualSlideCount = uniqueSlides.length;
-      
-      // Get current slides per view - check breakpoints
-      let currentSlidesPerView = {{ section.settings.slides_per_view }};
-      const windowWidth = window.innerWidth;
-      if (windowWidth < 640) {
-        currentSlidesPerView = 1;
-      } else if (windowWidth < 768) {
-        currentSlidesPerView = 2;
-      } else if (windowWidth < 1024) {
-        currentSlidesPerView = 2;
-      }
-      
-      // Only show navigation if there are MORE slides than can be displayed
-      if (actualSlideCount > currentSlidesPerView && {{ section.settings.show_navigation }}) {
-        nextBtn.style.display = 'flex';
-        prevBtn.style.display = 'flex';
-      } else {
-        nextBtn.style.display = 'none';
-        prevBtn.style.display = 'none';
-      }
-    }
-
-    // Initialize Swiper
-    const swiper = new Swiper(sliderEl, {
-      loop: {{ section.settings.loop_slides }},
-      autoplay: {{ section.settings.autoplay }} ? {
-        delay: {{ section.settings.autoplay_delay }},
-        disableOnInteraction: false,
-        pauseOnMouseEnter: true
-      } : false,
-      speed: {{ section.settings.transition_speed }},
-      spaceBetween: {{ section.settings.slide_gap }},
-      breakpoints: {
-        320: {
-          slidesPerView: 1,
-          spaceBetween: 15
-        },
-        640: {
-          slidesPerView: 2,
-          spaceBetween: 20
-        },
-        768: {
-          slidesPerView: 2,
-          spaceBetween: {{ section.settings.slide_gap }}
-        },
-        1024: {
-          slidesPerView: {{ section.settings.slides_per_view }},
-          spaceBetween: {{ section.settings.slide_gap }}
-        }
-      },
-      navigation: {
-        nextEl: sliderEl.querySelector('.product-slider-button-next'),
-        prevEl: sliderEl.querySelector('.product-slider-button-prev'),
-      },
-      on: {
-        init: function() {
-          animateSlides(this.slides);
-          toggleNavigation(this);
-        },
-        slideChange: function() {
-          animateSlides(this.slides);
-        },
-        resize: function() {
-          toggleNavigation(this);
-        }
-      }
-    });
-
-    // Check navigation on window resize
-    window.addEventListener('resize', function() {
-      toggleNavigation(swiper);
-    });
+    if (!sliderEl || typeof gsap === 'undefined') return;
 
     // Animation function using GSAP
-    function animateSlides(slides) {
-      if (!slides || typeof gsap === 'undefined') return;
-
+    function animateSlides() {
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const slides = sliderEl.querySelectorAll('.product-slide');
+      
       if (prefersReducedMotion) {
         slides.forEach(slide => {
           const image = slide.querySelector('.product-slide-image');
           const title = slide.querySelector('.product-slide-title');
-          const btn = slide.querySelector('.product-slide-view-all-btn');
+          const viewAllBtn = slide.querySelector('.product-slide-view-all-btn');
           if (image) gsap.set(image, { opacity: 1 });
           if (title) gsap.set(title, { opacity: 1 });
-          if (btn) gsap.set(btn, { opacity: 1 });
+          if (viewAllBtn) gsap.set(viewAllBtn, { opacity: 1 });
         });
         return;
       }
 
       slides.forEach((slide, index) => {
-        if (!slide.classList.contains('swiper-slide-active') && !slide.classList.contains('swiper-slide-duplicate-active')) {
-          return;
-        }
-
         const image = slide.querySelector('.product-slide-image');
         const title = slide.querySelector('.product-slide-title');
         const viewAllBtn = slide.querySelector('.product-slide-view-all-btn');
@@ -402,20 +309,22 @@
                         slide.classList.contains('animate-from-bottom') ? 'fromBottom' :
                         slide.classList.contains('animate-zoom-in') ? 'zoomIn' : 'fade';
 
+        // Animate with stagger delay
+        const delay = index * 0.2;
+
         // Animate image
         if (image) {
-          animateElement(image, animType, 0);
+          animateElement(image, animType, delay);
         }
 
         // Animate title
         if (title) {
-          animateElement(title, animType, 0.3);
+          animateElement(title, animType, delay + 0.3);
         }
 
         // Animate button
-        const viewAllBtn = slide.querySelector('.product-slide-view-all-btn');
         if (viewAllBtn) {
-          animateElement(viewAllBtn, animType, 0.5);
+          animateElement(viewAllBtn, animType, delay + 0.5);
         }
       });
     }
