@@ -119,51 +119,6 @@
         "enable_parallax": true
       }
     },
-    "animated_features": {
-      "type": "animated-features",
-      "blocks": {
-        "feature_1": {
-          "type": "feature",
-          "settings": {
-            "icon_text": "🚀",
-            "title": "Fast Delivery",
-            "description": "<p>Quick and reliable shipping worldwide</p>"
-          }
-        },
-        "feature_2": {
-          "type": "feature",
-          "settings": {
-            "icon_text": "💎",
-            "title": "Premium Quality",
-            "description": "<p>Only the best products for our customers</p>"
-          }
-        },
-        "feature_3": {
-          "type": "feature",
-          "settings": {
-            "icon_text": "❤️",
-            "title": "Customer Support",
-            "description": "<p>24/7 dedicated customer support</p>"
-          }
-        }
-      },
-      "block_order": [
-        "feature_1",
-        "feature_2",
-        "feature_3"
-      ],
-      "disabled": true,
-      "settings": {
-        "heading": "Why Choose Us",
-        "description": "<p>Discover what makes us special</p>",
-        "background_color": "#ffffff",
-        "heading_color": "#000000",
-        "text_color": "#666666",
-        "card_bg_color": "#f8f8f8",
-        "card_text_color": "#000000",
-        "icon_bg_color": "#e8e8e8"
-      }
-    },
     "animated_features_grid": {
       "type": "animated-features-grid",
       "blocks": {
@@ -219,9 +174,9 @@
     "animated_content_section": {
       "type": "animated-content-section",
       "settings": {
-        "heading": "Transform Your Business",
-        "description": "<p>Discover innovative solutions that drive growth and success for your business</p>",
-        "button_text": "Get Started",
+        "heading": "Committed to Quality. Committed to You.",
+        "description": "<p>3 decades of business. 300+ sales persons, 35+ offices and depots. 10 ISO factories. Having people with 30 years of domain experience. Launching and scaling up our printing business over the years. First product is the Continuous Inkjet Printer. Many more solutions for continuous inkjet printers for this space.<br/><br/></p>",
+        "button_text": "Read More",
         "button_link": "/pages/contact",
         "heading_animation": "from-bottom",
         "description_animation": "from-bottom",
@@ -251,7 +206,7 @@
         "button_letter_spacing": 1,
         "button_border_radius": 4,
         "button_border_width": 0,
-        "button_bg_color": "#0066cc",
+        "button_bg_color": "#2a87e3",
         "button_text_color": "#ffffff",
         "button_border_color": "#0066cc",
         "button_hover_bg": "#0052a3",
@@ -539,7 +494,6 @@
   },
   "order": [
     "animated_hero_swiper",
-    "animated_features",
     "animated_features_grid",
     "animated_content_section",
     "animated_split_banner",
