@@ -204,6 +204,17 @@
     .product-slider{
       flex-direction: column;
     }
+    .product-slide {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    background: transparent;
+    box-shadow: none;
+    transition: transform 0.3s ease;
+    flex: 1;
+    min-width: calc((100% - (3 - 1) * 20px) / 3);
+    /* max-width: calc((100% - (3 - 1) * 20px) / 3); */
+    
   }
 
   @media (max-width: 640px) {
