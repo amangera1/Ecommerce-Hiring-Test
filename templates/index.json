@@ -407,7 +407,7 @@
         "image_border_radius": 8,
         "image_aspect_ratio": "4 / 3",
         "content_gap": 60,
-        "padding_top": 80,
+        "padding_top": 60,
         "padding_bottom": 80
       }
     }
