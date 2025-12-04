@@ -70,8 +70,10 @@
 
   .product-slider {
     width: 100%;
-    overflow: hidden;
-    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: {{ section.settings.slide_gap }}px;
+    flex-wrap: wrap;
   }
 
   .product-slide {
@@ -81,7 +83,9 @@
     background: transparent;
     box-shadow: none;
     transition: transform 0.3s ease;
-    height: 100%;
+    flex: 1;
+    min-width: calc((100% - ({{ section.settings.slides_per_view }} - 1) * {{ section.settings.slide_gap }}px) / {{ section.settings.slides_per_view }});
+    max-width: calc((100% - ({{ section.settings.slides_per_view }} - 1) * {{ section.settings.slide_gap }}px) / {{ section.settings.slides_per_view }});
     display: flex;
     flex-direction: column;
   }
@@ -157,52 +161,6 @@
     text-decoration: underline;
   }
 
-  /* Swiper Navigation - Centered vertically */
-  .product-slider-button-next,
-  .product-slider-button-prev {
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    background: rgba(255,255,255,0.9);
-    border-radius: 50%;
-    color: #000;
-    transition: all 0.3s ease;
-    top: 50%;
-    transform: translateY(-50%);
-    margin-top: 0;
-    z-index: 10;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  }
-
-  .product-slider-button-next {
-    right: 10px;
-  }
-
-  .product-slider-button-prev {
-    left: 10px;
-  }
-
-  .animated-product-slider-{{ section.id }} .swiper-button-next, 
-  .animated-product-slider-{{ section.id }} .swiper-button-prev {
-    display: flex !important;
-  }
-
-  .product-slider-button-next:hover,
-  .product-slider-button-prev:hover {
-    background: #fff;
-    transform: translateY(-50%) scale(1.1);
-  }
-
-  .product-slider-button-next::after,
-  .product-slider-button-prev::after {
-    font-size: 20px;
-    font-weight: bold;
-    line-height: 1;
-  }
 
   /* Animation Classes - Section specific to avoid conflicts */
   .animated-product-slider-{{ section.id }} .animate-from-left,
