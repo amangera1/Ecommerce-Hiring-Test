@@ -205,7 +205,7 @@
         "default_card_animation": "from-bottom",
         "background_color": "#ffffff",
         "card_bg_color": "#ffffff",
-        "icon_bg_color": "#0066cc",
+        "icon_bg_color": "rgba(0,0,0,0)",
         "icon_color": "#ffffff",
         "title_color": "#333333",
         "description_color": "#666666",
