@@ -43,10 +43,64 @@
             "description_animation": "",
             "button_animation": ""
           }
+        },
+        "slide_TLmUYY": {
+          "type": "slide",
+          "settings": {
+            "background_image": "shopify://shop_images/Continuous_Inkjet_Printer.webp",
+            "heading": "Welcome to Our Store",
+            "subheading": "Discover Amazing Products",
+            "description": "",
+            "primary_button_text": "Know More",
+            "primary_button_link": "/collections/all",
+            "secondary_button_text": "Learn More",
+            "secondary_button_link": "",
+            "heading_animation": "",
+            "subheading_animation": "",
+            "description_animation": "",
+            "button_animation": ""
+          }
+        },
+        "slide_iiiagE": {
+          "type": "slide",
+          "settings": {
+            "background_image": "shopify://shop_images/Continuous_Inkjet_Printer.webp",
+            "heading": "Welcome to Our Store",
+            "subheading": "Discover Amazing Products",
+            "description": "",
+            "primary_button_text": "Know More",
+            "primary_button_link": "/collections/all",
+            "secondary_button_text": "Learn More",
+            "secondary_button_link": "",
+            "heading_animation": "",
+            "subheading_animation": "",
+            "description_animation": "",
+            "button_animation": ""
+          }
+        },
+        "slide_W49weA": {
+          "type": "slide",
+          "settings": {
+            "background_image": "shopify://shop_images/Continuous_Inkjet_Printer.webp",
+            "heading": "Welcome to Our Store",
+            "subheading": "Discover Amazing Products",
+            "description": "",
+            "primary_button_text": "Know More",
+            "primary_button_link": "/collections/all",
+            "secondary_button_text": "Learn More",
+            "secondary_button_link": "",
+            "heading_animation": "",
+            "subheading_animation": "",
+            "description_animation": "",
+            "button_animation": ""
+          }
         }
       },
       "block_order": [
-        "slide_1"
+        "slide_1",
+        "slide_TLmUYY",
+        "slide_iiiagE",
+        "slide_W49weA"
       ],
       "settings": {
         "slider_height": 100,
