@@ -25,23 +25,13 @@
     },
     "animated_features": {
       "type": "animated-features",
-      "settings": {
-        "heading": "Why Choose Us",
-        "description": "Discover what makes us special",
-        "background_color": "#ffffff",
-        "heading_color": "#000000",
-        "text_color": "#666666",
-        "card_bg_color": "#f8f8f8",
-        "card_text_color": "#000000",
-        "icon_bg_color": "#e8e8e8"
-      },
       "blocks": {
         "feature_1": {
           "type": "feature",
           "settings": {
             "icon_text": "🚀",
             "title": "Fast Delivery",
-            "description": "Quick and reliable shipping worldwide"
+            "description": "<p>Quick and reliable shipping worldwide</p>"
           }
         },
         "feature_2": {
@@ -49,7 +39,7 @@
           "settings": {
             "icon_text": "💎",
             "title": "Premium Quality",
-            "description": "Only the best products for our customers"
+            "description": "<p>Only the best products for our customers</p>"
           }
         },
         "feature_3": {
@@ -57,7 +47,7 @@
           "settings": {
             "icon_text": "❤️",
             "title": "Customer Support",
-            "description": "24/7 dedicated customer support"
+            "description": "<p>24/7 dedicated customer support</p>"
           }
         }
       },
@@ -65,13 +55,23 @@
         "feature_1",
         "feature_2",
         "feature_3"
-      ]
+      ],
+      "settings": {
+        "heading": "Why Choose Us",
+        "description": "<p>Discover what makes us special</p>",
+        "background_color": "#ffffff",
+        "heading_color": "#000000",
+        "text_color": "#666666",
+        "card_bg_color": "#f8f8f8",
+        "card_text_color": "#000000",
+        "icon_bg_color": "#e8e8e8"
+      }
     },
     "animated_product_showcase": {
       "type": "animated-product-showcase",
       "settings": {
         "heading": "Featured Products",
-        "description": "Discover our handpicked selection of amazing products",
+        "description": "<p>Discover our handpicked selection of amazing products</p>",
         "background_color": "#f8f8f8",
         "heading_color": "#000000",
         "text_color": "#666666",
@@ -85,16 +85,6 @@
     },
     "animated_testimonials": {
       "type": "animated-testimonials",
-      "settings": {
-        "heading": "What Our Customers Say",
-        "description": "Read testimonials from our satisfied customers",
-        "background_color": "#ffffff",
-        "heading_color": "#000000",
-        "text_color": "#666666",
-        "card_bg_color": "#f8f8f8",
-        "card_text_color": "#000000",
-        "accent_color": "#000000"
-      },
       "blocks": {
         "testimonial_1": {
           "type": "testimonial",
@@ -128,18 +118,205 @@
         "testimonial_1",
         "testimonial_2",
         "testimonial_3"
-      ]
-    },
-    "animated_product_slider": {
-      "type": "animated-product-slider",
+      ],
       "settings": {
-        "heading": "Explore Our Product",
-        "description": "high-performance solutions designed to meet every printing and production need.",
-        "view_all_text": "VIEW ALL",
-        "view_all_link": "/collections/all",
+        "heading": "What Our Customers Say",
+        "description": "<p>Read testimonials from our satisfied customers</p>",
+        "background_color": "#ffffff",
+        "heading_color": "#000000",
+        "text_color": "#666666",
+        "card_bg_color": "#f8f8f8",
+        "card_text_color": "#000000",
+        "accent_color": "#000000"
+      }
+    },
+    "animated_hero_swiper": {
+      "type": "animated-hero-swiper",
+      "blocks": {
+        "slide_1": {
+          "type": "slide",
+          "settings": {
+            "heading": "Welcome to Our Store",
+            "subheading": "Discover Amazing Products",
+            "description": "<p>Experience the best shopping with smooth animations and parallax effects</p>",
+            "primary_button_text": "Shop Now",
+            "primary_button_link": "/collections/all",
+            "heading_animation": "",
+            "subheading_animation": "",
+            "description_animation": "",
+            "button_animation": ""
+          }
+        },
+        "slide_2": {
+          "type": "slide",
+          "settings": {
+            "heading": "Premium Quality",
+            "subheading": "Best Products",
+            "description": "<p>Shop our curated collection of premium products</p>",
+            "primary_button_text": "Explore",
+            "primary_button_link": "/collections/all",
+            "heading_animation": "",
+            "subheading_animation": "",
+            "description_animation": "",
+            "button_animation": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_1",
+        "slide_2"
+      ],
+      "settings": {
+        "slider_height": 100,
+        "transition_speed": 1000,
+        "autoplay": true,
+        "autoplay_delay": 5000,
+        "show_navigation": true,
+        "show_pagination": true,
+        "default_heading_animation": "from-bottom",
+        "default_subheading_animation": "from-bottom",
+        "default_description_animation": "from-bottom",
+        "default_button_animation": "from-bottom",
+        "text_alignment": "center",
+        "heading_color": "#ffffff",
+        "subheading_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 40,
+        "enable_parallax": true
+      }
+    },
+    "animated_content_section": {
+      "type": "animated-content-section",
+      "settings": {
+        "heading": "Transform Your Business",
+        "description": "<p>Discover innovative solutions that drive growth and success for your business</p>",
+        "button_text": "Get Started",
+        "button_link": "/pages/contact",
         "heading_animation": "from-bottom",
         "description_animation": "from-bottom",
-        "view_all_animation": "from-right",
+        "button_animation": "from-bottom",
+        "background_color": "#f8f8f8",
+        "heading_color": "#333333",
+        "button_bg_color": "#0066cc",
+        "button_text_color": "#ffffff",
+        "button_hover_bg": "#0052a3",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "mobile_padding_top": 60,
+        "mobile_padding_bottom": 60
+      }
+    },
+    "animated_split_banner": {
+      "type": "animated-split-banner",
+      "settings": {
+        "heading": "Innovative Solutions",
+        "subheading": "Leading the Industry",
+        "description": "<p>Experience cutting-edge technology and premium quality products designed to meet your every need.</p>",
+        "button_text": "Learn More",
+        "button_link": "/pages/about",
+        "layout_direction": "image_left",
+        "heading_animation": "from-left",
+        "subheading_animation": "from-left",
+        "description_animation": "from-left",
+        "image_animation": "slide_right",
+        "button_animation": "bounce",
+        "section_height": 80,
+        "background_color": "#ffffff",
+        "text_color": "#333333",
+        "button_bg_color": "#000000",
+        "button_text_color": "#ffffff",
+        "button_hover_color": "#333333"
+      }
+    },
+    "animated_features_grid": {
+      "type": "animated-features-grid",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon_text": "🚀",
+            "title": "Fast Delivery",
+            "description": "<p>Quick and reliable shipping worldwide</p>",
+            "card_animation": ""
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon_text": "💎",
+            "title": "Premium Quality",
+            "description": "<p>Only the best products for our customers</p>",
+            "card_animation": ""
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon_text": "❤️",
+            "title": "Customer Support",
+            "description": "<p>24/7 dedicated customer support</p>",
+            "card_animation": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3"
+      ],
+      "settings": {
+        "default_card_animation": "from-bottom",
+        "background_color": "#ffffff",
+        "title_color": "#333333",
+        "description_color": "#666666",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "animated_image_slider": {
+      "type": "animated-image-slider",
+      "blocks": {
+        "slide_1": {
+          "type": "slide",
+          "settings": {
+            "title": "Food",
+            "slide_animation": ""
+          }
+        },
+        "slide_2": {
+          "type": "slide",
+          "settings": {
+            "title": "Cable & Wire",
+            "slide_animation": ""
+          }
+        },
+        "slide_3": {
+          "type": "slide",
+          "settings": {
+            "title": "Beverage",
+            "slide_animation": ""
+          }
+        },
+        "slide_4": {
+          "type": "slide",
+          "settings": {
+            "title": "Pharma",
+            "slide_animation": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_1",
+        "slide_2",
+        "slide_3",
+        "slide_4"
+      ],
+      "settings": {
+        "heading": "Industrial Type",
+        "description": "<p>Powering performance across industries – from packaging to production.</p>",
+        "text_alignment": "left",
+        "heading_animation": "from-bottom",
+        "description_animation": "from-bottom",
         "default_slide_animation": "from-bottom",
         "slides_per_view": 3,
         "slide_gap": 20,
@@ -151,18 +328,16 @@
         "background_color": "#ffffff",
         "heading_color": "#333333",
         "text_color": "#666666",
-        "view_all_color": "#333333",
-        "view_all_hover_color": "#000000",
         "title_color": "#333333",
-        "overlay_button_color": "#333333",
-        "overlay_button_hover_bg": "#333333",
-        "overlay_button_hover_color": "#ffffff",
-        "card_border_radius": 8,
+        "image_border_radius": 0,
         "image_aspect_ratio": "4 / 3",
         "header_spacing": 50,
         "padding_top": 80,
         "padding_bottom": 80
-      },
+      }
+    },
+    "animated_product_slider": {
+      "type": "animated-product-slider",
       "blocks": {
         "product_1": {
           "type": "product",
@@ -196,30 +371,41 @@
         "product_1",
         "product_2",
         "product_3"
-      ]
+      ],
+      "settings": {
+        "heading": "Explore Our Product",
+        "description": "<p>high-performance solutions designed to meet every printing and production need.</p>",
+        "view_all_text": "VIEW ALL",
+        "view_all_link": "/collections/all",
+        "heading_animation": "from-bottom",
+        "description_animation": "from-bottom",
+        "view_all_animation": "from-right",
+        "default_slide_animation": "from-bottom",
+        "slides_per_view": 3,
+        "slide_gap": 20,
+        "transition_speed": 800,
+        "loop_slides": true,
+        "autoplay": false,
+        "autoplay_delay": 5000,
+        "show_navigation": true,
+        "background_color": "#ffffff",
+        "heading_color": "#333333",
+        "text_color": "#666666",
+        "view_all_color": "#333333",
+        "view_all_hover_color": "#000000",
+        "title_color": "#333333",
+        "overlay_button_color": "#333333",
+        "overlay_button_hover_bg": "#333333",
+        "overlay_button_hover_color": "#ffffff",
+        "card_border_radius": 8,
+        "image_aspect_ratio": "4 / 3",
+        "header_spacing": 50,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
     },
     "animated_cta": {
       "type": "animated-cta",
-      "settings": {
-        "heading": "Ready to Get Started?",
-        "description": "Join thousands of satisfied customers today",
-        "primary_button_text": "Shop Now",
-        "primary_button_link": "/collections/all",
-        "secondary_button_text": "Learn More",
-        "secondary_button_link": "/pages/about",
-        "show_features": true,
-        "background_color": "#000000",
-        "text_color": "#ffffff",
-        "overlay_color": "#000000",
-        "overlay_opacity": 50,
-        "primary_button_bg": "#ffffff",
-        "primary_button_text_color": "#000000",
-        "primary_button_hover": "#f0f0f0",
-        "secondary_button_text_color": "#ffffff",
-        "secondary_button_border": "#ffffff",
-        "secondary_button_bg": "#ffffff",
-        "secondary_button_hover_text": "#000000"
-      },
       "blocks": {
         "feature_1": {
           "type": "feature",
@@ -247,14 +433,39 @@
         "feature_1",
         "feature_2",
         "feature_3"
-      ]
+      ],
+      "settings": {
+        "heading": "Ready to Get Started?",
+        "description": "Join thousands of satisfied customers today",
+        "primary_button_text": "Shop Now",
+        "primary_button_link": "/collections/all",
+        "secondary_button_text": "Learn More",
+        "secondary_button_link": "/pages/about",
+        "show_features": true,
+        "background_color": "#000000",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 50,
+        "primary_button_bg": "#ffffff",
+        "primary_button_text_color": "#000000",
+        "primary_button_hover": "#f0f0f0",
+        "secondary_button_text_color": "#ffffff",
+        "secondary_button_border": "#ffffff",
+        "secondary_button_bg": "#ffffff",
+        "secondary_button_hover_text": "#000000"
+      }
     }
   },
   "order": [
     "animated_hero_banner",
+    "animated_hero_swiper",
     "animated_features",
+    "animated_features_grid",
+    "animated_content_section",
+    "animated_split_banner",
     "animated_product_showcase",
     "animated_product_slider",
+    "animated_image_slider",
     "animated_testimonials",
     "animated_cta"
   ]
