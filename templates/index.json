@@ -356,58 +356,227 @@
         "padding_bottom": 80
       }
     },
-    "animated_feature_showcase_Enaq6t": {
-      "type": "animated-feature-showcase",
+    "animated_brand_carousel_UPeFmg": {
+      "type": "animated-brand-carousel",
       "blocks": {
-        "slide_4JQfQw": {
-          "type": "slide",
+        "brand_iBEprV": {
+          "type": "brand",
           "settings": {
-            "image": "shopify://shop_images/Group_8_1850x_aaa2f448-6162-48dc-b45c-c3d6ab585b5b.webp",
-            "hotspots": "20,30,⚙️,Simple Unipart Ink System with NO lock-out hours|50,70,🔧,Advanced Control Panel|80,40,📦,Easy Maintenance"
+            "logo": "shopify://shop_images/rakesh_masala.avif",
+            "brand_name": ""
           }
         },
-        "slide_biDjxa": {
-          "type": "slide",
+        "brand_piTqBU": {
+          "type": "brand",
           "settings": {
-            "image": "shopify://shop_images/Group_8_1850x_aaa2f448-6162-48dc-b45c-c3d6ab585b5b.webp",
-            "hotspots": "20,30,⚙️,Simple Unipart Ink System with NO lock-out hours|50,70,🔧,Advanced Control Panel|80,40,📦,Easy Maintenance"
+            "logo": "shopify://shop_images/lupin.jpg",
+            "brand_name": ""
           }
         },
-        "slide_fhh8yi": {
-          "type": "slide",
+        "brand_abYi8X": {
+          "type": "brand",
           "settings": {
-            "image": "shopify://shop_images/Group_8_1850x_aaa2f448-6162-48dc-b45c-c3d6ab585b5b.webp",
-            "hotspots": "20,30,⚙️,Simple Unipart Ink System with NO lock-out hours|50,70,🔧,Advanced Control Panel|80,40,📦,Easy Maintenance"
+            "logo": "shopify://shop_images/rakesh_masala.avif",
+            "brand_name": ""
+          }
+        },
+        "brand_dKjPnC": {
+          "type": "brand",
+          "settings": {
+            "logo": "shopify://shop_images/lupin.jpg",
+            "brand_name": ""
+          }
+        },
+        "brand_ddCVqn": {
+          "type": "brand",
+          "settings": {
+            "logo": "shopify://shop_images/oberoi_flight_services_774d2f22-ef0d-449c-ac14-a007ebaed92a.avif",
+            "brand_name": ""
+          }
+        },
+        "brand_t6i4rR": {
+          "type": "brand",
+          "settings": {
+            "logo": "shopify://shop_images/oberoi_flight_services_774d2f22-ef0d-449c-ac14-a007ebaed92a.avif",
+            "brand_name": ""
           }
         }
       },
       "block_order": [
-        "slide_4JQfQw",
-        "slide_biDjxa",
-        "slide_fhh8yi"
+        "brand_iBEprV",
+        "brand_piTqBU",
+        "brand_abYi8X",
+        "brand_dKjPnC",
+        "brand_ddCVqn",
+        "brand_t6i4rR"
       ],
-      "name": "Animated Feature Showcase",
+      "name": "Animated Brand Carousel",
       "settings": {
-        "heading": "Machine Feature",
-        "description": "<p>Continuous inkjet printing has served as an integral business process in many industries, including food and beverage, Pharma, wire and cable, automobile, and cosmetics. Resilient, superior-quality printers</p>",
-        "heading_animation": "from-left",
-        "description_animation": "from-left",
-        "loop_slides": true,
-        "autoplay": false,
-        "autoplay_delay": 5000,
-        "transition_speed": 800,
-        "show_navigation": true,
+        "heading": "Trusted By Leading Brands Across Industries",
+        "logo_gap": 40,
+        "background_color": "#f5f5f5",
+        "heading_color": "#333333",
+        "logo_width": 200,
+        "logo_height": 120,
+        "logo_padding": 25,
+        "heading_spacing": 50,
+        "carousel_top_spacing": 40,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "animated_events_carousel_Vx9LHa": {
+      "type": "animated-events-carousel",
+      "blocks": {
+        "event_QTWVR9": {
+          "type": "event",
+          "settings": {
+            "event_text": "",
+            "event_date": ""
+          }
+        },
+        "event_YUjH7L": {
+          "type": "event",
+          "settings": {
+            "event_text": "",
+            "event_date": ""
+          }
+        },
+        "event_ciyKPC": {
+          "type": "event",
+          "settings": {
+            "event_text": "",
+            "event_date": ""
+          }
+        },
+        "event_qJGLPH": {
+          "type": "event",
+          "settings": {
+            "event_text": "",
+            "event_date": ""
+          }
+        },
+        "event_6fkU3Y": {
+          "type": "event",
+          "settings": {
+            "event_text": "",
+            "event_date": ""
+          }
+        },
+        "event_Tk7AYz": {
+          "type": "event",
+          "settings": {
+            "event_text": "",
+            "event_date": ""
+          }
+        }
+      },
+      "block_order": [
+        "event_QTWVR9",
+        "event_YUjH7L",
+        "event_ciyKPC",
+        "event_qJGLPH",
+        "event_6fkU3Y",
+        "event_Tk7AYz"
+      ],
+      "name": "Animated Events Carousel",
+      "settings": {
+        "heading": "Upcoming Events",
         "background_color": "#ffffff",
         "heading_color": "#333333",
-        "text_color": "#666666",
-        "hotspot_color": "#0066cc",
-        "icon_bg_color": "#e6f2ff",
-        "icon_color": "#0066cc",
-        "popup_text_color": "#333333",
-        "image_border_radius": 8,
-        "image_aspect_ratio": "4 / 3",
-        "content_gap": 60,
-        "padding_top": 60,
+        "item_background": "#f8f8f8",
+        "text_color": "#333333",
+        "date_color": "#666666",
+        "item_width": 320,
+        "item_gap": 20,
+        "icon_size": 50,
+        "text_size": 18,
+        "date_size": 14,
+        "item_border_radius": 8,
+        "heading_spacing": 50,
+        "carousel_top_spacing": 40,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "animated_blog_carousel_kkBixM": {
+      "type": "animated-blog-carousel",
+      "blocks": {
+        "blog_post_UEzxVt": {
+          "type": "blog_post",
+          "settings": {
+            "title": "Blog Post Title",
+            "description": "Blog post description goes here...",
+            "button_text": "View Details",
+            "button_link": ""
+          }
+        },
+        "blog_post_kcLBL9": {
+          "type": "blog_post",
+          "settings": {
+            "title": "Blog Post Title",
+            "description": "Blog post description goes here...",
+            "button_text": "View Details",
+            "button_link": ""
+          }
+        },
+        "blog_post_RJ6Epa": {
+          "type": "blog_post",
+          "settings": {
+            "title": "Blog Post Title",
+            "description": "Blog post description goes here...",
+            "button_text": "View Details",
+            "button_link": ""
+          }
+        },
+        "blog_post_ydRwUr": {
+          "type": "blog_post",
+          "settings": {
+            "title": "Blog Post Title",
+            "description": "Blog post description goes here...",
+            "button_text": "View Details",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "blog_post_UEzxVt",
+        "blog_post_kcLBL9",
+        "blog_post_RJ6Epa",
+        "blog_post_ydRwUr"
+      ],
+      "name": "Animated Blog Carousel",
+      "settings": {
+        "heading": "Blogs",
+        "view_all_text": "View All",
+        "view_all_link": "",
+        "slides_per_view": 3,
+        "slide_gap": 25,
+        "loop_slides": true,
+        "autoplay": false,
+        "autoplay_delay": 4000,
+        "transition_speed": 600,
+        "background_color": "#ffffff",
+        "heading_color": "#333333",
+        "view_all_color": "#4A90E2",
+        "view_all_hover_color": "#357ABD",
+        "card_background": "#ffffff",
+        "title_color": "#333333",
+        "description_color": "#666666",
+        "button_color": "#4A90E2",
+        "button_hover_color": "#357ABD",
+        "nav_background": "#ffffff",
+        "nav_color": "#333333",
+        "nav_hover_background": "#f5f5f5",
+        "pagination_color": "#333333",
+        "pagination_active_color": "#4A90E2",
+        "image_aspect_ratio": 65,
+        "card_border_radius": 12,
+        "content_padding": 25,
+        "title_size": 20,
+        "description_size": 14,
+        "header_spacing": 40,
+        "padding_top": 80,
         "padding_bottom": 80
       }
     }
@@ -418,6 +587,8 @@
     "animated_features_grid",
     "animated_image_slider",
     "animated_product_slider",
-    "animated_feature_showcase_Enaq6t"
+    "animated_brand_carousel_UPeFmg",
+    "animated_events_carousel_Vx9LHa",
+    "animated_blog_carousel_kkBixM"
   ]
 }
