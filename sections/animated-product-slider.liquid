@@ -371,22 +371,24 @@
                         slide.classList.contains('animate-from-bottom') ? 'fromBottom' :
                         slide.classList.contains('animate-zoom-in') ? 'zoomIn' : 'fade';
 
-        // Animate with stagger delay
-        const delay = index * 0.2;
+        // Animate with stagger delay - responsive based on screen size
+        const isMobile = window.innerWidth < 768;
+        const staggerDelay = isMobile ? 0.15 : 0.2;
+        const delay = index * staggerDelay;
 
         // Animate image
         if (image) {
-          animateElement(image, animType, delay);
+          animateElement(image, animType, delay, isMobile);
         }
 
         // Animate title
         if (title) {
-          animateElement(title, animType, delay + 0.3);
+          animateElement(title, animType, delay + (isMobile ? 0.2 : 0.3), isMobile);
         }
 
         // Animate button
         if (viewAllBtn) {
-          animateElement(viewAllBtn, animType, delay + 0.5);
+          animateElement(viewAllBtn, animType, delay + (isMobile ? 0.4 : 0.5), isMobile);
         }
       });
     }
