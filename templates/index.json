@@ -218,6 +218,73 @@
         "card_gap": 30
       }
     },
+    "animated_image_slider": {
+      "type": "animated-image-slider",
+      "blocks": {
+        "slide_1": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Food_570x_3663e23c-fa2f-410f-ad96-9e5ad2d17b88.webp",
+            "title": "Food",
+            "slide_animation": ""
+          }
+        },
+        "slide_2": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/cable-and-wire_570x_4d1b5e58-07b2-435a-9bf2-cbe8bf6e9ea1.webp",
+            "title": "Cable & Wire",
+            "slide_animation": ""
+          }
+        },
+        "slide_3": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/beverages_570x_00cd5c53-9d9f-4715-a876-682a062c3382.webp",
+            "title": "Beverage",
+            "slide_animation": ""
+          }
+        },
+        "slide_4": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/pharma_570x_f0b7bf72-46bb-4ee9-a5d6-ccc659fe4453.webp",
+            "title": "Pharma",
+            "slide_animation": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_1",
+        "slide_2",
+        "slide_3",
+        "slide_4"
+      ],
+      "settings": {
+        "heading": "Industrial Type",
+        "description": "<p>Powering performance across industries – from packaging to production.</p>",
+        "text_alignment": "left",
+        "heading_animation": "from-bottom",
+        "description_animation": "from-bottom",
+        "default_slide_animation": "from-bottom",
+        "slides_per_view": 3,
+        "slide_gap": 20,
+        "transition_speed": 800,
+        "loop_slides": true,
+        "autoplay": false,
+        "autoplay_delay": 5000,
+        "show_navigation": true,
+        "background_color": "#ffffff",
+        "heading_color": "#333333",
+        "text_color": "#666666",
+        "title_color": "#333333",
+        "image_border_radius": 0,
+        "image_aspect_ratio": "4 / 3",
+        "header_spacing": 50,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
     "animated_split_banner": {
       "type": "animated-split-banner",
       "settings": {
@@ -330,69 +397,6 @@
         "padding_bottom": 80
       }
     },
-    "animated_image_slider": {
-      "type": "animated-image-slider",
-      "blocks": {
-        "slide_1": {
-          "type": "slide",
-          "settings": {
-            "title": "Food",
-            "slide_animation": ""
-          }
-        },
-        "slide_2": {
-          "type": "slide",
-          "settings": {
-            "title": "Cable & Wire",
-            "slide_animation": ""
-          }
-        },
-        "slide_3": {
-          "type": "slide",
-          "settings": {
-            "title": "Beverage",
-            "slide_animation": ""
-          }
-        },
-        "slide_4": {
-          "type": "slide",
-          "settings": {
-            "title": "Pharma",
-            "slide_animation": ""
-          }
-        }
-      },
-      "block_order": [
-        "slide_1",
-        "slide_2",
-        "slide_3",
-        "slide_4"
-      ],
-      "settings": {
-        "heading": "Industrial Type",
-        "description": "<p>Powering performance across industries – from packaging to production.</p>",
-        "text_alignment": "left",
-        "heading_animation": "from-bottom",
-        "description_animation": "from-bottom",
-        "default_slide_animation": "from-bottom",
-        "slides_per_view": 3,
-        "slide_gap": 20,
-        "transition_speed": 800,
-        "loop_slides": true,
-        "autoplay": false,
-        "autoplay_delay": 5000,
-        "show_navigation": true,
-        "background_color": "#ffffff",
-        "heading_color": "#333333",
-        "text_color": "#666666",
-        "title_color": "#333333",
-        "image_border_radius": 0,
-        "image_aspect_ratio": "4 / 3",
-        "header_spacing": 50,
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
-    },
     "animated_testimonials": {
       "type": "animated-testimonials",
       "blocks": {
@@ -496,10 +500,10 @@
     "animated_hero_swiper",
     "animated_content_section",
     "animated_features_grid",
+    "animated_image_slider",
     "animated_split_banner",
     "animated_product_showcase",
     "animated_product_slider",
-    "animated_image_slider",
     "animated_testimonials",
     "animated_cta"
   ]
