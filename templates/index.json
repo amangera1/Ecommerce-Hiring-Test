@@ -218,77 +218,6 @@
         "card_gap": 30
       }
     },
-    "animated_product_slider": {
-      "type": "animated-product-slider",
-      "blocks": {
-        "product_1": {
-          "type": "product",
-          "settings": {
-            "image": "shopify://shop_images/Group_7_1850x_d435c269-bcd0-4a10-8252-864a58795a81.webp",
-            "title": "Continuous Inkjet Printer",
-            "view_all_text": "VIEW ALL",
-            "view_all_link": "/collections/continuous-inkjet",
-            "slide_animation": ""
-          }
-        },
-        "product_2": {
-          "type": "product",
-          "settings": {
-            "image": "shopify://shop_images/Group_7_1850x_d435c269-bcd0-4a10-8252-864a58795a81.webp",
-            "title": "Thermal Inkjet Printer",
-            "view_all_text": "VIEW ALL",
-            "view_all_link": "/collections/thermal-inkjet",
-            "slide_animation": ""
-          }
-        },
-        "product_8DEba4": {
-          "type": "product",
-          "settings": {
-            "image": "shopify://shop_images/Group_7_1850x_d435c269-bcd0-4a10-8252-864a58795a81.webp",
-            "title": "Continuous Inkjet Printer",
-            "view_all_text": "VIEW ALL",
-            "view_all_link": "/collections/continuous-inkjet",
-            "slide_animation": ""
-          }
-        }
-      },
-      "block_order": [
-        "product_1",
-        "product_2",
-        "product_8DEba4"
-      ],
-      "settings": {
-        "heading": "Explore Our Product",
-        "description": "<p>high-performance solutions designed to meet every printing and production need.</p>",
-        "view_all_text": "VIEW ALL",
-        "view_all_link": "/collections/all",
-        "heading_animation": "from-bottom",
-        "description_animation": "from-bottom",
-        "view_all_animation": "from-right",
-        "default_slide_animation": "from-bottom",
-        "slides_per_view": 3,
-        "slide_gap": 20,
-        "transition_speed": 800,
-        "loop_slides": true,
-        "autoplay": false,
-        "autoplay_delay": 5000,
-        "show_navigation": true,
-        "background_color": "#ffffff",
-        "heading_color": "#333333",
-        "text_color": "#666666",
-        "view_all_color": "#333333",
-        "view_all_hover_color": "#000000",
-        "title_color": "#333333",
-        "overlay_button_color": "#333333",
-        "overlay_button_hover_bg": "#333333",
-        "overlay_button_hover_color": "#ffffff",
-        "card_border_radius": 8,
-        "image_aspect_ratio": "4 / 3",
-        "header_spacing": 50,
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
-    },
     "animated_image_slider": {
       "type": "animated-image-slider",
       "blocks": {
@@ -350,6 +279,77 @@
         "text_color": "#666666",
         "title_color": "#333333",
         "image_border_radius": 0,
+        "image_aspect_ratio": "4 / 3",
+        "header_spacing": 50,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "animated_product_slider": {
+      "type": "animated-product-slider",
+      "blocks": {
+        "product_1": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/Group_7_1850x_d435c269-bcd0-4a10-8252-864a58795a81.webp",
+            "title": "Continuous Inkjet Printer",
+            "view_all_text": "VIEW ALL",
+            "view_all_link": "/collections/continuous-inkjet",
+            "slide_animation": ""
+          }
+        },
+        "product_2": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/Group_7_1850x_d435c269-bcd0-4a10-8252-864a58795a81.webp",
+            "title": "Thermal Inkjet Printer",
+            "view_all_text": "VIEW ALL",
+            "view_all_link": "/collections/thermal-inkjet",
+            "slide_animation": ""
+          }
+        },
+        "product_8DEba4": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/Group_7_1850x_d435c269-bcd0-4a10-8252-864a58795a81.webp",
+            "title": "Continuous Inkjet Printer",
+            "view_all_text": "VIEW ALL",
+            "view_all_link": "/collections/continuous-inkjet",
+            "slide_animation": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_1",
+        "product_2",
+        "product_8DEba4"
+      ],
+      "settings": {
+        "heading": "Explore Our Product",
+        "description": "<p>high-performance solutions designed to meet every printing and production need.</p>",
+        "view_all_text": "VIEW ALL",
+        "view_all_link": "/collections/all",
+        "heading_animation": "from-bottom",
+        "description_animation": "from-bottom",
+        "view_all_animation": "from-right",
+        "default_slide_animation": "from-bottom",
+        "slides_per_view": 3,
+        "slide_gap": 20,
+        "transition_speed": 800,
+        "loop_slides": true,
+        "autoplay": false,
+        "autoplay_delay": 5000,
+        "show_navigation": false,
+        "background_color": "#ffffff",
+        "heading_color": "#333333",
+        "text_color": "#666666",
+        "view_all_color": "#333333",
+        "view_all_hover_color": "#000000",
+        "title_color": "#333333",
+        "overlay_button_color": "#333333",
+        "overlay_button_hover_bg": "#333333",
+        "overlay_button_hover_color": "#ffffff",
+        "card_border_radius": 8,
         "image_aspect_ratio": "4 / 3",
         "header_spacing": 50,
         "padding_top": 80,
