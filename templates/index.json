@@ -285,56 +285,13 @@
         "padding_bottom": 80
       }
     },
-    "animated_split_banner": {
-      "type": "animated-split-banner",
-      "settings": {
-        "heading": "Innovative Solutions",
-        "subheading": "Leading the Industry",
-        "description": "<p>Experience cutting-edge technology and premium quality products designed to meet your every need.</p>",
-        "button_text": "Learn More",
-        "button_link": "/pages/about",
-        "layout_direction": "image_left",
-        "heading_animation": "from-left",
-        "subheading_animation": "from-left",
-        "description_animation": "from-left",
-        "image_animation": "slide_right",
-        "button_animation": "bounce",
-        "section_height": 80,
-        "background_color": "#ffffff",
-        "heading_color": "#000000",
-        "subheading_color": "#333333",
-        "text_color": "#333333",
-        "button_bg_color": "#000000",
-        "button_text_color": "#ffffff",
-        "button_hover_color": "#333333",
-        "show_overlay": false,
-        "overlay_color": "#000000",
-        "overlay_opacity": 30,
-        "show_features": true
-      }
-    },
-    "animated_product_showcase": {
-      "type": "animated-product-showcase",
-      "settings": {
-        "heading": "Featured Products",
-        "description": "<p>Discover our handpicked selection of amazing products</p>",
-        "background_color": "#f8f8f8",
-        "heading_color": "#000000",
-        "text_color": "#666666",
-        "card_bg_color": "#ffffff",
-        "card_text_color": "#000000",
-        "price_color": "#000000",
-        "button_bg_color": "#000000",
-        "button_text_color": "#ffffff",
-        "button_hover_color": "#333333"
-      }
-    },
     "animated_product_slider": {
       "type": "animated-product-slider",
       "blocks": {
         "product_1": {
           "type": "product",
           "settings": {
+            "image": "shopify://shop_images/Group_8_1850x_aaa2f448-6162-48dc-b45c-c3d6ab585b5b.webp",
             "title": "Continuous Inkjet Printer",
             "view_all_text": "VIEW ALL",
             "view_all_link": "/collections/continuous-inkjet",
@@ -344,6 +301,7 @@
         "product_2": {
           "type": "product",
           "settings": {
+            "image": "shopify://shop_images/Group_7_1850x_d435c269-bcd0-4a10-8252-864a58795a81.webp",
             "title": "Thermal Inkjet Printer",
             "view_all_text": "VIEW ALL",
             "view_all_link": "/collections/thermal-inkjet",
@@ -353,6 +311,7 @@
         "product_3": {
           "type": "product",
           "settings": {
+            "image": "shopify://shop_images/Group_7_1850x_d435c269-bcd0-4a10-8252-864a58795a81.webp",
             "title": "Thermal Transfer Over Printer",
             "view_all_text": "VIEW ALL",
             "view_all_link": "/collections/thermal-transfer",
@@ -396,104 +355,6 @@
         "padding_top": 80,
         "padding_bottom": 80
       }
-    },
-    "animated_testimonials": {
-      "type": "animated-testimonials",
-      "blocks": {
-        "testimonial_1": {
-          "type": "testimonial",
-          "settings": {
-            "rating": 5,
-            "quote": "Amazing quality and fast shipping! The product exceeded my expectations.",
-            "author_name": "Sarah Johnson",
-            "author_role": "Verified Customer"
-          }
-        },
-        "testimonial_2": {
-          "type": "testimonial",
-          "settings": {
-            "rating": 5,
-            "quote": "Best purchase I've made this year! Highly recommend to everyone.",
-            "author_name": "Michael Chen",
-            "author_role": "Verified Customer"
-          }
-        },
-        "testimonial_3": {
-          "type": "testimonial",
-          "settings": {
-            "rating": 5,
-            "quote": "Exceeded my expectations in every way. Will definitely shop again!",
-            "author_name": "Emily Davis",
-            "author_role": "Verified Customer"
-          }
-        }
-      },
-      "block_order": [
-        "testimonial_1",
-        "testimonial_2",
-        "testimonial_3"
-      ],
-      "settings": {
-        "heading": "What Our Customers Say",
-        "description": "<p>Read testimonials from our satisfied customers</p>",
-        "background_color": "#ffffff",
-        "heading_color": "#000000",
-        "text_color": "#666666",
-        "card_bg_color": "#f8f8f8",
-        "card_text_color": "#000000",
-        "accent_color": "#000000"
-      }
-    },
-    "animated_cta": {
-      "type": "animated-cta",
-      "blocks": {
-        "feature_1": {
-          "type": "feature",
-          "settings": {
-            "icon": "🚚",
-            "text": "Free Shipping"
-          }
-        },
-        "feature_2": {
-          "type": "feature",
-          "settings": {
-            "icon": "↩️",
-            "text": "Easy Returns"
-          }
-        },
-        "feature_3": {
-          "type": "feature",
-          "settings": {
-            "icon": "🔒",
-            "text": "Secure Checkout"
-          }
-        }
-      },
-      "block_order": [
-        "feature_1",
-        "feature_2",
-        "feature_3"
-      ],
-      "settings": {
-        "heading": "Ready to Get Started?",
-        "description": "<p>Join thousands of satisfied customers today</p>",
-        "primary_button_text": "Shop Now",
-        "primary_button_link": "/collections/all",
-        "secondary_button_text": "Learn More",
-        "secondary_button_link": "/pages/about",
-        "show_features": true,
-        "background_color": "#000000",
-        "text_color": "#ffffff",
-        "overlay_color": "#000000",
-        "overlay_opacity": 50,
-        "primary_button_bg": "#ffffff",
-        "primary_button_text_color": "#000000",
-        "primary_button_hover": "#f0f0f0",
-        "secondary_button_text_color": "#ffffff",
-        "secondary_button_border": "#ffffff",
-        "secondary_button_bg": "#ffffff",
-        "secondary_button_hover_text": "#000000"
-      }
     }
   },
   "order": [
@@ -501,10 +362,6 @@
     "animated_content_section",
     "animated_features_grid",
     "animated_image_slider",
-    "animated_split_banner",
-    "animated_product_showcase",
-    "animated_product_slider",
-    "animated_testimonials",
-    "animated_cta"
+    "animated_product_slider"
   ]
 }
