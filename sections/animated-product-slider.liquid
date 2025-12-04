@@ -477,6 +477,15 @@
         if (viewAll) gsap.set(viewAll, { opacity: 1 });
       }
     }
+
+    // Re-animate on window resize for responsive adjustments
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function() {
+        animateSlides();
+      }, 250);
+    });
   });
 </script>
 
