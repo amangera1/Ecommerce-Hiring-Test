@@ -456,14 +456,16 @@
           return 'fade';
         }
 
+        const isMobile = window.innerWidth < 768;
+
         if (heading) {
-          animateElement(heading, getAnimationType('{{ section.settings.heading_animation }}'), 0);
+          animateElement(heading, getAnimationType('{{ section.settings.heading_animation }}'), 0, isMobile);
         }
         if (description) {
-          animateElement(description, getAnimationType('{{ section.settings.description_animation }}'), 0.2);
+          animateElement(description, getAnimationType('{{ section.settings.description_animation }}'), isMobile ? 0.15 : 0.2, isMobile);
         }
         if (viewAll) {
-          animateElement(viewAll, getAnimationType('{{ section.settings.view_all_animation }}'), 0.4);
+          animateElement(viewAll, getAnimationType('{{ section.settings.view_all_animation }}'), isMobile ? 0.3 : 0.4, isMobile);
         }
       } else {
         // Just show elements if reduced motion
