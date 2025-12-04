@@ -7,6 +7,14 @@
     margin: 0;
   }
 
+  .product-slider-header {
+    background: #ffffff;
+    padding: 40px 0 0;
+    margin: -{{ section.settings.padding_top }}px -20px {{ section.settings.header_spacing }}px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
   .product-slider-container {
     max-width: 1400px;
     margin: 0 auto;
@@ -278,17 +286,19 @@
                   | image_tag: class: 'product-slide-image', loading: 'lazy', alt: block.settings.title
                 }}
               {% endif %}
-              {% if block.settings.view_all_text != blank and block.settings.view_all_link != blank %}
-                <div class="product-slide-view-all-overlay">
-                  <a href="{{ block.settings.view_all_link }}" class="product-slide-view-all-btn">
-                    {{ block.settings.view_all_text }}
-                  </a>
-                </div>
-              {% endif %}
+              <div class="product-slide-content-overlay">
+                {% if block.settings.title != blank %}
+                  <h3 class="product-slide-title animate-{{ block.settings.slide_animation | default: section.settings.default_slide_animation }}">{{ block.settings.title }}</h3>
+                {% endif %}
+                {% if block.settings.view_all_text != blank and block.settings.view_all_link != blank %}
+                  <div class="product-slide-view-all-overlay">
+                    <a href="{{ block.settings.view_all_link }}" class="product-slide-view-all-btn animate-{{ block.settings.slide_animation | default: section.settings.default_slide_animation }}">
+                      {{ block.settings.view_all_text }}
+                    </a>
+                  </div>
+                {% endif %}
+              </div>
             </div>
-            {% if block.settings.title != blank %}
-              <h3 class="product-slide-title animate-{{ block.settings.slide_animation | default: section.settings.default_slide_animation }}">{{ block.settings.title }}</h3>
-            {% endif %}
           </div>
         {% endfor %}
       </div>
