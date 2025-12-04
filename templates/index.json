@@ -9,21 +9,6 @@
  */
 {
   "sections": {
-    "animated_hero_banner": {
-      "type": "animated-hero-banner",
-      "disabled": true,
-      "settings": {
-        "heading": "Welcome to Our Store",
-        "subheading": "Discover amazing products with smooth animations and parallax effects",
-        "button_text": "Shop Now",
-        "button_link": "/collections/all",
-        "text_color": "#ffffff",
-        "button_bg_color": "#000000",
-        "button_text_color": "#ffffff",
-        "overlay_color": "#000000",
-        "overlay_opacity": 40
-      }
-    },
     "animated_hero_swiper": {
       "type": "animated-hero-swiper",
       "blocks": {
@@ -549,7 +534,6 @@
     }
   },
   "order": [
-    "animated_hero_banner",
     "animated_hero_swiper",
     "animated_features",
     "animated_features_grid",
