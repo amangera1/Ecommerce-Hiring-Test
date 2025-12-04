@@ -1,0 +1,962 @@
+<style>
+  .animated-product-slider-{{ section.id }} {
+    padding: {{ section.settings.padding_top }}px 20px {{ section.settings.padding_bottom }}px;
+    background: {{ section.settings.background_color }};
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+  }
+
+  .product-slider-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .product-slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: {{ section.settings.header_spacing }}px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .product-slider-header-content {
+    flex: 1;
+    min-width: 300px;
+  }
+
+  .product-slider-heading {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: {{ section.settings.heading_color }};
+    line-height: 1.3;
+    text-align: left;
+  }
+
+  .product-slider-description {
+    font-size: clamp(16px, 2vw, 20px);
+    color: {{ section.settings.text_color }};
+    line-height: 1.6;
+    max-width: 800px;
+    text-align: left;
+  }
+
+  .product-slider-view-all {
+    display: inline-flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: {{ section.settings.view_all_color }};
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    padding: 10px 0;
+  }
+
+  .product-slider-view-all:hover {
+    color: {{ section.settings.view_all_hover_color }};
+    text-decoration: underline;
+  }
+
+  .product-slider {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .product-slide {
+    position: relative;
+    overflow: hidden;
+    border-radius: {{ section.settings.card_border_radius }}px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .product-slide:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  }
+
+  .product-slide-image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: {{ section.settings.image_aspect_ratio }};
+    overflow: hidden;
+    background: #f5f5f5;
+  }
+
+  .product-slide-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    will-change: transform;
+  }
+
+  .product-slide:hover .product-slide-image {
+    transform: scale(1.1) !important;
+  }
+
+  .product-slide-view-all-overlay {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 2;
+  }
+
+  .product-slide-view-all-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    background: rgba(255,255,255,0.95);
+    color: {{ section.settings.overlay_button_color }};
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px);
+  }
+
+  .product-slide-view-all-btn:hover {
+    background: {{ section.settings.overlay_button_hover_bg }};
+    color: {{ section.settings.overlay_button_hover_color }};
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+
+  .product-slide-title {
+    font-size: clamp(18px, 2.5vw, 24px);
+    font-weight: 600;
+    margin: 20px 20px 0;
+    color: {{ section.settings.title_color }};
+    text-align: left;
+    padding: 0;
+    cursor: pointer;
+    transition: text-decoration 0.3s ease;
+  }
+
+  .product-slide-title:hover {
+    text-decoration: underline;
+  }
+
+  /* Swiper Navigation - Centered vertically */
+  .product-slider-button-next,
+  .product-slider-button-prev {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 50%;
+    color: #000;
+    transition: all 0.3s ease;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-top: 0;
+    z-index: 10;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+
+  .product-slider-button-next {
+    right: 10px;
+  }
+
+  .product-slider-button-prev {
+    left: 10px;
+  }
+
+  .animated-product-slider-{{ section.id }} .swiper-button-next, 
+  .animated-product-slider-{{ section.id }} .swiper-button-prev {
+    display: flex !important;
+  }
+
+  .product-slider-button-next:hover,
+  .product-slider-button-prev:hover {
+    background: #fff;
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  .product-slider-button-next::after,
+  .product-slider-button-prev::after {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1;
+  }
+
+  /* Animation Classes - Section specific to avoid conflicts */
+  .animated-product-slider-{{ section.id }} .animate-from-left,
+  .animated-product-slider-{{ section.id }} .animate-from-right,
+  .animated-product-slider-{{ section.id }} .animate-from-bottom,
+  .animated-product-slider-{{ section.id }} .animate-zoom-in,
+  .animated-product-slider-{{ section.id }} .animate-fade {
+    /* GSAP will handle opacity and transforms */
+  }
+
+  @media (max-width: 1024px) {
+    .product-slider-container {
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .animated-product-slider-{{ section.id }} {
+      padding: 60px 15px 60px;
+    }
+
+    .product-slider-header {
+      margin-bottom: 30px;
+      flex-direction: column;
+    }
+
+    .product-slider-header-content {
+      width: 100%;
+    }
+
+    .product-slider-view-all {
+      align-self: flex-start;
+    }
+
+    .product-slider-button-next,
+    .product-slider-button-prev {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .product-slider-button-next,
+    .product-slider-button-prev {
+      display: none;
+    }
+  }
+</style>
+
+<section class="animated-product-slider-{{ section.id }}">
+  <div class="product-slider-container">
+    <div class="product-slider-header">
+      <div class="product-slider-header-content">
+        {% if section.settings.heading != blank %}
+          <h2 class="product-slider-heading animate-{{ section.settings.heading_animation }} wow animate__animated">
+            {{ section.settings.heading }}
+          </h2>
+        {% endif %}
+        {% if section.settings.description != blank %}
+          <p class="product-slider-description animate-{{ section.settings.description_animation }} wow animate__animated">
+            {{ section.settings.description }}
+          </p>
+        {% endif %}
+      </div>
+      {% if section.settings.view_all_text != blank and section.settings.view_all_link != blank %}
+        <a href="{{ section.settings.view_all_link }}" class="product-slider-view-all animate-{{ section.settings.view_all_animation }} wow animate__animated">
+          {{ section.settings.view_all_text }}
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="swiper product-slider" id="product-slider-{{ section.id }}">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          <div class="swiper-slide product-slide animate-{{ block.settings.slide_animation | default: section.settings.default_slide_animation }} wow animate__animated" {{ block.shopify_attributes }}>
+            <div class="product-slide-image-wrapper">
+              {% if block.settings.image != blank %}
+                {{
+                  block.settings.image
+                  | image_url: width: 800
+                  | image_tag: class: 'product-slide-image', loading: 'lazy', alt: block.settings.title
+                }}
+              {% endif %}
+              {% if block.settings.view_all_text != blank and block.settings.view_all_link != blank %}
+                <div class="product-slide-view-all-overlay">
+                  <a href="{{ block.settings.view_all_link }}" class="product-slide-view-all-btn">
+                    {{ block.settings.view_all_text }}
+                  </a>
+                </div>
+              {% endif %}
+            </div>
+            {% if block.settings.title != blank %}
+              <h3 class="product-slide-title animate-{{ block.settings.slide_animation | default: section.settings.default_slide_animation }}">{{ block.settings.title }}</h3>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if section.settings.show_navigation %}
+        <div class="swiper-button-next product-slider-button-next" style="display: none;"></div>
+        <div class="swiper-button-prev product-slider-button-prev" style="display: none;"></div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const sliderEl = document.getElementById('product-slider-{{ section.id }}');
+    if (!sliderEl) return;
+
+    // Wait for Swiper to be available
+    if (typeof Swiper === 'undefined') {
+      console.error('Swiper library not loaded');
+      return;
+    }
+
+    // Function to show/hide navigation based on slides count
+    function toggleNavigation(swiperInstance) {
+      const nextBtn = sliderEl.querySelector('.product-slider-button-next');
+      const prevBtn = sliderEl.querySelector('.product-slider-button-prev');
+      
+      if (!nextBtn || !prevBtn || !swiperInstance) return;
+      
+      // Count only non-duplicate slides (actual content blocks)
+      const uniqueSlides = Array.from(swiperInstance.slides).filter(slide => !slide.classList.contains('swiper-slide-duplicate'));
+      const actualSlideCount = uniqueSlides.length;
+      
+      // Get current slides per view - check breakpoints
+      let currentSlidesPerView = {{ section.settings.slides_per_view }};
+      const windowWidth = window.innerWidth;
+      if (windowWidth < 640) {
+        currentSlidesPerView = 1;
+      } else if (windowWidth < 768) {
+        currentSlidesPerView = 2;
+      } else if (windowWidth < 1024) {
+        currentSlidesPerView = 2;
+      }
+      
+      // Only show navigation if there are MORE slides than can be displayed
+      if (actualSlideCount > currentSlidesPerView && {{ section.settings.show_navigation }}) {
+        nextBtn.style.display = 'flex';
+        prevBtn.style.display = 'flex';
+      } else {
+        nextBtn.style.display = 'none';
+        prevBtn.style.display = 'none';
+      }
+    }
+
+    // Initialize Swiper
+    const swiper = new Swiper(sliderEl, {
+      loop: {{ section.settings.loop_slides }},
+      autoplay: {{ section.settings.autoplay }} ? {
+        delay: {{ section.settings.autoplay_delay }},
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true
+      } : false,
+      speed: {{ section.settings.transition_speed }},
+      spaceBetween: {{ section.settings.slide_gap }},
+      breakpoints: {
+        320: {
+          slidesPerView: 1,
+          spaceBetween: 15
+        },
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 20
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: {{ section.settings.slide_gap }}
+        },
+        1024: {
+          slidesPerView: {{ section.settings.slides_per_view }},
+          spaceBetween: {{ section.settings.slide_gap }}
+        }
+      },
+      navigation: {
+        nextEl: sliderEl.querySelector('.product-slider-button-next'),
+        prevEl: sliderEl.querySelector('.product-slider-button-prev'),
+      },
+      on: {
+        init: function() {
+          animateSlides(this.slides);
+          toggleNavigation(this);
+        },
+        slideChange: function() {
+          animateSlides(this.slides);
+        },
+        resize: function() {
+          toggleNavigation(this);
+        }
+      }
+    });
+
+    // Check navigation on window resize
+    window.addEventListener('resize', function() {
+      toggleNavigation(swiper);
+    });
+
+    // Animation function using GSAP
+    function animateSlides(slides) {
+      if (!slides || typeof gsap === 'undefined') return;
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReducedMotion) {
+        slides.forEach(slide => {
+          const image = slide.querySelector('.product-slide-image');
+          const title = slide.querySelector('.product-slide-title');
+          const btn = slide.querySelector('.product-slide-view-all-btn');
+          if (image) gsap.set(image, { opacity: 1 });
+          if (title) gsap.set(title, { opacity: 1 });
+          if (btn) gsap.set(btn, { opacity: 1 });
+        });
+        return;
+      }
+
+      slides.forEach((slide, index) => {
+        if (!slide.classList.contains('swiper-slide-active') && !slide.classList.contains('swiper-slide-duplicate-active')) {
+          return;
+        }
+
+        const image = slide.querySelector('.product-slide-image');
+        const title = slide.querySelector('.product-slide-title');
+        const btn = slide.querySelector('.product-slide-view-all-btn');
+
+        // Reset
+        if (image) {
+          gsap.set(image, { clearProps: 'all' });
+          gsap.set(image, { opacity: 1 });
+        }
+        if (title) {
+          gsap.set(title, { clearProps: 'all' });
+          gsap.set(title, { opacity: 1 });
+        }
+        if (btn) {
+          gsap.set(btn, { clearProps: 'all' });
+          gsap.set(btn, { opacity: 1 });
+        }
+
+        // Get animation type
+        const animType = slide.classList.contains('animate-from-left') ? 'fromLeft' :
+                        slide.classList.contains('animate-from-right') ? 'fromRight' :
+                        slide.classList.contains('animate-from-bottom') ? 'fromBottom' :
+                        slide.classList.contains('animate-zoom-in') ? 'zoomIn' : 'fade';
+
+        // Animate image
+        if (image) {
+          animateElement(image, animType, 0);
+        }
+
+        // Animate title
+        if (title) {
+          animateElement(title, animType, 0.3);
+        }
+
+        // Animate button
+        if (btn) {
+          animateElement(btn, animType, 0.5);
+        }
+      });
+    }
+
+    function animateElement(element, type, delay) {
+      if (!element) return;
+
+      const duration = 1;
+      const ease = 'power3.out';
+
+      switch(type) {
+        case 'fromLeft':
+          gsap.fromTo(element,
+            { opacity: 0, x: -100, filter: 'blur(10px)' },
+            { opacity: 1, x: 0, filter: 'blur(0px)', duration, ease, delay }
+          );
+          break;
+        case 'fromRight':
+          gsap.fromTo(element,
+            { opacity: 0, x: 100, filter: 'blur(10px)' },
+            { opacity: 1, x: 0, filter: 'blur(0px)', duration, ease, delay }
+          );
+          break;
+        case 'fromBottom':
+          gsap.fromTo(element,
+            { opacity: 0, y: 100, filter: 'blur(10px)' },
+            { opacity: 1, y: 0, filter: 'blur(0px)', duration, ease, delay }
+          );
+          break;
+        case 'zoomIn':
+          gsap.fromTo(element,
+            { opacity: 0, scale: 0.8 },
+            { opacity: 1, scale: 1, duration, ease: 'back.out(1.7)', delay }
+          );
+          break;
+        default: // fade
+          gsap.fromTo(element,
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration, ease, delay }
+          );
+      }
+    }
+
+    // Animate header elements
+    const section = document.querySelector('.animated-product-slider-{{ section.id }}');
+    if (section && typeof gsap !== 'undefined') {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      
+      if (!prefersReducedMotion) {
+        const heading = section.querySelector('.product-slider-heading');
+        const description = section.querySelector('.product-slider-description');
+        const viewAll = section.querySelector('.product-slider-view-all');
+
+        function getAnimationType(animSetting) {
+          if (animSetting.includes('from-left')) return 'fromLeft';
+          if (animSetting.includes('from-right')) return 'fromRight';
+          if (animSetting.includes('from-bottom')) return 'fromBottom';
+          if (animSetting.includes('zoom-in')) return 'zoomIn';
+          return 'fade';
+        }
+
+        if (heading) {
+          animateElement(heading, getAnimationType('{{ section.settings.heading_animation }}'), 0);
+        }
+        if (description) {
+          animateElement(description, getAnimationType('{{ section.settings.description_animation }}'), 0.2);
+        }
+        if (viewAll) {
+          animateElement(viewAll, getAnimationType('{{ section.settings.view_all_animation }}'), 0.4);
+        }
+      } else {
+        // Just show elements if reduced motion
+        const heading = section.querySelector('.product-slider-heading');
+        const description = section.querySelector('.product-slider-description');
+        const viewAll = section.querySelector('.product-slider-view-all');
+        if (heading) gsap.set(heading, { opacity: 1 });
+        if (description) gsap.set(description, { opacity: 1 });
+        if (viewAll) gsap.set(viewAll, { opacity: 1 });
+      }
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Animated Product Slider",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Explore Our Product"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "high-performance solutions designed to meet every printing and production need."
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "View All Button Text",
+      "default": "VIEW ALL"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View All Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Animation Settings"
+    },
+    {
+      "type": "select",
+      "id": "heading_animation",
+      "label": "Heading Animation",
+      "options": [
+        {
+          "value": "from-left",
+          "label": "From Left with Fade"
+        },
+        {
+          "value": "from-right",
+          "label": "From Right with Fade"
+        },
+        {
+          "value": "from-bottom",
+          "label": "From Bottom with Fade"
+        },
+        {
+          "value": "zoom-in",
+          "label": "Zoom In"
+        },
+        {
+          "value": "fade",
+          "label": "Fade Only"
+        }
+      ],
+      "default": "from-bottom"
+    },
+    {
+      "type": "select",
+      "id": "description_animation",
+      "label": "Description Animation",
+      "options": [
+        {
+          "value": "from-left",
+          "label": "From Left with Fade"
+        },
+        {
+          "value": "from-right",
+          "label": "From Right with Fade"
+        },
+        {
+          "value": "from-bottom",
+          "label": "From Bottom with Fade"
+        },
+        {
+          "value": "zoom-in",
+          "label": "Zoom In"
+        },
+        {
+          "value": "fade",
+          "label": "Fade Only"
+        }
+      ],
+      "default": "from-bottom"
+    },
+    {
+      "type": "select",
+      "id": "view_all_animation",
+      "label": "View All Button Animation",
+      "options": [
+        {
+          "value": "from-left",
+          "label": "From Left with Fade"
+        },
+        {
+          "value": "from-right",
+          "label": "From Right with Fade"
+        },
+        {
+          "value": "from-bottom",
+          "label": "From Bottom with Fade"
+        },
+        {
+          "value": "zoom-in",
+          "label": "Zoom In"
+        },
+        {
+          "value": "fade",
+          "label": "Fade Only"
+        }
+      ],
+      "default": "from-right"
+    },
+    {
+      "type": "select",
+      "id": "default_slide_animation",
+      "label": "Default Slide Animation",
+      "options": [
+        {
+          "value": "from-left",
+          "label": "From Left with Fade"
+        },
+        {
+          "value": "from-right",
+          "label": "From Right with Fade"
+        },
+        {
+          "value": "from-bottom",
+          "label": "From Bottom with Fade"
+        },
+        {
+          "value": "zoom-in",
+          "label": "Zoom In"
+        },
+        {
+          "value": "fade",
+          "label": "Fade Only"
+        }
+      ],
+      "default": "from-bottom"
+    },
+    {
+      "type": "header",
+      "content": "Slider Settings"
+    },
+    {
+      "type": "range",
+      "id": "slides_per_view",
+      "label": "Slides Per View (Desktop)",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "slide_gap",
+      "label": "Slide Gap",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "transition_speed",
+      "label": "Transition Speed",
+      "min": 300,
+      "max": 1500,
+      "step": 100,
+      "unit": "ms",
+      "default": 800
+    },
+    {
+      "type": "checkbox",
+      "id": "loop_slides",
+      "label": "Loop Slides",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_delay",
+      "label": "Autoplay Delay",
+      "min": 2000,
+      "max": 9500,
+      "step": 500,
+      "unit": "ms",
+      "default": 5000
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "label": "Show Navigation Arrows",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Style Settings"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "view_all_color",
+      "label": "View All Button Color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "view_all_hover_color",
+      "label": "View All Button Hover Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Product Title Color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "overlay_button_color",
+      "label": "Overlay Button Text Color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "overlay_button_hover_bg",
+      "label": "Overlay Button Hover Background",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "overlay_button_hover_color",
+      "label": "Overlay Button Hover Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card Border Radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "select",
+      "id": "image_aspect_ratio",
+      "label": "Image Aspect Ratio",
+      "options": [
+        {
+          "value": "4 / 3",
+          "label": "4:3"
+        },
+        {
+          "value": "16 / 9",
+          "label": "16:9"
+        },
+        {
+          "value": "1 / 1",
+          "label": "1:1 (Square)"
+        },
+        {
+          "value": "3 / 4",
+          "label": "3:4 (Portrait)"
+        }
+      ],
+      "default": "4 / 3"
+    },
+    {
+      "type": "range",
+      "id": "header_spacing",
+      "label": "Header Bottom Spacing",
+      "min": 20,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Product Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Product Title",
+          "default": "Product Name"
+        },
+        {
+          "type": "text",
+          "id": "view_all_text",
+          "label": "View All Button Text",
+          "default": "VIEW ALL"
+        },
+        {
+          "type": "url",
+          "id": "view_all_link",
+          "label": "View All Button Link"
+        },
+        {
+          "type": "select",
+          "id": "slide_animation",
+          "label": "Slide Animation",
+          "info": "Leave empty to use default",
+          "options": [
+            {
+              "value": "",
+              "label": "Use Default"
+            },
+            {
+              "value": "from-left",
+              "label": "From Left with Fade"
+            },
+            {
+              "value": "from-right",
+              "label": "From Right with Fade"
+            },
+            {
+              "value": "from-bottom",
+              "label": "From Bottom with Fade"
+            },
+            {
+              "value": "zoom-in",
+              "label": "Zoom In"
+            },
+            {
+              "value": "fade",
+              "label": "Fade Only"
+            }
+          ],
+          "default": ""
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Animated Product Slider",
+      "blocks": [
+        {
+          "type": "product",
+          "settings": {
+            "title": "Continuous Inkjet Printer"
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "title": "Thermal Inkjet Printer"
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "title": "Thermal Transfer Over Printer"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
