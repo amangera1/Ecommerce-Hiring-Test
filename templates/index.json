@@ -166,56 +166,13 @@
         "mobile_padding_bottom": 60
       }
     },
-    "animated_features": {
-      "type": "animated-features",
-      "blocks": {
-        "feature_1": {
-          "type": "feature",
-          "settings": {
-            "icon_text": "🚀",
-            "title": "Fast Delivery",
-            "description": "<p>Quick and reliable shipping worldwide</p>"
-          }
-        },
-        "feature_2": {
-          "type": "feature",
-          "settings": {
-            "icon_text": "💎",
-            "title": "Premium Quality",
-            "description": "<p>Only the best products for our customers</p>"
-          }
-        },
-        "feature_3": {
-          "type": "feature",
-          "settings": {
-            "icon_text": "❤️",
-            "title": "Customer Support",
-            "description": "<p>24/7 dedicated customer support</p>"
-          }
-        }
-      },
-      "block_order": [
-        "feature_1",
-        "feature_2",
-        "feature_3"
-      ],
-      "settings": {
-        "heading": "Why Choose Us",
-        "description": "<p>Discover what makes us special</p>",
-        "background_color": "#ffffff",
-        "heading_color": "#000000",
-        "text_color": "#666666",
-        "card_bg_color": "#f8f8f8",
-        "card_text_color": "#000000",
-        "icon_bg_color": "#e8e8e8"
-      }
-    },
     "animated_features_grid": {
       "type": "animated-features-grid",
       "blocks": {
         "feature_1": {
           "type": "feature",
           "settings": {
+            "icon_image": "shopify://shop_images/svgviewer-png-output_2_f65875ca-3307-4ee3-8c7f-d4dbc546e436.png",
             "icon_text": "🚀",
             "title": "Fast Delivery",
             "description": "<p>Quick and reliable shipping worldwide</p>",
@@ -225,6 +182,7 @@
         "feature_2": {
           "type": "feature",
           "settings": {
+            "icon_image": "shopify://shop_images/svgviewer-png-output_1.png",
             "icon_text": "💎",
             "title": "Premium Quality",
             "description": "<p>Only the best products for our customers</p>",
@@ -234,6 +192,7 @@
         "feature_3": {
           "type": "feature",
           "settings": {
+            "icon_image": "shopify://shop_images/svgviewer-png-output_2.png",
             "icon_text": "❤️",
             "title": "Customer Support",
             "description": "<p>24/7 dedicated customer support</p>",
@@ -250,7 +209,7 @@
         "default_card_animation": "from-bottom",
         "background_color": "#ffffff",
         "card_bg_color": "#ffffff",
-        "icon_bg_color": "#0066cc",
+        "icon_bg_color": "rgba(0,0,0,0)",
         "icon_color": "#ffffff",
         "title_color": "#333333",
         "description_color": "#666666",
@@ -536,7 +495,6 @@
   "order": [
     "animated_hero_swiper",
     "animated_content_section",
-    "animated_features",
     "animated_features_grid",
     "animated_split_banner",
     "animated_product_showcase",
