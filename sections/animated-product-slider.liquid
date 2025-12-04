@@ -336,40 +336,43 @@
       });
     }
 
-    function animateElement(element, type, delay) {
+    function animateElement(element, type, delay, isMobile) {
       if (!element) return;
 
-      const duration = 1;
+      // Responsive animation settings
+      const duration = isMobile ? 0.8 : 1;
       const ease = 'power3.out';
+      const moveDistance = isMobile ? 50 : 100;
+      const blurAmount = isMobile ? 5 : 10;
 
       switch(type) {
         case 'fromLeft':
           gsap.fromTo(element,
-            { opacity: 0, x: -100, filter: 'blur(10px)' },
+            { opacity: 0, x: -moveDistance, filter: `blur(${blurAmount}px)` },
             { opacity: 1, x: 0, filter: 'blur(0px)', duration, ease, delay }
           );
           break;
         case 'fromRight':
           gsap.fromTo(element,
-            { opacity: 0, x: 100, filter: 'blur(10px)' },
+            { opacity: 0, x: moveDistance, filter: `blur(${blurAmount}px)` },
             { opacity: 1, x: 0, filter: 'blur(0px)', duration, ease, delay }
           );
           break;
         case 'fromBottom':
           gsap.fromTo(element,
-            { opacity: 0, y: 100, filter: 'blur(10px)' },
+            { opacity: 0, y: moveDistance, filter: `blur(${blurAmount}px)` },
             { opacity: 1, y: 0, filter: 'blur(0px)', duration, ease, delay }
           );
           break;
         case 'zoomIn':
           gsap.fromTo(element,
-            { opacity: 0, scale: 0.8 },
-            { opacity: 1, scale: 1, duration, ease: 'back.out(1.7)', delay }
+            { opacity: 0, scale: 0.85 },
+            { opacity: 1, scale: 1, duration, ease: 'back.out(1.5)', delay }
           );
           break;
         default: // fade
           gsap.fromTo(element,
-            { opacity: 0, y: 30 },
+            { opacity: 0, y: isMobile ? 20 : 30 },
             { opacity: 1, y: 0, duration, ease, delay }
           );
       }
