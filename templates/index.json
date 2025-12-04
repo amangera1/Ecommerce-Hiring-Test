@@ -170,6 +170,7 @@
         "feature_1": {
           "type": "feature",
           "settings": {
+            "icon_image": "shopify://shop_images/svgviewer-png-output_2.png",
             "icon_text": "🚀",
             "title": "Fast Delivery",
             "description": "<p>Quick and reliable shipping worldwide</p>",
