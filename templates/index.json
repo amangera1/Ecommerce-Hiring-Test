@@ -30,10 +30,11 @@
         "slide_1": {
           "type": "slide",
           "settings": {
-            "heading": "Welcome to Our Store",
-            "subheading": "Discover Amazing Products",
-            "description": "<p>Experience the best shopping with smooth animations and parallax effects</p>",
-            "primary_button_text": "Shop Now",
+            "background_image": "shopify://shop_images/Continuous_Inkjet_Printer.webp",
+            "heading": "Why Nilkamal's",
+            "subheading": "Continuous Inkjet Printer",
+            "description": "",
+            "primary_button_text": "Know More",
             "primary_button_link": "/collections/all",
             "secondary_button_text": "Learn More",
             "secondary_button_link": "",
