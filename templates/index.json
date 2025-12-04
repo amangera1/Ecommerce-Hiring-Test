@@ -270,6 +270,7 @@
         "product_1": {
           "type": "product",
           "settings": {
+            "image": "shopify://shop_images/Group_7_1850x_d435c269-bcd0-4a10-8252-864a58795a81.webp",
             "title": "Continuous Inkjet Printer",
             "view_all_text": "VIEW ALL",
             "view_all_link": "/collections/continuous-inkjet",
@@ -279,18 +280,20 @@
         "product_2": {
           "type": "product",
           "settings": {
+            "image": "shopify://shop_images/Group_7_1850x_d435c269-bcd0-4a10-8252-864a58795a81.webp",
             "title": "Thermal Inkjet Printer",
             "view_all_text": "VIEW ALL",
             "view_all_link": "/collections/thermal-inkjet",
             "slide_animation": ""
           }
         },
-        "product_3": {
+        "product_8DEba4": {
           "type": "product",
           "settings": {
-            "title": "Thermal Transfer Over Printer",
+            "image": "shopify://shop_images/Group_7_1850x_d435c269-bcd0-4a10-8252-864a58795a81.webp",
+            "title": "Continuous Inkjet Printer",
             "view_all_text": "VIEW ALL",
-            "view_all_link": "/collections/thermal-transfer",
+            "view_all_link": "/collections/continuous-inkjet",
             "slide_animation": ""
           }
         }
@@ -298,7 +301,7 @@
       "block_order": [
         "product_1",
         "product_2",
-        "product_3"
+        "product_8DEba4"
       ],
       "settings": {
         "heading": "Explore Our Product",
