@@ -180,6 +180,7 @@
         "feature_2": {
           "type": "feature",
           "settings": {
+            "icon_image": "shopify://shop_images/svgviewer-png-output_1.png",
             "icon_text": "💎",
             "title": "Premium Quality",
             "description": "<p>Only the best products for our customers</p>",
@@ -189,6 +190,7 @@
         "feature_3": {
           "type": "feature",
           "settings": {
+            "icon_image": "shopify://shop_images/svgviewer-png-output.png",
             "icon_text": "❤️",
             "title": "Customer Support",
             "description": "<p>24/7 dedicated customer support</p>",
