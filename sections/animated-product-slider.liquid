@@ -232,39 +232,32 @@
       {% endif %}
     </div>
 
-    <div class="swiper product-slider" id="product-slider-{{ section.id }}">
-      <div class="swiper-wrapper">
-        {% for block in section.blocks %}
-          <div class="swiper-slide product-slide animate-{{ block.settings.slide_animation | default: section.settings.default_slide_animation }} wow animate__animated" {{ block.shopify_attributes }}>
-            <div class="product-slide-image-wrapper">
-              {% if block.settings.image != blank %}
-                {{
-                  block.settings.image
-                  | image_url: width: 800
-                  | image_tag: class: 'product-slide-image', loading: 'lazy', alt: block.settings.title
-                }}
+    <div class="product-slider" id="product-slider-{{ section.id }}">
+      {% for block in section.blocks %}
+        <div class="product-slide animate-{{ block.settings.slide_animation | default: section.settings.default_slide_animation }} wow animate__animated" {{ block.shopify_attributes }}>
+          <div class="product-slide-image-wrapper">
+            {% if block.settings.image != blank %}
+              {{
+                block.settings.image
+                | image_url: width: 800
+                | image_tag: class: 'product-slide-image', loading: 'lazy', alt: block.settings.title
+              }}
+            {% endif %}
+            <div class="product-slide-content-overlay">
+              {% if block.settings.title != blank %}
+                <h3 class="product-slide-title animate-{{ block.settings.slide_animation | default: section.settings.default_slide_animation }}">{{ block.settings.title }}</h3>
               {% endif %}
-              <div class="product-slide-content-overlay">
-                {% if block.settings.title != blank %}
-                  <h3 class="product-slide-title animate-{{ block.settings.slide_animation | default: section.settings.default_slide_animation }}">{{ block.settings.title }}</h3>
-                {% endif %}
-                {% if block.settings.view_all_text != blank and block.settings.view_all_link != blank %}
-                  <div class="product-slide-view-all-overlay">
-                    <a href="{{ block.settings.view_all_link }}" class="product-slide-view-all-btn animate-{{ block.settings.slide_animation | default: section.settings.default_slide_animation }}">
-                      {{ block.settings.view_all_text }}
-                    </a>
-                  </div>
-                {% endif %}
-              </div>
+              {% if block.settings.view_all_text != blank and block.settings.view_all_link != blank %}
+                <div class="product-slide-view-all-overlay">
+                  <a href="{{ block.settings.view_all_link }}" class="product-slide-view-all-btn animate-{{ block.settings.slide_animation | default: section.settings.default_slide_animation }}">
+                    {{ block.settings.view_all_text }}
+                  </a>
+                </div>
+              {% endif %}
             </div>
           </div>
-        {% endfor %}
-      </div>
-
-      {% if section.settings.show_navigation %}
-        <div class="swiper-button-next product-slider-button-next" style="display: none;"></div>
-        <div class="swiper-button-prev product-slider-button-prev" style="display: none;"></div>
-      {% endif %}
+        </div>
+      {% endfor %}
     </div>
   </div>
 </section>
