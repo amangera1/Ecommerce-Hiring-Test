@@ -1,0 +1,793 @@
+<style>
+  .animated-image-slider-{{ section.id }} {
+    padding: {{ section.settings.padding_top }}px 20px {{ section.settings.padding_bottom }}px;
+    background: {{ section.settings.background_color }};
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+  }
+
+  .slider-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .slider-header {
+    text-align: {{ section.settings.text_alignment }};
+    margin-bottom: {{ section.settings.header_spacing }}px;
+  }
+
+  .slider-heading {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: {{ section.settings.heading_color }};
+    line-height: 1.3;
+  }
+
+  .slider-description {
+    font-size: clamp(16px, 2vw, 20px);
+    color: {{ section.settings.text_color }};
+    line-height: 1.6;
+    max-width: 800px;
+    {% if section.settings.text_alignment == 'center' %}
+      margin: 0 auto;
+    {% else %}
+      margin: 0;
+    {% endif %}
+  }
+
+  .image-slider {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    /* padding: 0 60px; */
+  }
+
+  @media (max-width: 768px) {
+    .image-slider {
+      padding: 0 50px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .image-slider {
+      padding: 0 20px;
+    }
+  }
+
+  .slider-slide {
+    position: relative;
+    overflow: hidden;
+    border-radius: {{ section.settings.image_border_radius }}px;
+    height: auto;
+  }
+
+  .slide-image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: {{ section.settings.image_aspect_ratio }};
+    overflow: hidden;
+    background: #f5f5f5;
+    margin-bottom: 20px;
+  }
+
+  .slide-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    will-change: transform;
+  }
+
+  .slider-slide:hover .slide-image,
+  .swiper-slide-active:hover .slide-image,
+  .swiper-slide-duplicate-active:hover .slide-image {
+    transform: scale(1.1) !important;
+  }
+
+  .slide-title {
+    font-size: clamp(18px, 2.5vw, 24px);
+    font-weight: 600;
+    margin: 0;
+    color: {{ section.settings.title_color }};
+    text-align: center;
+    padding: 0 10px;
+    cursor: pointer;
+    transition: text-decoration 0.3s ease;
+  }
+
+  .slide-title:hover {
+    text-decoration: underline;
+  }
+
+  /* Swiper Navigation - Centered vertically */
+  .slider-button-next,
+  .slider-button-prev {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 50%;
+    color: #000;
+    transition: all 0.3s ease;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-top: 0;
+    z-index: 10;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+
+  .slider-button-next {
+    right: 10px;
+  }
+
+  .slider-button-prev {
+    left: 10px;
+  }
+
+  .animated-image-slider-{{ section.id }} .swiper-button-next, 
+  .animated-image-slider-{{ section.id }} .swiper-button-prev {
+    display: flex !important;
+  }
+
+  /* Hide navigation on mobile */
+  @media (max-width: 640px) {
+    .slider-button-next,
+    .slider-button-prev {
+      display: none;
+    }
+  }
+
+  .slider-button-next:hover,
+  .slider-button-prev:hover {
+    background: #fff;
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  .slider-button-next::after,
+  .slider-button-prev::after {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1;
+  }
+
+  /* Swiper Pagination - Hidden */
+  .slider-pagination {
+    display: none !important;
+  }
+
+  /* Animation Classes - Section specific to avoid conflicts */
+  .animated-image-slider-{{ section.id }} .animate-from-left,
+  .animated-image-slider-{{ section.id }} .animate-from-right,
+  .animated-image-slider-{{ section.id }} .animate-from-bottom,
+  .animated-image-slider-{{ section.id }} .animate-zoom-in,
+  .animated-image-slider-{{ section.id }} .animate-fade {
+    /* GSAP will handle opacity and transforms */
+  }
+
+  @media (max-width: 768px) {
+    .animated-image-slider-{{ section.id }} {
+      padding: 60px 15px 60px;
+    }
+
+    .slider-header {
+      margin-bottom: 30px;
+    }
+
+    .slider-button-next,
+    .slider-button-prev {
+      width: 40px;
+      height: 40px;
+    }
+  }
+</style>
+
+<section class="animated-image-slider-{{ section.id }}">
+  <div class="slider-container">
+    {% if section.settings.heading != blank or section.settings.description != blank %}
+      <div class="slider-header">
+        {% if section.settings.heading != blank %}
+          <h2 class="slider-heading animate-{{ section.settings.heading_animation }} wow animate__animated">
+            {{ section.settings.heading }}
+          </h2>
+        {% endif %}
+        {% if section.settings.description != blank %}
+          <p class="slider-description animate-{{ section.settings.description_animation }} wow animate__animated">
+            {{ section.settings.description }}
+          </p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="swiper image-slider" id="image-slider-{{ section.id }}">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          <div class="swiper-slide slider-slide animate-{{ block.settings.slide_animation | default: section.settings.default_slide_animation }} wow animate__animated" {{ block.shopify_attributes }}>
+            <div class="slide-image-wrapper">
+              {% if block.settings.image != blank %}
+                {{
+                  block.settings.image
+                  | image_url: width: 800
+                  | image_tag: class: 'slide-image', loading: 'lazy', alt: block.settings.title
+                }}
+              {% endif %}
+            </div>
+            {% if block.settings.title != blank %}
+              <h3 class="slide-title animate-{{ block.settings.slide_animation | default: section.settings.default_slide_animation }}">{{ block.settings.title }}</h3>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if section.settings.show_navigation %}
+        <div class="swiper-button-next slider-button-next" style="display: none;"></div>
+        <div class="swiper-button-prev slider-button-prev" style="display: none;"></div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const sliderEl = document.getElementById('image-slider-{{ section.id }}');
+    if (!sliderEl) return;
+
+    // Wait for Swiper to be available
+    if (typeof Swiper === 'undefined') {
+      console.error('Swiper library not loaded');
+      return;
+    }
+
+    // Function to show/hide navigation based on slides count
+    function toggleNavigation(swiperInstance) {
+      const nextBtn = sliderEl.querySelector('.slider-button-next');
+      const prevBtn = sliderEl.querySelector('.slider-button-prev');
+      
+      if (!nextBtn || !prevBtn || !swiperInstance) return;
+      
+      // Count only non-duplicate slides (actual content blocks)
+      const uniqueSlides = Array.from(swiperInstance.slides).filter(slide => !slide.classList.contains('swiper-slide-duplicate'));
+      const actualSlideCount = uniqueSlides.length;
+      
+      // Get current slides per view - check breakpoints
+      let currentSlidesPerView = {{ section.settings.slides_per_view }};
+      const windowWidth = window.innerWidth;
+      if (windowWidth < 640) {
+        currentSlidesPerView = 1;
+      } else if (windowWidth < 768) {
+        currentSlidesPerView = 2;
+      } else if (windowWidth < 1024) {
+        currentSlidesPerView = 2;
+      }
+      
+      // Only show navigation if there are MORE slides than can be displayed
+      // If actualSlideCount <= currentSlidesPerView, hide navigation
+      if (actualSlideCount > currentSlidesPerView && {{ section.settings.show_navigation }}) {
+        nextBtn.style.display = 'flex';
+        prevBtn.style.display = 'flex';
+      } else {
+        nextBtn.style.display = 'none';
+        prevBtn.style.display = 'none';
+      }
+    }
+
+    // Initialize Swiper
+    const swiper = new Swiper(sliderEl, {
+      loop: {{ section.settings.loop_slides }},
+      autoplay: {{ section.settings.autoplay }} ? {
+        delay: {{ section.settings.autoplay_delay }},
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true
+      } : false,
+      speed: {{ section.settings.transition_speed }},
+      spaceBetween: {{ section.settings.slide_gap }},
+      breakpoints: {
+        320: {
+          slidesPerView: 1,
+          spaceBetween: 15
+        },
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 20
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: {{ section.settings.slide_gap }}
+        },
+        1024: {
+          slidesPerView: {{ section.settings.slides_per_view }},
+          spaceBetween: {{ section.settings.slide_gap }}
+        }
+      },
+      navigation: {
+        nextEl: sliderEl.querySelector('.slider-button-next'),
+        prevEl: sliderEl.querySelector('.slider-button-prev'),
+      },
+      on: {
+        init: function() {
+          animateSlides(this.slides);
+          toggleNavigation(this);
+        },
+        slideChange: function() {
+          animateSlides(this.slides);
+        },
+        resize: function() {
+          toggleNavigation(this);
+        }
+      }
+    });
+
+    // Check navigation on window resize
+    window.addEventListener('resize', function() {
+      toggleNavigation(swiper);
+    });
+
+    // Animation function using GSAP
+    function animateSlides(slides) {
+      if (!slides || typeof gsap === 'undefined') return;
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReducedMotion) {
+        // Just show content without animation
+        slides.forEach(slide => {
+          const image = slide.querySelector('.slide-image');
+          const title = slide.querySelector('.slide-title');
+          if (image) gsap.set(image, { opacity: 1 });
+          if (title) gsap.set(title, { opacity: 1 });
+        });
+        return;
+      }
+
+      slides.forEach((slide, index) => {
+        if (!slide.classList.contains('swiper-slide-active') && !slide.classList.contains('swiper-slide-duplicate-active')) {
+          return;
+        }
+
+        const image = slide.querySelector('.slide-image');
+        const title = slide.querySelector('.slide-title');
+
+        // Reset
+        if (image) {
+          gsap.set(image, { clearProps: 'all' });
+          gsap.set(image, { opacity: 1 });
+        }
+        if (title) {
+          gsap.set(title, { clearProps: 'all' });
+          gsap.set(title, { opacity: 1 });
+        }
+
+        // Get animation type
+        const animType = slide.classList.contains('animate-from-left') ? 'fromLeft' :
+                        slide.classList.contains('animate-from-right') ? 'fromRight' :
+                        slide.classList.contains('animate-from-bottom') ? 'fromBottom' :
+                        slide.classList.contains('animate-zoom-in') ? 'zoomIn' : 'fade';
+
+        // Animate image
+        if (image) {
+          animateElement(image, animType, 0);
+        }
+
+        // Animate title
+        if (title) {
+          animateElement(title, animType, 0.3);
+        }
+      });
+    }
+
+    function animateElement(element, type, delay) {
+      if (!element) return;
+
+      const duration = 1;
+      const ease = 'power3.out';
+
+      switch(type) {
+        case 'fromLeft':
+          gsap.fromTo(element,
+            { opacity: 0, x: -100, filter: 'blur(10px)' },
+            { opacity: 1, x: 0, filter: 'blur(0px)', duration, ease, delay }
+          );
+          break;
+        case 'fromRight':
+          gsap.fromTo(element,
+            { opacity: 0, x: 100, filter: 'blur(10px)' },
+            { opacity: 1, x: 0, filter: 'blur(0px)', duration, ease, delay }
+          );
+          break;
+        case 'fromBottom':
+          gsap.fromTo(element,
+            { opacity: 0, y: 100, filter: 'blur(10px)' },
+            { opacity: 1, y: 0, filter: 'blur(0px)', duration, ease, delay }
+          );
+          break;
+        case 'zoomIn':
+          gsap.fromTo(element,
+            { opacity: 0, scale: 0.8 },
+            { opacity: 1, scale: 1, duration, ease: 'back.out(1.7)', delay }
+          );
+          break;
+        default: // fade
+          gsap.fromTo(element,
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration, ease, delay }
+          );
+      }
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Animated Image Slider",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Industrial Type"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Powering performance across industries – from packaging to production."
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Animation Settings"
+    },
+    {
+      "type": "select",
+      "id": "heading_animation",
+      "label": "Heading Animation",
+      "options": [
+        {
+          "value": "from-left",
+          "label": "From Left with Fade"
+        },
+        {
+          "value": "from-right",
+          "label": "From Right with Fade"
+        },
+        {
+          "value": "from-bottom",
+          "label": "From Bottom with Fade"
+        },
+        {
+          "value": "zoom-in",
+          "label": "Zoom In"
+        },
+        {
+          "value": "fade",
+          "label": "Fade Only"
+        }
+      ],
+      "default": "from-bottom"
+    },
+    {
+      "type": "select",
+      "id": "description_animation",
+      "label": "Description Animation",
+      "options": [
+        {
+          "value": "from-left",
+          "label": "From Left with Fade"
+        },
+        {
+          "value": "from-right",
+          "label": "From Right with Fade"
+        },
+        {
+          "value": "from-bottom",
+          "label": "From Bottom with Fade"
+        },
+        {
+          "value": "zoom-in",
+          "label": "Zoom In"
+        },
+        {
+          "value": "fade",
+          "label": "Fade Only"
+        }
+      ],
+      "default": "from-bottom"
+    },
+    {
+      "type": "select",
+      "id": "default_slide_animation",
+      "label": "Default Slide Animation",
+      "options": [
+        {
+          "value": "from-left",
+          "label": "From Left with Fade"
+        },
+        {
+          "value": "from-right",
+          "label": "From Right with Fade"
+        },
+        {
+          "value": "from-bottom",
+          "label": "From Bottom with Fade"
+        },
+        {
+          "value": "zoom-in",
+          "label": "Zoom In"
+        },
+        {
+          "value": "fade",
+          "label": "Fade Only"
+        }
+      ],
+      "default": "from-bottom"
+    },
+    {
+      "type": "header",
+      "content": "Slider Settings"
+    },
+    {
+      "type": "range",
+      "id": "slides_per_view",
+      "label": "Slides Per View (Desktop)",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "slide_gap",
+      "label": "Slide Gap",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "transition_speed",
+      "label": "Transition Speed",
+      "min": 300,
+      "max": 1500,
+      "step": 100,
+      "unit": "ms",
+      "default": 800
+    },
+    {
+      "type": "checkbox",
+      "id": "loop_slides",
+      "label": "Loop Slides",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_delay",
+      "label": "Autoplay Delay",
+      "min": 2000,
+      "max": 9500,
+      "step": 500,
+      "unit": "ms",
+      "default": 5000
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "label": "Show Navigation Arrows",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Style Settings"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Image Border Radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "image_aspect_ratio",
+      "label": "Image Aspect Ratio",
+      "options": [
+        {
+          "value": "4 / 3",
+          "label": "4:3"
+        },
+        {
+          "value": "16 / 9",
+          "label": "16:9"
+        },
+        {
+          "value": "1 / 1",
+          "label": "1:1 (Square)"
+        },
+        {
+          "value": "3 / 4",
+          "label": "3:4 (Portrait)"
+        }
+      ],
+      "default": "4 / 3"
+    },
+    {
+      "type": "range",
+      "id": "header_spacing",
+      "label": "Header Bottom Spacing",
+      "min": 20,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Industry Name"
+        },
+        {
+          "type": "select",
+          "id": "slide_animation",
+          "label": "Slide Animation",
+          "info": "Leave empty to use default",
+          "options": [
+            {
+              "value": "",
+              "label": "Use Default"
+            },
+            {
+              "value": "from-left",
+              "label": "From Left with Fade"
+            },
+            {
+              "value": "from-right",
+              "label": "From Right with Fade"
+            },
+            {
+              "value": "from-bottom",
+              "label": "From Bottom with Fade"
+            },
+            {
+              "value": "zoom-in",
+              "label": "Zoom In"
+            },
+            {
+              "value": "fade",
+              "label": "Fade Only"
+            }
+          ],
+          "default": ""
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Animated Image Slider",
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "title": "Food"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "title": "Cable & Wire"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "title": "Beverage"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "title": "Pharma"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+

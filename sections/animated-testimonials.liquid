@@ -1,0 +1,325 @@
+<style>
+  .animated-testimonials-section-{{ section.id }} {
+    padding: 80px 20px;
+    background: {{ section.settings.background_color }};
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+  }
+
+  .testimonials-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .testimonials-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .testimonials-heading {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: {{ section.settings.heading_color }};
+  }
+
+  .testimonials-description {
+    font-size: clamp(16px, 2vw, 20px);
+    color: {{ section.settings.text_color }};
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+  }
+
+  .testimonial-card {
+    background: {{ section.settings.card_bg_color }};
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+  }
+
+  .testimonial-quote {
+    font-size: 18px;
+    line-height: 1.8;
+    color: {{ section.settings.card_text_color }};
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .testimonial-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid {{ section.settings.accent_color }};
+  }
+
+  .testimonial-author-info {
+    flex: 1;
+  }
+
+  .testimonial-author-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: {{ section.settings.card_text_color }};
+    margin-bottom: 4px;
+  }
+
+  .testimonial-author-role {
+    font-size: 14px;
+    color: {{ section.settings.card_text_color }};
+    opacity: 0.7;
+  }
+
+  .testimonial-rating {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 16px;
+    font-size: 20px;
+  }
+
+  .parallax-bg-element {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: {{ section.settings.accent_color }};
+    opacity: 0.1;
+    border-radius: 50%;
+    will-change: transform;
+  }
+
+  .parallax-bg-element:nth-child(1) {
+    top: 10%;
+    left: 5%;
+  }
+
+  .parallax-bg-element:nth-child(2) {
+    bottom: 10%;
+    right: 5%;
+  }
+
+  @media (max-width: 768px) {
+    .animated-testimonials-section-{{ section.id }} {
+      padding: 60px 15px;
+    }
+
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .testimonial-card {
+      padding: 30px 20px;
+    }
+  }
+</style>
+
+<section class="animated-testimonials-section-{{ section.id }}">
+  <div class="parallax-bg-element parallax-text"></div>
+  <div class="parallax-bg-element parallax-text"></div>
+
+  <div class="testimonials-container">
+    <div class="testimonials-header">
+      {% if section.settings.heading != blank %}
+        <h2 class="testimonials-heading gsap-zoom-in wow animate__animated">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.description != blank %}
+        <p class="testimonials-description gsap-fade-in wow animate__animated">{{ section.settings.description }}</p>
+      {% endif %}
+    </div>
+
+    <div class="testimonials-grid">
+      {% for block in section.blocks %}
+        <div class="testimonial-card wow animate__animated" {{ block.shopify_attributes }}>
+          {% if block.settings.rating > 0 %}
+            <div class="testimonial-rating gsap-fade-in">
+              {% for i in (1..5) %}
+                {% if i <= block.settings.rating %}
+                  <span>⭐</span>
+                {% else %}
+                  <span style="opacity: 0.3;">⭐</span>
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {% if block.settings.quote != blank %}
+            <p class="testimonial-quote gsap-fade-in">"{{ block.settings.quote }}"</p>
+          {% endif %}
+
+          <div class="testimonial-author">
+            {% if block.settings.avatar != blank %}
+              {{
+                block.settings.avatar
+                | image_url: width: 120
+                | image_tag: class: 'testimonial-avatar gsap-slide-left', loading: 'lazy'
+              }}
+            {% endif %}
+            <div class="testimonial-author-info">
+              {% if block.settings.author_name != blank %}
+                <div class="testimonial-author-name gsap-fade-in">{{ block.settings.author_name }}</div>
+              {% endif %}
+              {% if block.settings.author_role != blank %}
+                <div class="testimonial-author-role gsap-fade-in">{{ block.settings.author_role }}</div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Animated Testimonials",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What Our Customers Say"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Read testimonials from our satisfied customers"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card Background Color",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Card Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#000000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "default": "This is an amazing product! I highly recommend it."
+        },
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Avatar Image"
+        },
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "Author Name",
+          "default": "John Doe"
+        },
+        {
+          "type": "text",
+          "id": "author_role",
+          "label": "Author Role",
+          "default": "Customer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Animated Testimonials",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "Amazing quality and fast shipping!",
+            "author_name": "Sarah Johnson",
+            "author_role": "Verified Customer"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "Best purchase I've made this year!",
+            "author_name": "Michael Chen",
+            "author_role": "Verified Customer"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "Exceeded my expectations in every way.",
+            "author_name": "Emily Davis",
+            "author_role": "Verified Customer"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

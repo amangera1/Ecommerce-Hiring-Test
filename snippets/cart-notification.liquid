@@ -9,6 +9,13 @@
   {% render 'cart-notification' %}
 {% endcomment %}
 
+
+<style>
+  .cart-notification__header{
+    display: none;
+  }
+</style>
+
 <cart-notification>
   <div class="cart-notification-wrapper{% if desktop_menu_type != 'drawer' %} page-width{% endif %}">
     <div

@@ -1,0 +1,618 @@
+<style>
+  .animated-split-banner-{{ section.id }} {
+    padding: 0;
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+    background: {{ section.settings.background_color }};
+    min-height: {{ section.settings.section_height }}vh;
+  }
+
+  .split-banner-container {
+    display: flex;
+    align-items: center;
+    min-height: {{ section.settings.section_height }}vh;
+    position: relative;
+  }
+
+  .split-banner-text-side {
+    flex: 1;
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .split-banner-image-side {
+    flex: 1;
+    position: relative;
+    height: {{ section.settings.section_height }}vh;
+    overflow: hidden;
+  }
+
+  .split-banner-image-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .split-banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    will-change: transform;
+  }
+
+  .split-banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: {{ section.settings.overlay_color }};
+    opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    z-index: 1;
+  }
+
+  .split-banner-heading {
+    font-size: clamp(32px, 5vw, 64px);
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: {{ section.settings.heading_color }};
+    line-height: 1.2;
+  }
+
+  .split-banner-subheading {
+    font-size: clamp(18px, 2.5vw, 24px);
+    margin-bottom: 16px;
+    color: {{ section.settings.subheading_color }};
+    line-height: 1.6;
+    opacity: 0.9;
+  }
+
+  .split-banner-description {
+    font-size: clamp(16px, 2vw, 18px);
+    margin-bottom: 32px;
+    color: {{ section.settings.text_color }};
+    line-height: 1.7;
+    opacity: 0.85;
+  }
+
+  .split-banner-button {
+    display: inline-block;
+    padding: 16px 40px;
+    background: {{ section.settings.button_bg_color }};
+    color: {{ section.settings.button_text_color }};
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    max-width: fit-content;
+  }
+
+  .split-banner-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    background: {{ section.settings.button_hover_color }};
+  }
+
+  .split-banner-feature-list {
+    margin-top: 24px;
+    list-style: none;
+    padding: 0;
+  }
+
+  .split-banner-feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    color: {{ section.settings.text_color }};
+    font-size: 16px;
+  }
+
+  .split-banner-feature-icon {
+    font-size: 20px;
+    width: 24px;
+    text-align: center;
+  }
+
+  /* Layout Direction */
+  {% if section.settings.layout_direction == 'image_left' %}
+    .split-banner-container {
+      flex-direction: row-reverse;
+    }
+  {% endif %}
+
+  /* Animation Classes - Applied based on settings */
+  .heading-animation-zoom { }
+  .heading-animation-fade { }
+  .heading-animation-slide-left { }
+  .heading-animation-slide-right { }
+
+  .text-animation-fade { }
+  .text-animation-slide-up { }
+
+  .image-animation-zoom { }
+  .image-animation-slide-left { }
+  .image-animation-slide-right { }
+  .image-animation-fade { }
+
+  .button-animation-bounce { }
+  .button-animation-fade { }
+  .button-animation-slide-up { }
+
+  @media (max-width: 768px) {
+    .split-banner-container {
+      flex-direction: column !important;
+    }
+
+    .split-banner-text-side {
+      padding: 40px 20px;
+      min-height: auto;
+    }
+
+    .split-banner-image-side {
+      height: 50vh;
+      min-height: 300px;
+    }
+
+    .animated-split-banner-{{ section.id }} {
+      min-height: auto;
+    }
+  }
+</style>
+
+<section class="animated-split-banner-{{ section.id }}">
+  <div class="split-banner-container">
+    <!-- Text Side -->
+    <div class="split-banner-text-side">
+      {% if section.settings.heading != blank %}
+        <h2 class="split-banner-heading 
+          {% if section.settings.heading_animation == 'zoom' %}gsap-zoom-in{% endif %}
+          {% if section.settings.heading_animation == 'fade' %}gsap-fade-in{% endif %}
+          {% if section.settings.heading_animation == 'slide_left' %}gsap-slide-left{% endif %}
+          {% if section.settings.heading_animation == 'slide_right' %}gsap-slide-right{% endif %}
+          wow animate__animated">
+          {{ section.settings.heading }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.subheading != blank %}
+        <h3 class="split-banner-subheading 
+          {% if section.settings.subheading_animation == 'fade' %}gsap-fade-in{% endif %}
+          {% if section.settings.subheading_animation == 'slide_up' %}gsap-fade-in{% endif %}
+          wow animate__animated">
+          {{ section.settings.subheading }}
+        </h3>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <p class="split-banner-description 
+          {% if section.settings.description_animation == 'fade' %}gsap-fade-in{% endif %}
+          {% if section.settings.description_animation == 'slide_up' %}gsap-fade-in{% endif %}
+          wow animate__animated">
+          {{ section.settings.description }}
+        </p>
+      {% endif %}
+
+      {% if section.settings.show_features and section.blocks.size > 0 %}
+        <ul class="split-banner-feature-list">
+          {% for block in section.blocks %}
+            <li class="split-banner-feature-item gsap-fade-in wow animate__animated" {{ block.shopify_attributes }}>
+              {% if block.settings.icon != blank %}
+                <span class="split-banner-feature-icon">{{ block.settings.icon }}</span>
+              {% endif %}
+              <span>{{ block.settings.text }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+        <a href="{{ section.settings.button_link }}" class="split-banner-button 
+          {% if section.settings.button_animation == 'bounce' %}gsap-button-enter gsap-bounce-hover{% endif %}
+          {% if section.settings.button_animation == 'fade' %}gsap-fade-in{% endif %}
+          {% if section.settings.button_animation == 'slide_up' %}gsap-fade-in{% endif %}
+          wow animate__animated">
+          {{ section.settings.button_text }}
+        </a>
+      {% endif %}
+    </div>
+
+    <!-- Image Side -->
+    <div class="split-banner-image-side">
+      <div class="split-banner-image-wrapper parallax-container">
+        {% if section.settings.image != blank %}
+          {{
+            section.settings.image
+            | image_url: width: 1200
+            | image_tag: class: 'split-banner-image', loading: 'eager'
+          }}
+        {% endif %}
+        {% if section.settings.show_overlay %}
+          <div class="split-banner-overlay"></div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Apply image animations based on settings
+  document.addEventListener('DOMContentLoaded', function() {
+    const section = document.querySelector('.animated-split-banner-{{ section.id }}');
+    if (!section) return;
+
+    const image = section.querySelector('.split-banner-image');
+    if (!image) return;
+
+    const imageAnimation = '{{ section.settings.image_animation }}';
+    
+    // Add animation class to image
+    if (imageAnimation === 'zoom') {
+      image.classList.add('gsap-zoom-in');
+    } else if (imageAnimation === 'slide_left') {
+      image.classList.add('gsap-slide-left');
+    } else if (imageAnimation === 'slide_right') {
+      image.classList.add('gsap-slide-right');
+    } else if (imageAnimation === 'fade') {
+      image.classList.add('gsap-fade-in');
+    } else if (imageAnimation === 'parallax') {
+      image.classList.add('parallax-image');
+    }
+
+    // Add parallax if selected
+    if (imageAnimation === 'parallax' && typeof gsap !== 'undefined') {
+      gsap.to(image, {
+        yPercent: 20,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: image.closest('.split-banner-image-side'),
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1.5
+        }
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Animated Split Banner",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Why Choose Our Product"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Premium Quality Solutions"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Discover our innovative solutions designed to meet your needs with exceptional quality and performance."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Know More"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Image Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "layout_direction",
+      "label": "Layout Direction",
+      "options": [
+        {
+          "value": "image_right",
+          "label": "Image Right (Text Left)"
+        },
+        {
+          "value": "image_left",
+          "label": "Image Left (Text Right)"
+        }
+      ],
+      "default": "image_right"
+    },
+    {
+      "type": "header",
+      "content": "Animation Settings"
+    },
+    {
+      "type": "select",
+      "id": "heading_animation",
+      "label": "Heading Animation",
+      "options": [
+        {
+          "value": "zoom",
+          "label": "Zoom In"
+        },
+        {
+          "value": "fade",
+          "label": "Fade In"
+        },
+        {
+          "value": "slide_left",
+          "label": "Slide Left"
+        },
+        {
+          "value": "slide_right",
+          "label": "Slide Right"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "zoom"
+    },
+    {
+      "type": "select",
+      "id": "subheading_animation",
+      "label": "Subheading Animation",
+      "options": [
+        {
+          "value": "fade",
+          "label": "Fade In"
+        },
+        {
+          "value": "slide_up",
+          "label": "Slide Up"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "fade"
+    },
+    {
+      "type": "select",
+      "id": "description_animation",
+      "label": "Description Animation",
+      "options": [
+        {
+          "value": "fade",
+          "label": "Fade In"
+        },
+        {
+          "value": "slide_up",
+          "label": "Slide Up"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "fade"
+    },
+    {
+      "type": "select",
+      "id": "image_animation",
+      "label": "Image Animation",
+      "options": [
+        {
+          "value": "zoom",
+          "label": "Zoom In"
+        },
+        {
+          "value": "fade",
+          "label": "Fade In"
+        },
+        {
+          "value": "slide_left",
+          "label": "Slide Left"
+        },
+        {
+          "value": "slide_right",
+          "label": "Slide Right"
+        },
+        {
+          "value": "parallax",
+          "label": "Parallax Scroll"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "slide_right"
+    },
+    {
+      "type": "select",
+      "id": "button_animation",
+      "label": "Button Animation",
+      "options": [
+        {
+          "value": "bounce",
+          "label": "Bounce In"
+        },
+        {
+          "value": "fade",
+          "label": "Fade In"
+        },
+        {
+          "value": "slide_up",
+          "label": "Slide Up"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "bounce"
+    },
+    {
+      "type": "header",
+      "content": "Style Settings"
+    },
+    {
+      "type": "range",
+      "id": "section_height",
+      "label": "Section Height",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "vh",
+      "default": 80
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading Color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background Color",
+      "default": "#0066cc"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button Hover Color",
+      "default": "#0052a3"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_overlay",
+      "label": "Show Image Overlay",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay Opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Features List"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_features",
+      "label": "Show Features List",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon (emoji or symbol)",
+          "default": "✓"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Feature Text",
+          "default": "Premium Quality"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Animated Split Banner",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "✓",
+            "text": "High Quality Materials"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "✓",
+            "text": "Fast Delivery"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "✓",
+            "text": "24/7 Support"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

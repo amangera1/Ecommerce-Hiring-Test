@@ -1,0 +1,1079 @@
+<style>
+  .animated-hero-swiper-{{ section.id }} {
+    position: relative;
+    width: 100%;
+    height: {{ section.settings.slider_height }}vh;
+    min-height: 500px;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  .hero-swiper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-swiper-slide {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-slide-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .hero-slide-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    will-change: transform;
+  }
+
+  .hero-slide-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: {{ section.settings.overlay_color }};
+    opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    z-index: 1;
+  }
+
+  .hero-slide-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    width: 100%;
+    padding: 0 40px;
+    text-align: {{ section.settings.text_alignment }};
+  }
+
+  .hero-slide-heading {
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: {{ section.settings.heading_color }};
+    line-height: 1.2;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  }
+
+  .hero-slide-subheading {
+    font-size: clamp(20px, 3vw, 32px);
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: {{ section.settings.subheading_color }};
+    line-height: 1.4;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  .hero-slide-description {
+    font-size: clamp(16px, 2vw, 20px);
+    margin-bottom: 32px;
+    color: {{ section.settings.text_color }};
+    line-height: 1.7;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    text-shadow: 0 1px 5px rgba(0,0,0,0.3);
+  }
+
+  .hero-slide-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: {{ section.settings.button_alignment }};
+    flex-wrap: wrap;
+  }
+
+  .hero-slide-button {
+    display: inline-block;
+    padding: 16px 40px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-slide-button-primary {
+    background: {{ section.settings.primary_button_bg }};
+    color: {{ section.settings.primary_button_text }};
+  }
+
+  .hero-slide-button-primary:hover {
+    background: {{ section.settings.primary_button_hover }};
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  }
+
+  .hero-slide-button-secondary {
+    background: transparent;
+    color: {{ section.settings.secondary_button_text }};
+    border: 2px solid {{ section.settings.secondary_button_border }};
+  }
+
+  .hero-slide-button-secondary:hover {
+    background: {{ section.settings.secondary_button_bg }};
+    color: {{ section.settings.secondary_button_hover_text }};
+    transform: translateY(-3px);
+  }
+
+  /* Swiper Navigation */
+  .hero-swiper-button-next,
+  .hero-swiper-button-prev {
+    background:  white
+    border-radius: 50%;
+    color: black;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    width: 35px;
+    height: 35px;
+    color: black;
+    background: white;
+    border-radius: 50%;
+  }
+
+  /* .hero-swiper-button-next:hover,
+  .hero-swiper-button-prev:hover {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.1);
+  } */
+
+  .hero-swiper-button-next::after,
+  .hero-swiper-button-prev::after {
+    font-size: 20px;
+    font-weight: bold;
+    display: none;
+  }
+
+  /* Swiper Pagination */
+  .hero-swiper-pagination {
+    bottom: 30px !important;
+  }
+
+  .hero-swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    background: rgba(255,255,255,0.5);
+    opacity: 1;
+    transition: all 0.3s ease;
+  }
+
+  .hero-swiper-pagination-bullet-active {
+    background: #fff;
+    width: 30px;
+    border-radius: 6px;
+  }
+
+  /* Animation Classes - Section specific to avoid conflicts */
+  .animated-hero-swiper-{{ section.id }} .animate-from-left,
+  .animated-hero-swiper-{{ section.id }} .animate-from-right,
+  .animated-hero-swiper-{{ section.id }} .animate-from-bottom,
+  .animated-hero-swiper-{{ section.id }} .animate-from-top,
+  .animated-hero-swiper-{{ section.id }} .animate-zoom-in,
+  .animated-hero-swiper-{{ section.id }} .animate-fade {
+    /* GSAP will handle opacity and transforms */
+  }
+
+  @media (max-width: 768px) {
+    .animated-hero-swiper-{{ section.id }} {
+      height: {{ section.settings.mobile_slider_height }}vh;
+      min-height: 400px;
+    }
+
+    .hero-slide-content {
+      padding: 0 20px;
+    }
+
+    .hero-slide-buttons {
+      flex-direction: column;
+      align-items: center;
+      width: max-content;
+    }
+
+    .hero-slide-button {
+      width: 100%;
+      max-width: 300px;
+      text-align: center;
+    }
+
+    .hero-swiper-button-next,
+    .hero-swiper-button-prev {
+      width: 40px;
+      height: 40px;
+      display: none;
+    }
+  }
+
+  .animated-hero-swiper-{{ section.id }} .swiper-button-next.hero-swiper-button-next{
+    top: 87% !important;
+    right: 3.5% !important;
+  }
+  .animated-hero-swiper-{{ section.id }} .swiper-button-prev.hero-swiper-button-prev{
+    top: 87% !important;
+    left: unset !important;
+    right: 8% !important;
+ 
+  }
+  .animated-hero-swiper-{{ section.id }} .swiper-button-prev svg {
+  transform: rotate(180deg) !important;
+  }
+
+  .animated-hero-swiper-{{ section.id }} .swiper-button-next svg, .swiper-button-prev svg {
+    width: 17px;
+    height: 17px;
+}
+</style>
+
+<div class="animated-hero-swiper-{{ section.id }}">
+  <div class="swiper hero-swiper" id="hero-swiper-{{ section.id }}">
+    <div class="swiper-wrapper">
+      {% for block in section.blocks %}
+        <div class="swiper-slide hero-swiper-slide" {{ block.shopify_attributes }}>
+          <div class="hero-slide-background">
+            {% if block.settings.background_image != blank %}
+              {{
+                block.settings.background_image
+                | image_url: width: 1920
+                | image_tag: class: 'hero-slide-image', loading: 'lazy'
+              }}
+            {% endif %}
+            {% if section.settings.show_overlay %}
+              <div class="hero-slide-overlay"></div>
+            {% endif %}
+          </div>
+
+          <div class="hero-slide-content">
+            {% if block.settings.heading != blank %}
+              <h2 class="hero-slide-heading animate-{{ block.settings.heading_animation | default: section.settings.default_heading_animation }}">
+                {{ block.settings.heading }}
+              </h2>
+            {% endif %}
+
+            {% if block.settings.subheading != blank %}
+              <h3 class="hero-slide-subheading animate-{{ block.settings.subheading_animation | default: section.settings.default_subheading_animation }}">
+                {{ block.settings.subheading }}
+              </h3>
+            {% endif %}
+
+            {% if block.settings.description != blank %}
+              <p class="hero-slide-description animate-{{ block.settings.description_animation | default: section.settings.default_description_animation }}">
+                {{ block.settings.description }}
+              </p>
+            {% endif %}
+
+            <div class="hero-slide-buttons">
+              {% if block.settings.primary_button_text != blank and block.settings.primary_button_link != blank %}
+                <a href="{{ block.settings.primary_button_link }}" class="hero-slide-button hero-slide-button-primary animate-{{ block.settings.button_animation | default: section.settings.default_button_animation }}">
+                  {{ block.settings.primary_button_text }}
+                </a>
+              {% endif %}
+
+              {% if block.settings.secondary_button_text != blank and block.settings.secondary_button_link != blank %}
+                <a href="{{ block.settings.secondary_button_link }}" class="hero-slide-button hero-slide-button-secondary animate-{{ block.settings.button_animation | default: section.settings.default_button_animation }}">
+                  {{ block.settings.secondary_button_text }}
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if section.settings.show_navigation %}
+      <div class="swiper-button-next hero-swiper-button-next">
+        <svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M 7.75 1.34375 L 6.25 2.65625 L 14.65625 12 L 6.25 21.34375 L 7.75 22.65625 L 16.75 12.65625 L 17.34375 12 L 16.75 11.34375 Z"></path></svg>
+      </div>
+      <div class="swiper-button-prev hero-swiper-button-prev">
+        <svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M 7.75 1.34375 L 6.25 2.65625 L 14.65625 12 L 6.25 21.34375 L 7.75 22.65625 L 16.75 12.65625 L 17.34375 12 L 16.75 11.34375 Z"></path></svg>
+      </div>
+    {% endif %}
+
+    {% if section.settings.show_pagination %}
+      <div class="swiper-pagination hero-swiper-pagination"></div>
+    {% endif %}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const swiperEl = document.getElementById('hero-swiper-{{ section.id }}');
+    if (!swiperEl) return;
+
+    // Initialize Swiper
+    const swiper = new Swiper(swiperEl, {
+      loop: {{ section.settings.loop_slides }},
+      autoplay: {{ section.settings.autoplay }} ? {
+        delay: {{ section.settings.autoplay_delay }},
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true
+      } : false,
+      speed: {{ section.settings.transition_speed }},
+      effect: '{{ section.settings.slide_effect }}',
+      fadeEffect: {
+        crossFade: true
+      },
+      navigation: {
+        nextEl: '.hero-swiper-button-next',
+        prevEl: '.hero-swiper-button-prev',
+      },
+      pagination: {
+        el: '.hero-swiper-pagination',
+        clickable: true,
+        dynamicBullets: true,
+      },
+      on: {
+        init: function() {
+          animateSlideContent(this.slides[this.activeIndex]);
+        },
+        slideChange: function() {
+          animateSlideContent(this.slides[this.activeIndex]);
+        }
+      }
+    });
+
+    // Animation function using GSAP
+    function animateSlideContent(slide) {
+      if (!slide || typeof gsap === 'undefined') return;
+
+      const heading = slide.querySelector('.hero-slide-heading');
+      const subheading = slide.querySelector('.hero-slide-subheading');
+      const description = slide.querySelector('.hero-slide-description');
+      const buttons = slide.querySelectorAll('.hero-slide-button');
+
+      // Reset all elements
+      [heading, subheading, description, ...buttons].forEach(el => {
+        if (el) {
+          gsap.set(el, { clearProps: 'all' });
+          el.style.opacity = '0';
+        }
+      });
+
+      // Animate heading
+      if (heading) {
+        const animType = heading.classList.contains('animate-from-left') ? 'fromLeft' :
+                        heading.classList.contains('animate-from-right') ? 'fromRight' :
+                        heading.classList.contains('animate-from-bottom') ? 'fromBottom' :
+                        heading.classList.contains('animate-from-top') ? 'fromTop' :
+                        heading.classList.contains('animate-zoom-in') ? 'zoomIn' : 'fade';
+
+        animateElement(heading, animType, 0);
+      }
+
+      // Animate subheading
+      if (subheading) {
+        const animType = subheading.classList.contains('animate-from-left') ? 'fromLeft' :
+                        subheading.classList.contains('animate-from-right') ? 'fromRight' :
+                        subheading.classList.contains('animate-from-bottom') ? 'fromBottom' :
+                        subheading.classList.contains('animate-from-top') ? 'fromTop' :
+                        subheading.classList.contains('animate-zoom-in') ? 'zoomIn' : 'fade';
+
+        animateElement(subheading, animType, 0.2);
+      }
+
+      // Animate description
+      if (description) {
+        const animType = description.classList.contains('animate-from-left') ? 'fromLeft' :
+                        description.classList.contains('animate-from-right') ? 'fromRight' :
+                        description.classList.contains('animate-from-bottom') ? 'fromBottom' :
+                        description.classList.contains('animate-from-top') ? 'fromTop' :
+                        description.classList.contains('animate-zoom-in') ? 'zoomIn' : 'fade';
+
+        animateElement(description, animType, 0.4);
+      }
+
+      // Animate buttons
+      buttons.forEach((button, index) => {
+        const animType = button.classList.contains('animate-from-left') ? 'fromLeft' :
+                        button.classList.contains('animate-from-right') ? 'fromRight' :
+                        button.classList.contains('animate-from-bottom') ? 'fromBottom' :
+                        button.classList.contains('animate-from-top') ? 'fromTop' :
+                        button.classList.contains('animate-zoom-in') ? 'zoomIn' : 'fade';
+
+        animateElement(button, animType, 0.6 + (index * 0.1));
+      });
+    }
+
+    function animateElement(element, type, delay) {
+      if (!element || typeof gsap === 'undefined') return;
+
+      const duration = 1;
+      const ease = 'power3.out';
+
+      switch(type) {
+        case 'fromLeft':
+          gsap.fromTo(element, 
+            { opacity: 0, x: -100, filter: 'blur(10px)' },
+            { opacity: 1, x: 0, filter: 'blur(0px)', duration, ease, delay }
+          );
+          break;
+        case 'fromRight':
+          gsap.fromTo(element,
+            { opacity: 0, x: 100, filter: 'blur(10px)' },
+            { opacity: 1, x: 0, filter: 'blur(0px)', duration, ease, delay }
+          );
+          break;
+        case 'fromBottom':
+          gsap.fromTo(element,
+            { opacity: 0, y: 100, filter: 'blur(10px)' },
+            { opacity: 1, y: 0, filter: 'blur(0px)', duration, ease, delay }
+          );
+          break;
+        case 'fromTop':
+          gsap.fromTo(element,
+            { opacity: 0, y: -100, filter: 'blur(10px)' },
+            { opacity: 1, y: 0, filter: 'blur(0px)', duration, ease, delay }
+          );
+          break;
+        case 'zoomIn':
+          gsap.fromTo(element,
+            { opacity: 0, scale: 0.5, y: 50 },
+            { opacity: 1, scale: 1, y: 0, duration, ease: 'back.out(1.7)', delay }
+          );
+          break;
+        default: // fade
+          gsap.fromTo(element,
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration, ease, delay }
+          );
+      }
+    }
+
+    // Parallax effect for background images
+    if (typeof gsap !== 'undefined' && {{ section.settings.enable_parallax }}) {
+      const slides = swiperEl.querySelectorAll('.hero-swiper-slide');
+      slides.forEach(slide => {
+        const bgImage = slide.querySelector('.hero-slide-image');
+        if (bgImage) {
+          gsap.to(bgImage, {
+            yPercent: 30,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: slide,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1.5
+            }
+          });
+        }
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Animated Hero Swiper",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Slider Settings"
+    },
+    {
+      "type": "range",
+      "id": "slider_height",
+      "label": "Slider Height (Desktop)",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "vh",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "mobile_slider_height",
+      "label": "Slider Height (Mobile)",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "vh",
+      "default": 70
+    },
+    {
+      "type": "select",
+      "id": "slide_effect",
+      "label": "Slide Effect",
+      "options": [
+        {
+          "value": "slide",
+          "label": "Slide"
+        },
+        {
+          "value": "fade",
+          "label": "Fade"
+        },
+        {
+          "value": "cube",
+          "label": "Cube"
+        },
+        {
+          "value": "coverflow",
+          "label": "Coverflow"
+        }
+      ],
+      "default": "fade"
+    },
+    {
+      "type": "range",
+      "id": "transition_speed",
+      "label": "Transition Speed",
+      "min": 300,
+      "max": 2000,
+      "step": 100,
+      "unit": "ms",
+      "default": 1000
+    },
+    {
+      "type": "checkbox",
+      "id": "loop_slides",
+      "label": "Loop Slides",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_delay",
+      "label": "Autoplay Delay",
+      "min": 2000,
+      "max": 9500,
+      "step": 500,
+      "unit": "ms",
+      "default": 5000
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "label": "Show Navigation Arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination",
+      "label": "Show Pagination Dots",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Default Animation Settings"
+    },
+    {
+      "type": "select",
+      "id": "default_heading_animation",
+      "label": "Default Heading Animation",
+      "options": [
+        {
+          "value": "from-left",
+          "label": "From Left with Fade"
+        },
+        {
+          "value": "from-right",
+          "label": "From Right with Fade"
+        },
+        {
+          "value": "from-bottom",
+          "label": "From Bottom with Fade"
+        },
+        {
+          "value": "from-top",
+          "label": "From Top with Fade"
+        },
+        {
+          "value": "zoom-in",
+          "label": "Zoom In"
+        },
+        {
+          "value": "fade",
+          "label": "Fade Only"
+        }
+      ],
+      "default": "from-left"
+    },
+    {
+      "type": "select",
+      "id": "default_subheading_animation",
+      "label": "Default Subheading Animation",
+      "options": [
+        {
+          "value": "from-left",
+          "label": "From Left with Fade"
+        },
+        {
+          "value": "from-right",
+          "label": "From Right with Fade"
+        },
+        {
+          "value": "from-bottom",
+          "label": "From Bottom with Fade"
+        },
+        {
+          "value": "from-top",
+          "label": "From Top with Fade"
+        },
+        {
+          "value": "zoom-in",
+          "label": "Zoom In"
+        },
+        {
+          "value": "fade",
+          "label": "Fade Only"
+        }
+      ],
+      "default": "from-bottom"
+    },
+    {
+      "type": "select",
+      "id": "default_description_animation",
+      "label": "Default Description Animation",
+      "options": [
+        {
+          "value": "from-left",
+          "label": "From Left with Fade"
+        },
+        {
+          "value": "from-right",
+          "label": "From Right with Fade"
+        },
+        {
+          "value": "from-bottom",
+          "label": "From Bottom with Fade"
+        },
+        {
+          "value": "from-top",
+          "label": "From Top with Fade"
+        },
+        {
+          "value": "zoom-in",
+          "label": "Zoom In"
+        },
+        {
+          "value": "fade",
+          "label": "Fade Only"
+        }
+      ],
+      "default": "from-bottom"
+    },
+    {
+      "type": "select",
+      "id": "default_button_animation",
+      "label": "Default Button Animation",
+      "options": [
+        {
+          "value": "from-left",
+          "label": "From Left with Fade"
+        },
+        {
+          "value": "from-right",
+          "label": "From Right with Fade"
+        },
+        {
+          "value": "from-bottom",
+          "label": "From Bottom with Fade"
+        },
+        {
+          "value": "from-top",
+          "label": "From Top with Fade"
+        },
+        {
+          "value": "zoom-in",
+          "label": "Zoom In (Bounce)"
+        },
+        {
+          "value": "fade",
+          "label": "Fade Only"
+        }
+      ],
+      "default": "from-bottom"
+    },
+    {
+      "type": "header",
+      "content": "Style Settings"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "button_alignment",
+      "label": "Button Alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_bg",
+      "label": "Primary Button Background",
+      "default": "#0066cc"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_text",
+      "label": "Primary Button Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_hover",
+      "label": "Primary Button Hover",
+      "default": "#0052a3"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_text",
+      "label": "Secondary Button Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_border",
+      "label": "Secondary Button Border",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_bg",
+      "label": "Secondary Button Hover Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_hover_text",
+      "label": "Secondary Button Hover Text",
+      "default": "#000000"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_overlay",
+      "label": "Show Image Overlay",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay Opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 40
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_parallax",
+      "label": "Enable Parallax Effect",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Slide Content"
+        },
+        {
+          "type": "image_picker",
+          "id": "background_image",
+          "label": "Background Image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Welcome to Our Store"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "Premium Quality Products"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "primary_button_text",
+          "label": "Primary Button Text",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "primary_button_link",
+          "label": "Primary Button Link"
+        },
+        {
+          "type": "text",
+          "id": "secondary_button_text",
+          "label": "Secondary Button Text",
+          "default": "Learn More"
+        },
+        {
+          "type": "url",
+          "id": "secondary_button_link",
+          "label": "Secondary Button Link"
+        },
+        {
+          "type": "header",
+          "content": "Slide Animation Settings"
+        },
+        {
+          "type": "select",
+          "id": "heading_animation",
+          "label": "Heading Animation",
+          "info": "Leave empty to use default",
+          "options": [
+            {
+              "value": "",
+              "label": "Use Default"
+            },
+            {
+              "value": "from-left",
+              "label": "From Left with Fade"
+            },
+            {
+              "value": "from-right",
+              "label": "From Right with Fade"
+            },
+            {
+              "value": "from-bottom",
+              "label": "From Bottom with Fade"
+            },
+            {
+              "value": "from-top",
+              "label": "From Top with Fade"
+            },
+            {
+              "value": "zoom-in",
+              "label": "Zoom In"
+            },
+            {
+              "value": "fade",
+              "label": "Fade Only"
+            }
+          ],
+          "default": ""
+        },
+        {
+          "type": "select",
+          "id": "subheading_animation",
+          "label": "Subheading Animation",
+          "info": "Leave empty to use default",
+          "options": [
+            {
+              "value": "",
+              "label": "Use Default"
+            },
+            {
+              "value": "from-left",
+              "label": "From Left with Fade"
+            },
+            {
+              "value": "from-right",
+              "label": "From Right with Fade"
+            },
+            {
+              "value": "from-bottom",
+              "label": "From Bottom with Fade"
+            },
+            {
+              "value": "from-top",
+              "label": "From Top with Fade"
+            },
+            {
+              "value": "zoom-in",
+              "label": "Zoom In"
+            },
+            {
+              "value": "fade",
+              "label": "Fade Only"
+            }
+          ],
+          "default": ""
+        },
+        {
+          "type": "select",
+          "id": "description_animation",
+          "label": "Description Animation",
+          "info": "Leave empty to use default",
+          "options": [
+            {
+              "value": "",
+              "label": "Use Default"
+            },
+            {
+              "value": "from-left",
+              "label": "From Left with Fade"
+            },
+            {
+              "value": "from-right",
+              "label": "From Right with Fade"
+            },
+            {
+              "value": "from-bottom",
+              "label": "From Bottom with Fade"
+            },
+            {
+              "value": "from-top",
+              "label": "From Top with Fade"
+            },
+            {
+              "value": "zoom-in",
+              "label": "Zoom In"
+            },
+            {
+              "value": "fade",
+              "label": "Fade Only"
+            }
+          ],
+          "default": ""
+        },
+        {
+          "type": "select",
+          "id": "button_animation",
+          "label": "Button Animation",
+          "info": "Leave empty to use default",
+          "options": [
+            {
+              "value": "",
+              "label": "Use Default"
+            },
+            {
+              "value": "from-left",
+              "label": "From Left with Fade"
+            },
+            {
+              "value": "from-right",
+              "label": "From Right with Fade"
+            },
+            {
+              "value": "from-bottom",
+              "label": "From Bottom with Fade"
+            },
+            {
+              "value": "from-top",
+              "label": "From Top with Fade"
+            },
+            {
+              "value": "zoom-in",
+              "label": "Zoom In (Bounce)"
+            },
+            {
+              "value": "fade",
+              "label": "Fade Only"
+            }
+          ],
+          "default": ""
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Animated Hero Swiper",
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "heading": "Welcome to Our Store",
+            "subheading": "Premium Quality Products",
+            "description": "Discover amazing products with exceptional quality and service.",
+            "primary_button_text": "Shop Now",
+            "secondary_button_text": "Learn More"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "heading": "New Collection",
+            "subheading": "Latest Arrivals",
+            "description": "Check out our newest collection of premium products.",
+            "primary_button_text": "Explore",
+            "secondary_button_text": "View Collection"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

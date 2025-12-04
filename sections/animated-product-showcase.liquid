@@ -1,0 +1,308 @@
+<style>
+  .animated-product-showcase-{{ section.id }} {
+    padding: 80px 20px;
+    background: {{ section.settings.background_color }};
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .showcase-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .showcase-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .showcase-heading {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: {{ section.settings.heading_color }};
+  }
+
+  .showcase-description {
+    font-size: clamp(16px, 2vw, 20px);
+    color: {{ section.settings.text_color }};
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+  }
+
+  .product-card {
+    background: {{ section.settings.card_bg_color }};
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    position: relative;
+  }
+
+  .product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+  }
+
+  .product-image-wrapper {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1;
+    background: #f5f5f5;
+  }
+
+  .product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .product-card:hover .product-image {
+    transform: scale(1.1);
+  }
+
+  .product-info {
+    padding: 24px;
+  }
+
+  .product-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: {{ section.settings.card_text_color }};
+  }
+
+  .product-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: {{ section.settings.price_color }};
+    margin-bottom: 16px;
+  }
+
+  .product-button {
+    display: inline-block;
+    width: 100%;
+    padding: 12px 24px;
+    background: {{ section.settings.button_bg_color }};
+    color: {{ section.settings.button_text_color }};
+    text-align: center;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .product-button:hover {
+    background: {{ section.settings.button_hover_color }};
+    transform: scale(1.02);
+  }
+
+  @media (max-width: 768px) {
+    .animated-product-showcase-{{ section.id }} {
+      padding: 60px 15px;
+    }
+
+    .products-grid {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+  }
+</style>
+
+<section class="animated-product-showcase-{{ section.id }}">
+  <div class="showcase-container">
+    <div class="showcase-header">
+      {% if section.settings.heading != blank %}
+        <h2 class="showcase-heading gsap-zoom-in wow animate__animated">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.description != blank %}
+        <p class="showcase-description gsap-fade-in wow animate__animated">{{ section.settings.description }}</p>
+      {% endif %}
+    </div>
+
+    <div class="products-grid">
+      {% for block in section.blocks %}
+        {% assign product = all_products[block.settings.product] %}
+        {% if product %}
+          <div class="product-card wow animate__animated" {{ block.shopify_attributes }}>
+            <div class="product-image-wrapper">
+              {% if product.featured_image %}
+                {{
+                  product.featured_image
+                  | image_url: width: 600
+                  | image_tag: class: 'product-image gsap-slide-left', loading: 'lazy'
+                }}
+              {% elsif block.settings.custom_image %}
+                {{
+                  block.settings.custom_image
+                  | image_url: width: 600
+                  | image_tag: class: 'product-image gsap-slide-left', loading: 'lazy'
+                }}
+              {% endif %}
+            </div>
+            <div class="product-info">
+              <h3 class="product-title gsap-fade-in">{{ product.title }}</h3>
+              <div class="product-price gsap-fade-in">{{ product.price | money }}</div>
+              <a href="{{ product.url }}" class="product-button gsap-button-enter gsap-bounce-hover">
+                View Product
+              </a>
+            </div>
+          </div>
+        {% elsif block.settings.custom_image %}
+          <div class="product-card wow animate__animated" {{ block.shopify_attributes }}>
+            <div class="product-image-wrapper">
+              {{
+                block.settings.custom_image
+                | image_url: width: 600
+                | image_tag: class: 'product-image gsap-slide-left', loading: 'lazy'
+              }}
+            </div>
+            <div class="product-info">
+              {% if block.settings.custom_title != blank %}
+                <h3 class="product-title gsap-fade-in">{{ block.settings.custom_title }}</h3>
+              {% endif %}
+              {% if block.settings.custom_price != blank %}
+                <div class="product-price gsap-fade-in">{{ block.settings.custom_price }}</div>
+              {% endif %}
+              {% if block.settings.custom_link != blank %}
+                <a href="{{ block.settings.custom_link }}" class="product-button gsap-button-enter gsap-bounce-hover">
+                  {{ block.settings.button_text | default: 'View Product' }}
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Animated Product Showcase",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Featured Products"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Discover our handpicked selection"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Card Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Price Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button Hover Color",
+      "default": "#333333"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image",
+          "label": "Custom Image (optional, overrides product image)"
+        },
+        {
+          "type": "text",
+          "id": "custom_title",
+          "label": "Custom Title (optional)"
+        },
+        {
+          "type": "text",
+          "id": "custom_price",
+          "label": "Custom Price (optional)"
+        },
+        {
+          "type": "url",
+          "id": "custom_link",
+          "label": "Custom Link (optional)"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "View Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Animated Product Showcase"
+    }
+  ]
+}
+{% endschema %}
+
