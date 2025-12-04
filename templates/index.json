@@ -44,13 +44,48 @@
             "button_animation": ""
           }
         },
-        "slide_2": {
+        "slide_XVTw7L": {
           "type": "slide",
           "settings": {
-            "heading": "Premium Quality",
-            "subheading": "Best Products",
-            "description": "<p>Shop our curated collection of premium products</p>",
-            "primary_button_text": "Explore",
+            "background_image": "shopify://shop_images/Continuous_Inkjet_Printer.webp",
+            "heading": "Why Nilkamal's",
+            "subheading": "Continuous Inkjet Printer",
+            "description": "",
+            "primary_button_text": "Know More",
+            "primary_button_link": "/collections/all",
+            "secondary_button_text": "Learn More",
+            "secondary_button_link": "",
+            "heading_animation": "",
+            "subheading_animation": "",
+            "description_animation": "",
+            "button_animation": ""
+          }
+        },
+        "slide_zYcfwx": {
+          "type": "slide",
+          "settings": {
+            "background_image": "shopify://shop_images/Continuous_Inkjet_Printer.webp",
+            "heading": "Why Nilkamal's",
+            "subheading": "Continuous Inkjet Printer",
+            "description": "",
+            "primary_button_text": "Know More",
+            "primary_button_link": "/collections/all",
+            "secondary_button_text": "Learn More",
+            "secondary_button_link": "",
+            "heading_animation": "",
+            "subheading_animation": "",
+            "description_animation": "",
+            "button_animation": ""
+          }
+        },
+        "slide_TkmCXR": {
+          "type": "slide",
+          "settings": {
+            "background_image": "shopify://shop_images/Continuous_Inkjet_Printer.webp",
+            "heading": "Why Nilkamal's",
+            "subheading": "Continuous Inkjet Printer",
+            "description": "",
+            "primary_button_text": "Know More",
             "primary_button_link": "/collections/all",
             "secondary_button_text": "Learn More",
             "secondary_button_link": "",
@@ -63,7 +98,9 @@
       },
       "block_order": [
         "slide_1",
-        "slide_2"
+        "slide_XVTw7L",
+        "slide_zYcfwx",
+        "slide_TkmCXR"
       ],
       "settings": {
         "slider_height": 100,
