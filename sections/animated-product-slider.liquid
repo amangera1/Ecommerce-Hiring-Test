@@ -419,7 +419,7 @@
 
         const image = slide.querySelector('.product-slide-image');
         const title = slide.querySelector('.product-slide-title');
-        const btn = slide.querySelector('.product-slide-view-all-btn');
+        const viewAllBtn = slide.querySelector('.product-slide-view-all-btn');
 
         // Reset
         if (image) {
@@ -430,9 +430,9 @@
           gsap.set(title, { clearProps: 'all' });
           gsap.set(title, { opacity: 1 });
         }
-        if (btn) {
-          gsap.set(btn, { clearProps: 'all' });
-          gsap.set(btn, { opacity: 1 });
+        if (viewAllBtn) {
+          gsap.set(viewAllBtn, { clearProps: 'all' });
+          gsap.set(viewAllBtn, { opacity: 1 });
         }
 
         // Get animation type
