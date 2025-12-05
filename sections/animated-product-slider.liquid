@@ -9,10 +9,10 @@
 
   .product-slider-header {
     background: #ffffff;
-    padding: 40px 0 0;
+    padding: 0;
     margin: -{{ section.settings.padding_top }}px -20px {{ section.settings.header_spacing }}px;
     padding-left: 20px;
-    padding-right: 20px;
+    padding-right: 10%;
   }
 
   .product-slider-container {
@@ -37,12 +37,16 @@
   .product-slider-heading {
     font-size: clamp(32px, 5vw, 48px);
     font-weight: 700;
+    margin-top: 0;
     margin-bottom: 16px;
     color: {{ section.settings.heading_color }};
     line-height: 1.3;
     text-align: left;
   }
 
+  .product-slider-header-content p{
+    margin: 0 !important;
+  }
   .product-slider-description {
     font-size: clamp(16px, 2vw, 20px);
     color: {{ section.settings.text_color }};
@@ -203,6 +207,7 @@
 
     .product-slider {
       flex-direction: column;
+      gap: 5px;
     }
 
     .product-slide {
@@ -655,7 +660,7 @@
       "type": "range",
       "id": "slide_gap",
       "label": "Slide Gap",
-      "min": 10,
+      "min": 0,
       "max": 40,
       "step": 5,
       "unit": "px",
@@ -805,7 +810,7 @@
       "type": "range",
       "id": "padding_top",
       "label": "Padding Top",
-      "min": 40,
+      "min": 0,
       "max": 120,
       "step": 10,
       "unit": "px",
@@ -815,7 +820,7 @@
       "type": "range",
       "id": "padding_bottom",
       "label": "Padding Bottom",
-      "min": 40,
+      "min": 0,
       "max": 120,
       "step": 10,
       "unit": "px",

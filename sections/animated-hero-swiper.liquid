@@ -61,20 +61,22 @@
   }
 
   .hero-slide-heading {
-    font-size: clamp(36px, 6vw, 72px);
+    font-size: clamp(16px, 4vw, 20px);
     font-weight: 700;
-    margin-bottom: 24px;
+    margin-top: 0;
+    margin-bottom: 5px;
     color: {{ section.settings.heading_color }};
     line-height: 1.2;
     text-shadow: 0 2px 10px rgba(0,0,0,0.3);
   }
 
   .hero-slide-subheading {
-    font-size: clamp(20px, 3vw, 32px);
+    font-size: clamp(24px, 5vw, 50px);
     font-weight: 500;
+    margin-top: 0;
     margin-bottom: 20px;
     color: {{ section.settings.subheading_color }};
-    line-height: 1.4;
+    line-height: 1;
     text-shadow: 0 2px 8px rgba(0,0,0,0.3);
   }
 
@@ -98,7 +100,7 @@
 
   .hero-slide-button {
     display: inline-block;
-    padding: 16px 40px;
+    padding: 10px 15px;
     text-decoration: none;
     font-size: 18px;
     font-weight: 600;
@@ -164,6 +166,7 @@
   /* Swiper Pagination */
   .hero-swiper-pagination {
     bottom: 30px !important;
+    display: none !important;
   }
 
   .hero-swiper-pagination-bullet {
@@ -218,6 +221,12 @@
       height: 40px;
       display: none;
     }
+
+    .hero-swiper-pagination {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
   }
 
   .animated-hero-swiper-{{ section.id }} .swiper-button-next.hero-swiper-button-next{
@@ -227,7 +236,7 @@
   .animated-hero-swiper-{{ section.id }} .swiper-button-prev.hero-swiper-button-prev{
     top: 87% !important;
     left: unset !important;
-    right: 8% !important;
+    right: 7.5% !important;
  
   }
   .animated-hero-swiper-{{ section.id }} .swiper-button-prev svg {

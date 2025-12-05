@@ -1,6 +1,6 @@
 <style>
   .animated-content-section-{{ section.id }} {
-    padding: {{ section.settings.padding_top }}px 20px {{ section.settings.padding_bottom }}px;
+    padding: {{ section.settings.padding_top }}px 0px {{ section.settings.padding_bottom }}px;
     background: {{ section.settings.background_color }};
     position: relative;
     overflow: hidden;
@@ -39,6 +39,7 @@
   .content-heading {
     font-size: clamp(28px, 5vw, {{ section.settings.heading_size }}px);
     font-weight: {{ section.settings.heading_weight }};
+    margin-top: 0;
     margin-bottom: {{ section.settings.heading_spacing }}px;
     color: {{ section.settings.heading_color }};
     line-height: 1.3;
