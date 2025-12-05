@@ -559,18 +559,18 @@
         "transition_speed": 600,
         "background_color": "#ffffff",
         "heading_color": "#333333",
-        "view_all_color": "#4A90E2",
-        "view_all_hover_color": "#357ABD",
+        "view_all_color": "#4a90e2",
+        "view_all_hover_color": "#357abd",
         "card_background": "#ffffff",
         "title_color": "#333333",
         "description_color": "#666666",
-        "button_color": "#4A90E2",
-        "button_hover_color": "#357ABD",
+        "button_color": "#4a90e2",
+        "button_hover_color": "#357abd",
         "nav_background": "#ffffff",
         "nav_color": "#333333",
         "nav_hover_background": "#f5f5f5",
         "pagination_color": "#333333",
-        "pagination_active_color": "#4A90E2",
+        "pagination_active_color": "#4a90e2",
         "image_aspect_ratio": 65,
         "card_border_radius": 12,
         "content_padding": 25,
@@ -579,6 +579,26 @@
         "header_spacing": 40,
         "padding_top": 80,
         "padding_bottom": 80
+      }
+    },
+    "animated_parallax_section_BVUWHk": {
+      "type": "animated-parallax-section",
+      "name": "Animated Parallax Section",
+      "settings": {
+        "heading": "Experience the Future",
+        "subheading": "Discover innovative solutions that transform your business and elevate your success to new heights.",
+        "button_text": "Get Started",
+        "button_link": "",
+        "image_brightness": 70,
+        "section_height": 80,
+        "background_color": "#1a1a1a",
+        "overlay_color": "#000000",
+        "overlay_opacity": 40,
+        "heading_color": "#ffffff",
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#1a1a1a",
+        "button_hover_background": "#f5f5f5"
       }
     }
   },
@@ -590,6 +610,7 @@
     "animated_product_slider",
     "animated_brand_carousel_UPeFmg",
     "animated_events_carousel_Vx9LHa",
-    "animated_blog_carousel_kkBixM"
+    "animated_blog_carousel_kkBixM",
+    "animated_parallax_section_BVUWHk"
   ]
 }
